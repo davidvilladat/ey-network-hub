@@ -1,0 +1,19 @@
+# Cloudflare Pages – response headers
+
+# Data files: cache for 1 hour, revalidate
+/data/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  X-Content-Type-Options: nosniff
+
+# HTML pages: no cache (always fresh)
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etihad Network Analysis · 2025–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
+  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
+  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.shell{max-width:1480px;margin:0 auto;padding:0 32px}
+.label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
+
+/* HERO */
+.hero{background:radial-gradient(ellipse at 15% 0%,rgba(79,184,168,0.1) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(217,127,74,0.1) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(40px,5vw,76px);line-height:0.93;letter-spacing:-0.038em}
+.hero h1 em{font-style:italic;color:var(--teal);font-weight:400}
+.hero-sub{font-size:15px;color:var(--ink-dim);max-width:560px;margin-top:22px;line-height:1.7}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.version-tag{display:inline-block;padding:3px 10px;background:var(--teal);color:var(--bg-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;font-weight:700;margin-bottom:14px}
+.hero-stamps{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.stamp{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-dim)}
+.stamp .dot{width:6px;height:6px;border-radius:50%}
+
+/* TICKER */
+.ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
+.ticker .st{padding:20px 22px;border-right:1px solid var(--line)}
+.ticker .st:last-child{border-right:none}
+.ticker .num{font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
+.ticker .num em{font-style:italic;color:var(--teal)}
+.ticker .lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute)}
+.delta{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;letter-spacing:0.06em}
+.delta.up{background:rgba(79,184,168,0.12);color:var(--teal)}
+
+/* SECTIONS */
+section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
+.section-head h2{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
+.section-head .desc{max-width:480px;font-size:14px;color:var(--ink-dim);line-height:1.65}
+
+/* SCATTER CHART */
+.chart-wrap{background:var(--bg-panel);border:1px solid var(--line);overflow:hidden}
+.chart-toolbar{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:12px}
+.chart-area{position:relative}
+.chart-tooltip{position:absolute;background:var(--bg-card);border:1px solid var(--copper);padding:14px 16px;pointer-events:none;z-index:20;min-width:210px;opacity:0;transition:opacity 0.1s;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.chart-tooltip.show{opacity:1}
+.legend-row{display:flex;gap:18px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--ink-dim)}
+.legend-row .li{display:flex;align-items:center;gap:6px}
+.legend-row .sw{width:10px;height:10px;border-radius:50%}
+
+/* ROUTE MAP */
+.rmap-wrap{background:#06090e;border:1px solid var(--line);overflow:hidden;position:relative;box-shadow:inset 0 0 80px rgba(0,0,0,0.5)}
+.rmap-wrap svg{display:block;width:100%;height:auto}
+.map-country{fill:#192031;stroke:#21304a;stroke-width:0.3}
+.ey-route{fill:none;stroke-linecap:round}
+.map-hub{fill:var(--teal);stroke:#000;stroke-width:0.6;filter:drop-shadow(0 0 5px rgba(79,184,168,0.7))}
+.map-dest{stroke:#000;stroke-width:0.4;cursor:pointer;transition:r 0.15s}
+.map-dest:hover{stroke:rgba(255,255,255,0.8);stroke-width:1.5}
+.rmap-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-dim)}
+.rmap-legend .li{display:flex;align-items:center;gap:7px}
+
+/* ROUTE TIMELINE */
+.tl-year-head{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.tl-badge{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--copper);font-style:italic}
+.tl-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;padding:3px 10px;border:1px solid var(--line);background:var(--bg-elev)}
+.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-bottom:40px}
+.route-card{background:var(--bg-card);border:1px solid var(--line);padding:14px 14px 14px 18px;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;transition:border-color 0.15s}
+.route-card:hover{border-color:var(--copper)}
+.route-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.rc-europe::before{background:var(--teal)}
+.rc-asia::before{background:var(--gold)}
+.rc-africa::before{background:var(--copper)}
+.rc-namerica::before{background:#a78bfa}
+.rc-mideast::before{background:#34d399}
+.rc-caucasus::before{background:#f472b6}
+.rc-dest{font-family:'Fraunces',serif;font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.rc-country{font-size:12px;color:var(--ink-dim)}
+.rc-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;flex-wrap:wrap;gap:4px}
+.rc-date{color:var(--ink-mute)}
+.rc-freq{color:var(--teal);font-weight:600}
+.rc-ac{color:var(--gold)}
+.rc-region-tag{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase}
+
+/* STRATEGY CARDS */
+.strategy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sc{background:var(--bg-card);border:1px solid var(--line);padding:26px;position:relative}
+.sc-num{font-family:'Fraunces',serif;font-size:48px;font-weight:600;font-style:italic;color:rgba(217,127,74,0.15);position:absolute;top:16px;right:20px;line-height:1}
+.sc-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.2}
+.sc-body{font-size:13px;color:var(--ink-dim);line-height:1.65}
+.sc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:0.06em}
+
+/* INSIGHT BAR */
+.insight-bar{background:var(--bg-panel);border:1px solid var(--line);padding:20px 24px;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+.insight-item{display:flex;gap:12px;align-items:flex-start;flex:1;min-width:200px}
+.insight-icon{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--copper);line-height:1;flex-shrink:0;width:28px;text-align:center}
+.insight-text{font-size:13px;color:var(--ink-dim);line-height:1.55}
+.insight-text strong{color:var(--ink);font-weight:500}
+
+footer{padding:40px 0 52px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-align:center;border-top:1px solid var(--line);line-height:2}
+footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper)}
+footer a{color:var(--ink-mute);text-decoration:none}
+footer a:hover{color:var(--teal)}
+
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-stamps{align-items:flex-start}
+  .ticker{grid-template-columns:repeat(2,1fr)}
+  .ticker .st{border-bottom:1px solid var(--line)}
+  .strategy-grid{grid-template-columns:1fr}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:580px){
+  .shell{padding:0 18px}
+  .ticker{grid-template-columns:1fr}
+  .hero{padding:36px 0 40px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="shell">
+    <div class="hero-inner">
+      <div>
+        <span class="version-tag">NETWORK INTELLIGENCE · 2025–2026</span>
+        <div class="eyebrow" style="margin-bottom:16px">Etihad Airways · Growth & Route Analysis</div>
+        <h1>The fastest<br>growing <em>major</em><br>network airline.</h1>
+        <p class="hero-sub">Etihad sits alone in the top-right quadrant of the IATA network matrix — <strong>+21% capacity growth</strong> with <strong>~6% of seats on new routes</strong>. No other major network carrier combines both at this scale. Here's the complete picture: where, why, and what it means for ZED travel.</p>
+      </div>
+      <div class="hero-stamps">
+        <div class="stamp"><span class="dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></span>AY RESULTS · FY 2025 CONFIRMED</div>
+        <div class="stamp"><span class="dot" style="background:var(--copper);box-shadow:0 0 8px var(--copper)"></span>30+ NEW DESTINATIONS 2025–2026</div>
+        <div class="stamp"><span class="dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold)"></span>JOURNEY 2030 · 125+ DEST TARGET</div>
+        <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);text-align:right">
+          Sources: Etihad Annual Report 2025<br>FR24 sample 1 May 2026 · IATA network data
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="st">
+    <div class="num"><em>+21%</em></div>
+    <div class="lbl">Capacity growth (ASK) 2025</div>
+    <div class="delta up">↑ vs ~5% industry avg</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>22.4M</em></div>
+    <div class="lbl">Passengers · record 2025</div>
+    <div class="delta up">↑ all-time high · 88.3% LF</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>127</em></div>
+    <div class="lbl">Aircraft yr-end 2025</div>
+    <div class="delta up">↑ +29 single-year record</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>110</em></div>
+    <div class="lbl">Routes (from 94 in 2024)</div>
+    <div class="delta up">↑ +16 net new in 2025</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>$698M</em></div>
+    <div class="lbl">Net profit 2025</div>
+    <div class="delta up">↑ +47% YoY · 8.4% margin</div>
+  </div>
+</div>
+
+<!-- SCATTER PLOT -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Network Carriers <em>Network Strategy</em>.<br>Etihad vs. the field.</h2>
+      <p class="desc">Capacity growth (Y) vs. % of seats deployed on entirely new routes (X). Etihad occupies the top-right alone. Hover any carrier for detail.</p>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-toolbar">
+        <span class="label">Network Strategy Matrix · Major Network Carriers · 2025</span>
+        <div class="legend-row">
+          <div class="li"><div class="sw" style="background:#4fb8a8"></div>Etihad</div>
+          <div class="li"><div class="sw" style="background:#4fb86a"></div>Strong growth</div>
+          <div class="li"><div class="sw" style="background:#e8b94a"></div>Moderate</div>
+          <div class="li"><div class="sw" style="background:#6b7280"></div>Flat</div>
+          <div class="li"><div class="sw" style="background:#e54e4e"></div>Declining</div>
+        </div>
+      </div>
+      <div class="chart-area" id="chart-area">
+        <div class="chart-tooltip" id="chart-tt"></div>
+        <svg id="scatter" style="display:block;width:100%;overflow:visible" viewBox="0 0 920 540" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+
+    <!-- Insight bar below chart -->
+    <div class="insight-bar" style="margin-top:16px">
+      <div class="insight-item">
+        <div class="insight-icon">★</div>
+        <div class="insight-text"><strong>Top-right quadrant, alone.</strong> Only carrier combining >15% capacity growth with >4% of seats on brand-new routes simultaneously. Emirates sits at 7% / 1.7% by comparison.</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">→</div>
+        <div class="insight-text"><strong>Load factor held at 88.3%.</strong> Fast capacity growth that doesn't destroy yield. Most airlines growing this fast see LF erosion — Etihad gained 2 percentage points.</div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">↑</div>
+        <div class="insight-text"><strong>Structural not cyclical.</strong> 29 aircraft added in a single year — the most in the airline's history. This is fleet investment, not traffic bounce-back.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE MAP -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>New routes <em>from AUH</em>.<br>The 2025–2026 expansion arc.</h2>
+      <p class="desc">Every new destination added from Abu Dhabi. Copper arcs = 2025 launches. Gold arcs = 2026 launches. Hover dots for route detail.</p>
+    </div>
+    <div class="rmap-wrap" id="rmap-wrap">
+      <svg id="route-map" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
+        <path class="map-country" id="map-path" d=""/>
+        <g id="route-lines"></g>
+        <g id="route-dots"></g>
+      </svg>
+    </div>
+    <div class="rmap-legend">
+      <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--copper)" stroke-width="1.5" fill="none"/></svg>2025 new routes</div>
+      <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--gold)" stroke-width="1.5" fill="none"/></svg>2026 new routes</div>
+      <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--copper)"></span>2025 destination</div>
+      <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold)"></span>2026 destination</div>
+      <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--teal)"></span>AUH hub</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE TIMELINE -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>All <em>new routes</em>.<br>The full expansion list.</h2>
+      <p class="desc">Every destination added or announced in 2025 and 2026 — launch dates, frequencies, and aircraft deployed.</p>
+    </div>
+    <!-- Region legend -->
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--ink-dim)">
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--teal)"></span>Europe</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--gold)"></span>Asia-Pacific</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--copper)"></span>Africa</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#a78bfa"></span>North America</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#34d399"></span>Middle East</span>
+      <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#f472b6"></span>C. Asia / Caucasus</span>
+    </div>
+    <div id="route-timeline"></div>
+  </div>
+</section>
+
+<!-- STRATEGY PILLARS -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>What's <em>driving</em> it.<br>Three strategic pillars.</h2>
+      <p class="desc">Etihad's expansion targets specific underserved demand corridors — not scatter-shot growth but deliberate positioning around AUH's geographic sweet spot.</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="sc">
+        <div class="sc-num">I</div>
+        <div class="sc-title">The A321LR narrow-body long-range play</div>
+        <div class="sc-body">Deploying the A321LR opened routes previously uneconomical for widebodies. Hanoi, Krabi, Medan, Phnom Penh, Chiang Mai, Algiers, Tunis — all launched 2025 with this aircraft. Point-to-point traffic that doesn't need an A350 but requires real range from AUH. Enables higher frequency with lower break-even loads.</div>
+        <div class="sc-stat">9 A321LR routes in 2025 · avg 4.5× weekly · SEA / N.Africa corridor</div>
+      </div>
+      <div class="sc">
+        <div class="sc-num">II</div>
+        <div class="sc-title">The Central Asia / Caucasus corridor blitz</div>
+        <div class="sc-body">Seven new destinations in March 2026 — Baku, Tbilisi, Yerevan, Almaty, Tashkent, Bucharest, plus Medina in late 2025. Dense arc targeting the underconnected belt between the Gulf and Eastern Europe. Emirates doesn't dominate here; Etihad is building before the competition catches up. Often 8–10 weekly frequencies from day one.</div>
+        <div class="sc-stat">7 routes · up to 10× weekly from day one · AUH as the Gulf gateway</div>
+      </div>
+      <div class="sc">
+        <div class="sc-num">III</div>
+        <div class="sc-title">Long-haul premium: North America via widebody</div>
+        <div class="sc-body">Atlanta on A350 in July 2025, Charlotte on 787 in May 2026, Calgary in November 2026. Etihad now has 4 North American gateways (JFK, ORD, ATL, CLT + YYC incoming). Business-class ZED travel to the US via AUH is now significantly easier — and profitable routes that sustain the broader expansion.</div>
+        <div class="sc-stat">4 North America gateways by end 2026 · 787 + A350 · 4× weekly each</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    Sources: <em>Etihad</em> Annual Report FY2025 ·
+    <a href="https://www.etihad.com/en-us/news/ten-new-routes-in-one-day-historic-moment-for-etihad" target="_blank">Etihad Press Releases 2025–2026</a> ·
+    <a href="https://theexpatflyer.com/etihad-new-destinations-2025/" target="_blank">The Expat Flyer Route Tracker</a> ·
+    <a href="https://www.enginecowl.com/etihad-airways-2025-results/" target="_blank">Engine Cowl 2025 Analysis</a> ·
+    FR24 sample 1 May 2026 · IATA Network Strategy matrix (adapted)<br>
+    <span style="color:var(--ink-mute)">For crew reference only — verify all travel details in OSS / IDTGR before purchasing</span>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════
+// SCATTER DATA
+// ══════════════════════════════════════════════════
+const SD = [
+  // [label, x=% new seats, y=% capacity growth, type, info]
+  {n:'Etihad',    x:6.1, y:21,   t:'ey',    i:'21% ASK growth · 22.4M pax record · +16 net new routes · $698M profit (+47% YoY)'},
+  {n:'Malaysia',  x:2.5, y:31,   t:'green', i:'Strong post-restructuring network rebuild · Hub: KUL'},
+  {n:'Cathay',    x:2.8, y:17,   t:'green', i:'Post-COVID HKG recovery · North-Asian demand rebound'},
+  {n:'SAS',       x:3.2, y:13,   t:'green', i:'Post-restructuring momentum · CPH/ARN/OSL hubs'},
+  {n:'RAM',       x:3.0, y:12,   t:'green', i:'Royal Air Maroc regional expansion · CMN hub'},
+  {n:'Qantas',   x:0.85, y:10,   t:'green', i:'Domestic + trans-Pacific recovery · SYD/MEL'},
+  {n:'Korean',    x:2.7, y:7,    t:'green', i:'ICN hub expansion · long-haul frequency growth'},
+  {n:'Ethiopian', x:3.2, y:7,    t:'green', i:'Pan-African network build · ADD hub'},
+  {n:'Emirates',  x:1.7, y:7,    t:'gold',  i:'Steady DXB hub growth · constrained by capacity cap'},
+  {n:'Air India', x:2.0, y:7,    t:'gold',  i:'Tata-era fleet renewal · DEL/BOM widebody push'},
+  {n:'Brussels',  x:0.7, y:6,    t:'gold',  i:'BRU hub moderate recovery'},
+  {n:'UA',        x:1.5, y:5,    t:'gold',  i:'United Airlines ORD/EWR domestic + int\'l'},
+  {n:'Qatar',     x:1.8, y:5,    t:'gold',  i:'DOH hub steady · limited by airport caps'},
+  {n:'Lufthansa', x:2.3, y:4,    t:'gold',  i:'FRA/MUC/ZRH group measured growth'},
+  {n:'Delta',     x:1.2, y:2,    t:'gold',  i:'ATL hub disciplined growth'},
+  {n:'AA',        x:2.1, y:2,    t:'gold',  i:'American Airlines US rebalancing'},
+  {n:'LATAM',     x:2.3, y:2,    t:'gold',  i:'Pan-American recovery · GRU/SCL hubs'},
+  {n:'Air France',x:1.5, y:1,    t:'grey',  i:'CDG flat · Heathrow-comparable slot constraints'},
+  {n:'Air Canada',x:3.2, y:0.5,  t:'grey',  i:'YYZ caution after demand uncertainty'},
+  {n:'B.A.',      x:1.2, y:0,    t:'grey',  i:'LHR fully slotted — no growth room'},
+  {n:'TAP',       x:1.8, y:0,    t:'grey',  i:'LIS hub flat · partnership dependency'},
+  {n:'Avianca',   x:1.7, y:-2,   t:'red',   i:'Restructuring aftermath · BOG/MDE'},
+  {n:'Iberia',    x:0.9, y:-2,   t:'red',   i:'MAD capacity pullback'},
+  {n:'ANA',       x:0.3, y:-3,   t:'red',   i:'NRT outbound demand still soft'},
+  {n:'Air China', x:1.9, y:-7,   t:'red',   i:'PEK international still recovering'},
+  {n:'Aeromexico',x:3.2, y:-5,   t:'red',   i:'MEX network restructure underway'},
+  {n:'China S.',  x:2.1, y:-9,   t:'red',   i:'CAN widebody capacity cuts'},
+  {n:'ANZealand', x:0.2, y:-13,  t:'red',   i:'AKL long-haul retreat · profitability focus'},
+  {n:'ITA',       x:1.8, y:-12,  t:'red',   i:'FCO still finding its footing post-Alitalia'},
+  {n:'Kenya',     x:2.1, y:-20,  t:'red',   i:'NBO significant network contraction'},
+];
+const COLS = {ey:'#4fb8a8', green:'#4fb86a', gold:'#e8b94a', grey:'#6b7280', red:'#e54e4e'};
+const RSIZ = {ey:10.5, green:7.5, gold:7, grey:6.5, red:7};
+
+// ══════════════════════════════════════════════════
+// ROUTE DATA
+// ══════════════════════════════════════════════════
+const RC = {europe:'var(--teal)',asia:'var(--gold)',africa:'var(--copper)',namerica:'#a78bfa',mideast:'#34d399',caucasus:'#f472b6'};
+const RL = {europe:'Europe',asia:'Asia-Pacific',africa:'Africa',namerica:'N. America',mideast:'Middle East',caucasus:'C. Asia / Caucasus'};
+
+const R25 = [
+  {d:'Prague',      c:'Czech Republic', r:'europe',   dt:'Jun 2025', f:'4×/wk',     a:'787 Dreamliner'},
+  {d:'Warsaw',      c:'Poland',          r:'europe',   dt:'Jun 2025', f:'4×/wk',     a:'787 Dreamliner'},
+  {d:'Sochi',       c:'Russia',           r:'europe',   dt:'May 2025', f:'3×/wk',     a:'A320'},
+  {d:'Atlanta',     c:'USA',              r:'namerica', dt:'Jul 2025', f:'4×/wk',     a:'A350'},
+  {d:'Taipei',      c:'Taiwan',           r:'asia',     dt:'Sep 2025', f:'daily',      a:'787 Dreamliner'},
+  {d:'Peshawar',    c:'Pakistan',         r:'asia',     dt:'Sep 2025', f:'5×/wk',     a:'A320'},
+  {d:'Phnom Penh',  c:'Cambodia',         r:'asia',     dt:'Oct 2025', f:'5×/wk',     a:'A321LR'},
+  {d:'Krabi',       c:'Thailand',         r:'asia',     dt:'Oct 2025', f:'daily',      a:'A321LR'},
+  {d:'Medan',       c:'Indonesia',        r:'asia',     dt:'Oct 2025', f:'3×/wk',     a:'A321LR'},
+  {d:'Addis Ababa', c:'Ethiopia',         r:'africa',   dt:'Oct 2025', f:'daily',      a:'A320'},
+  {d:'Chiang Mai',  c:'Thailand',         r:'asia',     dt:'Nov 2025', f:'4×/wk',     a:'A321LR'},
+  {d:'Hanoi',       c:'Vietnam',          r:'asia',     dt:'Nov 2025', f:'daily',      a:'A321LR'},
+  {d:'Hong Kong',   c:'China SAR',        r:'asia',     dt:'Nov 2025', f:'5×/wk',     a:'787 Dreamliner'},
+  {d:'Algiers',     c:'Algeria',          r:'africa',   dt:'Nov 2025', f:'4×/wk',     a:'A321LR'},
+  {d:'Tunis',       c:'Tunisia',          r:'africa',   dt:'Nov 2025', f:'3×/wk',     a:'A321LR'},
+  {d:'Medina',      c:'Saudi Arabia',     r:'mideast',  dt:'Nov 2025', f:'6×/wk',     a:'A320'},
+  {d:'Al Alamein',  c:'Egypt',            r:'africa',   dt:'Jul 2025', f:'2×/wk',     a:'A320'},
+  {d:'Kabul',       c:'Afghanistan',      r:'asia',     dt:'Dec 2025', f:'3×/wk',     a:'A320'},
+];
+const R26 = [
+  {d:'Baku',        c:'Azerbaijan',       r:'caucasus', dt:'Mar 2026', f:'10×/wk',    a:'A321LR'},
+  {d:'Yerevan',     c:'Armenia',          r:'caucasus', dt:'Mar 2026', f:'10×/wk',    a:'A321LR'},
+  {d:'Tbilisi',     c:'Georgia',          r:'caucasus', dt:'Mar 2026', f:'8×/wk',     a:'A321LR'},
+  {d:'Almaty',      c:'Kazakhstan',       r:'caucasus', dt:'Mar 2026', f:'8×/wk',     a:'A321LR'},
+  {d:'Tashkent',    c:'Uzbekistan',       r:'caucasus', dt:'Mar 2026', f:'6×/wk',     a:'A321LR'},
+  {d:'Bucharest',   c:'Romania',          r:'europe',   dt:'Mar 2026', f:'4×/wk',     a:'A321LR'},
+  {d:'Charlotte',   c:'USA',              r:'namerica', dt:'May 2026', f:'4×/wk',     a:'787 Dreamliner'},
+  {d:'Salalah',     c:'Oman',             r:'mideast',  dt:'May 2026', f:'seasonal',  a:'A320'},
+  {d:'Krakow',      c:'Poland',           r:'europe',   dt:'Jun 2026', f:'seasonal',  a:'A321LR'},
+  {d:'Zanzibar',    c:'Tanzania',         r:'africa',   dt:'Jun 2026', f:'seasonal',  a:'A320'},
+  {d:'Kazan',       c:'Russia',           r:'europe',   dt:'Dec 2026', f:'seasonal',  a:'A321'},
+  {d:'Calgary',     c:'Canada',           r:'namerica', dt:'Nov 2026', f:'4×/wk',     a:'787 Dreamliner'},
+];
+
+// Destination coordinates [lon, lat]
+const COORDS = {
+  'Prague':[14.3,50.1],'Warsaw':[20.9,52.2],'Sochi':[39.9,43.6],
+  'Atlanta':[-84.4,33.6],'Taipei':[121.5,25.1],'Peshawar':[71.5,33.9],
+  'Phnom Penh':[104.8,11.5],'Krabi':[99.0,8.1],'Medan':[98.7,3.6],
+  'Addis Ababa':[38.8,9.0],'Chiang Mai':[98.9,18.8],'Hanoi':[105.8,21.0],
+  'Hong Kong':[114.2,22.3],'Algiers':[3.1,36.7],'Tunis':[10.2,36.8],
+  'Medina':[39.7,24.5],'Al Alamein':[28.5,30.8],'Kabul':[69.2,34.5],
+  'Baku':[49.9,40.4],'Yerevan':[44.5,40.2],'Tbilisi':[44.8,41.7],
+  'Almaty':[76.9,43.4],'Tashkent':[69.3,41.3],'Bucharest':[26.1,44.4],
+  'Charlotte':[-80.9,35.2],'Salalah':[54.1,17.0],'Krakow':[19.8,50.1],
+  'Zanzibar':[39.2,-6.2],'Kazan':[49.3,55.8],'Calgary':[-114.0,51.1],
+};
+const AUH = [54.65, 24.43];
+
+// ══════════════════════════════════════════════════
+// SCATTER PLOT
+// ══════════════════════════════════════════════════
+function buildScatter(){
+  const svg = document.getElementById('scatter');
+  const W=920, H=540;
+  const pl=78, pr=50, pt=36, pb=64;
+  const pw=W-pl-pr, ph=H-pt-pb;
+  const xMn=0,xMx=7.5,yMn=-25,yMx=36;
+  const xs = v => pl + (v-xMn)/(xMx-xMn)*pw;
+  const ys = v => pt + ph - (v-yMn)/(yMx-yMn)*ph;
+
+  let o = '';
+
+  // Highlight quadrant (top-right = Etihad zone)
+  o += `<rect x="${xs(4.5)}" y="${pt}" width="${xs(xMx)-xs(4.5)}" height="${ys(12)-pt}" fill="rgba(79,184,168,0.035)" rx="2"/>`;
+  o += `<text x="${xs(4.7)}" y="${pt+18}" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(79,184,168,0.4)" letter-spacing="2">EXPANSION LEADERS</text>`;
+
+  // Grid
+  [-20,-10,0,10,20,30].forEach(v=>{
+    o += `<line stroke="rgba(35,42,57,0.9)" stroke-width="0.6" x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}"/>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${pl-9}" y="${ys(v)+4}" text-anchor="end">${v>0?'+':''}${v}%</text>`;
+  });
+  [0,1,2,3,4,5,6,7].forEach(v=>{
+    o += `<line stroke="rgba(35,42,57,0.9)" stroke-width="0.6" x1="${xs(v)}" x2="${xs(v)}" y1="${pt}" y2="${H-pb}"/>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${xs(v)}" y="${H-pb+18}" text-anchor="middle">${v}%</text>`;
+  });
+
+  // Zero lines
+  o += `<line stroke="rgba(255,255,255,0.14)" stroke-width="1" x1="${pl}" x2="${W-pr+8}" y1="${ys(0)}" y2="${ys(0)}"/>`;
+  o += `<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="${xs(0)}" x2="${xs(0)}" y1="${pt}" y2="${H-pb}"/>`;
+
+  // Axis arrows
+  o += `<polygon fill="rgba(255,255,255,0.18)" points="${W-pr+8},${ys(0)-4} ${W-pr+16},${ys(0)} ${W-pr+8},${ys(0)+4}"/>`;
+  o += `<polygon fill="rgba(255,255,255,0.18)" points="${xs(0)-4},${pt-8} ${xs(0)},${pt-18} ${xs(0)+4},${pt-8}"/>`;
+
+  // Axis labels
+  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${W-pr+20}" y="${ys(0)+4}">% new seats →</text>`;
+  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" text-anchor="middle" transform="rotate(-90,22,${pt+ph/2})" x="22" y="${pt+ph/2+4}">Capacity Growth ↑</text>`;
+
+  // Trend line (approximation from IATA original)
+  o += `<line stroke="rgba(217,127,74,0.18)" stroke-width="1.2" stroke-dasharray="5 9" x1="${xs(0)}" y1="${ys(-2)}" x2="${xs(7)}" y2="${ys(9.5)}"/>`;
+  o += `<text font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(217,127,74,0.35)" x="${xs(5.5)}" y="${ys(7.5)-6}" letter-spacing="1">TREND</text>`;
+
+  // Draw non-EY first, EY on top
+  const nonEY = SD.filter(d=>d.t!=='ey');
+  const ey    = SD.filter(d=>d.t==='ey');
+
+  [...nonEY,...ey].forEach(d=>{
+    const cx=xs(d.x), cy=ys(d.y), r=RSIZ[d.t], c=COLS[d.t];
+    const isEY = d.t==='ey';
+    const glowFilter = isEY ? `filter:drop-shadow(0 0 6px ${c})` : '';
+    // Dot
+    o += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}" opacity="${isEY?1:0.83}" stroke="#000" stroke-width="${isEY?0.8:0.4}" style="cursor:pointer;${glowFilter}" data-i="${SD.indexOf(d)}"/>`;
+    // Pulsing ring for EY
+    if(isEY){
+      o += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="0.8" pointer-events="none">
+        <animate attributeName="r" from="${r}" to="${r*2.8}" dur="2.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" from="0.5" to="0" dur="2.5s" repeatCount="indefinite"/>
+      </circle>`;
+    }
+    // Label — flip side if crowded right edge
+    let lx, la;
+    if(isEY){ lx=cx+14; la='start'; }
+    else if(d.x>5){ lx=cx-r-3; la='end'; }
+    else if(d.x<1){ lx=cx+r+3; la='start'; }
+    else { lx=cx+r+3; la='start'; }
+    o += `<text font-family="JetBrains Mono,monospace" font-size="${isEY?11:9}" fill="${isEY?c:'#8a93a6'}" font-weight="${isEY?700:400}" x="${lx}" y="${cy+4}" text-anchor="${la}" pointer-events="none">${d.n}</text>`;
+  });
+
+  // EY callout annotation
+  const eyd=SD.find(d=>d.t==='ey');
+  const ecx=xs(eyd.x), ecy=ys(eyd.y);
+  const aboxX=ecx-230, aboxY=ecy-110;
+  o += `<line x1="${ecx-11}" y1="${ecy-8}" x2="${aboxX+200}" y2="${aboxY+68}" stroke="rgba(79,184,168,0.4)" stroke-width="1" stroke-dasharray="3 5"/>`;
+  o += `<rect x="${aboxX}" y="${aboxY}" width="210" height="72" fill="#161b24" stroke="rgba(79,184,168,0.45)" stroke-width="1"/>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+20}" font-family="JetBrains Mono,monospace" font-size="9.5" fill="#4fb8a8" letter-spacing="1.5" font-weight="700">ETIHAD · FY 2025</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+37}" font-family="JetBrains Mono,monospace" font-size="9" fill="#8a93a6">+21% ASK · 22.4M passengers</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+52}" font-family="JetBrains Mono,monospace" font-size="9" fill="#8a93a6">+16 net routes · $698M profit</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+66}" font-family="JetBrains Mono,monospace" font-size="9" fill="#5a6478">88.3% load factor · 127 aircraft</text>`;
+
+  svg.innerHTML = o;
+
+  // Tooltip
+  const tt = document.getElementById('chart-tt');
+  svg.querySelectorAll('circle[data-i]').forEach(el=>{
+    el.addEventListener('mouseenter', e=>{
+      const d=SD[+e.target.dataset.i];
+      tt.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:${COLS[d.t]};font-weight:700;margin-bottom:8px">${d.n}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:3px">New seat %: <strong style="color:var(--ink)">${d.x}%</strong></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:10px">Capacity Δ: <strong style="color:var(--ink)">${d.y>0?'+':''}${d.y}%</strong></div>
+        <div style="font-size:12px;color:var(--ink-dim);line-height:1.55">${d.i}</div>`;
+      tt.classList.add('show');
+    });
+    el.addEventListener('mousemove', e=>{
+      const w=document.getElementById('chart-area');
+      const wr=w.getBoundingClientRect();
+      let nx=e.clientX-wr.left+16, ny=e.clientY-wr.top+16;
+      if(nx+240>wr.width) nx=e.clientX-wr.left-250;
+      if(ny+130>wr.height) ny=e.clientY-wr.top-140;
+      tt.style.left=nx+'px'; tt.style.top=ny+'px';
+    });
+    el.addEventListener('mouseleave',()=>tt.classList.remove('show'));
+  });
+}
+
+// ══════════════════════════════════════════════════
+// ROUTE MAP
+// ══════════════════════════════════════════════════
+const MW=1000,MH=460,LLo=-60,LHi=85,LR=145;
+function proj(lon,lat){return[(lon+180)/360*MW,(LHi-Math.max(LLo,Math.min(LHi,lat)))/LR*MH];}
+
+function buildRouteMap(){
+  fetch('./data/world_path.txt').then(r=>r.text()).then(p=>{
+    document.getElementById('map-path').setAttribute('d',p.trim());
+  }).catch(()=>{});
+
+  const [ax,ay]=proj(AUH[0],AUH[1]);
+  let lines='', dots='';
+
+  const drawRoute=(rt,lnCls,dotColor)=>{
+    const co=COORDS[rt.d]; if(!co) return;
+    const [dx,dy]=proj(co[0],co[1]);
+    const mx=(ax+dx)/2, my=((ay+dy)/2)-Math.abs(dx-ax)*0.13;
+    const w = rt.r==='namerica'?0.9:0.8;
+    lines+=`<path class="ey-route ${lnCls}" d="M${ax.toFixed(1)},${ay.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${dx.toFixed(1)},${dy.toFixed(1)}" stroke-width="${w}"/>`;
+    dots +=`<circle class="map-dest" cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="3.2" fill="${dotColor}" stroke="#000" stroke-width="0.4"><title>${rt.d}, ${rt.c} · ${rt.f} · ${rt.a}</title></circle>`;
+  };
+
+  // Draw 2025 then 2026 (2026 on top)
+  R25.forEach(r=>drawRoute(r,'','var(--copper)'));
+  R26.forEach(r=>drawRoute(r,'','var(--gold)'));
+
+  // Colour-code route lines
+  let linesColored='';
+  R25.forEach(rt=>{
+    const co=COORDS[rt.d]; if(!co) return;
+    const [dx,dy]=proj(co[0],co[1]);
+    const mx=(ax+dx)/2, my=((ay+dy)/2)-Math.abs(dx-ax)*0.13;
+    linesColored+=`<path fill="none" stroke="var(--copper)" stroke-width="0.85" stroke-linecap="round" opacity="0.75" d="M${ax.toFixed(1)},${ay.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${dx.toFixed(1)},${dy.toFixed(1)}"/>`;
+  });
+  R26.forEach(rt=>{
+    const co=COORDS[rt.d]; if(!co) return;
+    const [dx,dy]=proj(co[0],co[1]);
+    const mx=(ax+dx)/2, my=((ay+dy)/2)-Math.abs(dx-ax)*0.13;
+    linesColored+=`<path fill="none" stroke="var(--gold)" stroke-width="0.85" stroke-linecap="round" opacity="0.82" d="M${ax.toFixed(1)},${ay.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${dx.toFixed(1)},${dy.toFixed(1)}"/>`;
+  });
+
+  document.getElementById('route-lines').innerHTML=linesColored;
+  document.getElementById('route-dots').innerHTML=dots+
+    `<circle class="map-hub" cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="6">
+      <animate attributeName="r" values="6;10;6" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="5" fill="var(--teal)" pointer-events="none"/>
+    <text font-family="JetBrains Mono,monospace" font-size="9" fill="var(--teal)" x="${ax+8}" y="${ay+3}" font-weight="700">AUH</text>`;
+}
+
+// ══════════════════════════════════════════════════
+// ROUTE TIMELINE
+// ══════════════════════════════════════════════════
+function buildTimeline(){
+  const makeCard=r=>`
+    <div class="route-card rc-${r.r}">
+      <div class="rc-dest">${r.d}</div>
+      <div class="rc-country">${r.c}</div>
+      <div class="rc-meta">
+        <span class="rc-date">${r.dt}</span>
+        <span class="rc-freq">${r.f}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="rc-ac">${r.a}</span>
+        <span class="rc-region-tag" style="color:${RC[r.r]}">${RL[r.r]}</span>
+      </div>
+    </div>`;
+
+  document.getElementById('route-timeline').innerHTML=`
+    <div style="margin-bottom:36px">
+      <div class="tl-year-head">
+        <span class="tl-badge">2025</span>
+        <span class="tl-count">${R25.length} new destinations</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em">Historic: 10 launched in a single day (Oct 2025)</span>
+      </div>
+      <div class="route-grid">${R25.map(makeCard).join('')}</div>
+    </div>
+    <div>
+      <div class="tl-year-head">
+        <span class="tl-badge">2026</span>
+        <span class="tl-count">${R26.length} new / announced</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em">Caucasus blitz: 5 new capitals in March 2026 alone</span>
+      </div>
+      <div class="route-grid">${R26.map(makeCard).join('')}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  buildScatter();
+  buildTimeline();
+  buildRouteMap();
+});
+</script>
+</body>
+</html>

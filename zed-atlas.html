@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZED Travel Atlas — Etihad Crew · v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0a0d12; --bg-panel:#11151c; --bg-card:#161b24; --bg-elev:#1d2330;
+  --line:#232a39; --line-soft:#1a2030; --ink:#e8ecf2; --ink-dim:#8a93a6; --ink-mute:#5a6478;
+  --copper:#d97f4a; --copper-deep:#b86432; --gold:#e8b94a; --teal:#4fb8a8; --crimson:#e54e4e;
+  --aubergine:#6d3a5d;
+  --tier-1:#4fb8a8; --tier-2:#e8b94a; --tier-3:#e54e4e; --tier-0:#2a3142;
+  --grad-hero:radial-gradient(ellipse at 20% 0%, rgba(217,127,74,0.12) 0%, transparent 60%),radial-gradient(ellipse at 80% 100%, rgba(109,58,93,0.18) 0%, transparent 50%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.serif{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.02em}
+.mono{font-family:'JetBrains Mono',monospace;font-feature-settings:"ss01","ss02"}
+.label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
+
+.shell{max-width:1480px;margin:0 auto;padding:0 32px}
+.hero{background:var(--grad-hero);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.015) 39px,rgba(255,255,255,0.015) 40px);pointer-events:none}
+.hero-inner{padding:48px 0 56px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(48px,6vw,84px);line-height:0.95;letter-spacing:-0.035em;color:var(--ink)}
+.hero h1 em{font-style:italic;color:var(--copper);font-weight:400}
+.hero-meta{display:flex;flex-direction:column;gap:14px;align-items:flex-end;text-align:right}
+.hero-meta .stamp{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--ink-dim)}
+.hero-meta .stamp .dot{width:6px;height:6px;border-radius:50%;background:var(--copper);box-shadow:0 0 8px var(--copper)}
+.hero-sub{font-size:16px;color:var(--ink-dim);max-width:560px;margin-top:24px;line-height:1.65}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.version-tag{display:inline-block;padding:3px 10px;background:var(--copper);color:var(--bg-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;font-weight:700;margin-bottom:14px}
+
+.ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
+.ticker .stat{padding:22px 24px;border-right:1px solid var(--line)}
+.ticker .stat:last-child{border-right:none}
+.ticker .stat .num{font-family:'Fraunces',serif;font-size:38px;font-weight:600;line-height:1;letter-spacing:-0.02em;color:var(--ink)}
+.ticker .stat .num em{font-style:italic;color:var(--copper);font-weight:500}
+.ticker .stat .lbl{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute)}
+
+section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
+.section-head h2{font-family:'Fraunces',serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
+.section-head .desc{max-width:480px;font-size:14px;color:var(--ink-dim);line-height:1.6}
+
+/* WORLD MAP */
+.map-wrap{background:var(--bg-panel);border:1px solid var(--line);overflow:hidden;position:relative}
+.map-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:16px}
+.map-toolbar .left{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.map-toolbar .label-strong{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-dim)}
+.map-mode-row{display:flex;gap:4px;flex-wrap:wrap}
+.map-chip{background:var(--bg-elev);border:1px solid var(--line);color:var(--ink-dim);padding:6px 11px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;cursor:pointer;font-weight:500;text-transform:uppercase}
+.map-chip:hover{color:var(--ink);border-color:var(--ink-mute)}
+.map-chip.active{background:var(--copper);color:var(--bg-deep);border-color:var(--copper)}
+.map-svg-wrap{position:relative;background:#06090e;box-shadow:inset 0 0 80px rgba(0,0,0,0.55)}
+.map-svg-wrap svg{display:block;width:100%;height:auto}
+.country-path{fill:#192031;stroke:#21304a;stroke-width:0.3;transition:fill 0.15s}
+.hub-dot{cursor:pointer;transition:opacity 0.15s, stroke-width 0.15s;stroke:#000;stroke-width:0.4}
+.hub-dot:hover{stroke:rgba(255,255,255,0.85);stroke-width:1.5;filter:brightness(1.25)}
+.hub-dot.has-network{filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor)}
+.hub-grat{stroke:rgba(255,255,255,0.022);fill:none;stroke-width:0.3}
+.hub-grat-eq{stroke:rgba(79,184,168,0.22);fill:none;stroke-width:0.65}
+.hub-grat-tr{stroke:rgba(232,185,74,0.16);fill:none;stroke-width:0.5;stroke-dasharray:4 9}
+.hub-grat-pm{stroke:rgba(255,255,255,0.07);fill:none;stroke-width:0.5}
+
+.map-tooltip{position:absolute;background:var(--bg-card);border:1px solid var(--copper);padding:14px 16px;font-family:'Inter Tight',sans-serif;pointer-events:none;z-index:50;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity 0.1s}
+.map-tooltip.show{opacity:1}
+.tt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+.tt-code{font-family:'JetBrains Mono',monospace;color:var(--copper);font-size:13px;font-weight:700;letter-spacing:0.05em}
+.tt-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;line-height:1.15;letter-spacing:-0.01em;flex:1}
+.tt-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.tt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.tt-stat{padding:6px 8px;background:var(--bg-panel);border:1px solid var(--line)}
+.tt-stat .l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.1em;color:var(--ink-mute);text-transform:uppercase}
+.tt-stat .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);margin-top:2px}
+.tt-cta{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--copper);text-transform:uppercase;text-align:center}
+.tt-network-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 6px;background:rgba(79,184,168,0.15);color:var(--tier-1);text-transform:uppercase;margin-top:4px}
+
+.map-foot{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.1em}
+.map-legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.map-legend .item{display:flex;align-items:center;gap:8px}
+.map-legend .swatch{width:10px;height:10px;border-radius:50%;border:1px solid #000}
+
+/* REGIONS */
+.region-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.region-card{background:var(--bg-card);border:1px solid var(--line);padding:22px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.region-card:hover{border-color:var(--copper);transform:translateY(-2px)}
+.region-card.active{border-color:var(--copper);background:linear-gradient(180deg,rgba(217,127,74,0.06),transparent)}
+.region-card h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin-bottom:6px}
+.region-card .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);letter-spacing:0.1em}
+.region-card .bars{display:flex;height:6px;margin-top:18px;border-radius:1px;overflow:hidden;background:var(--tier-0)}
+.region-card .bars .b1{background:var(--tier-1)}
+.region-card .bars .b2{background:var(--tier-2)}
+.region-card .bars .b3{background:var(--tier-3)}
+.region-card .legend-row{display:flex;justify-content:space-between;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);letter-spacing:0.08em}
+
+/* PICKS */
+.picks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.pick-card{background:var(--bg-card);border:1px solid var(--line);padding:28px;position:relative}
+.pick-card .pick-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
+.pick-card .pick-header h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.pick-card .pick-header .icon{width:36px;height:36px;border:1px solid var(--copper);display:flex;align-items:center;justify-content:center;color:var(--copper);font-family:'Fraunces',serif;font-style:italic;font-size:18px}
+.pick-card .pick-desc{font-size:13px;color:var(--ink-dim);margin-top:-12px;margin-bottom:20px;line-height:1.5}
+.rank-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.rank-row{display:grid;grid-template-columns:30px 50px 1fr 60px auto auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px;cursor:pointer}
+.rank-row:hover{background:rgba(255,255,255,0.02)}
+.rank-row:last-child{border-bottom:none}
+.rank-row .pos{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--copper);font-style:italic}
+.rank-row .code{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);letter-spacing:0.05em}
+.rank-row .nm{color:var(--ink);font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-row .reg{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;text-transform:uppercase;text-align:right}
+.rank-row .met{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);text-align:right}
+
+/* SCENARIO */
+.scenario{background:var(--bg-panel);border:1px solid var(--line);padding:32px}
+.scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:32px}
+.scenario-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--bg-elev);border:1px solid var(--line);color:var(--ink-dim);padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;cursor:pointer;transition:all 0.15s;font-weight:500;user-select:none}
+.chip:hover{color:var(--ink);border-color:var(--ink-mute)}
+.chip.active{background:var(--copper);color:var(--bg-deep);border-color:var(--copper)}
+.results-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.results-head .count{font-family:'Fraunces',serif;font-style:italic;font-size:24px;color:var(--copper)}
+.results-head .count-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin-left:8px}
+.results-table{width:100%;border-collapse:collapse}
+.results-table th{text-align:left;padding:10px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;border-bottom:1px solid var(--line)}
+.results-table td{padding:11px 8px;border-bottom:1px solid var(--line-soft);font-size:13px}
+.results-table tr:hover td{background:rgba(255,255,255,0.02)}
+.results-table .td-code{font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:0.05em;color:var(--copper);width:60px}
+.results-table .td-fare{font-family:'JetBrains Mono',monospace;text-align:center;width:80px}
+.results-table .td-hub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);letter-spacing:0.05em;text-transform:uppercase}
+.fare-tier-1{color:var(--tier-1);font-weight:600}
+.fare-tier-2{color:var(--tier-2);font-weight:600}
+.fare-tier-3{color:var(--tier-3);font-weight:600}
+.fare-tier-0{color:var(--ink-mute)}
+
+/* EXPLORER */
+.explorer-controls{display:flex;gap:16px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.search-input{flex:1;min-width:240px;background:var(--bg-panel);border:1px solid var(--line);padding:12px 16px;color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:14px}
+.search-input:focus{outline:none;border-color:var(--copper)}
+.search-input::placeholder{color:var(--ink-mute)}
+.sort-select{background:var(--bg-panel);border:1px solid var(--line);padding:12px 14px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
+.airline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.airline-card{background:var(--bg-card);border:1px solid var(--line);padding:18px;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:14px;position:relative}
+.airline-card:hover{border-color:var(--copper);background:var(--bg-elev)}
+.airline-card.has-network::before{content:"NETWORK";position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.15em;padding:2px 6px;background:rgba(79,184,168,0.15);color:var(--tier-1);font-weight:600;border:1px solid var(--tier-1)}
+.airline-card .ac-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.airline-card .ac-code{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;letter-spacing:0.05em;color:var(--copper)}
+.airline-card .ac-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;line-height:1.2;letter-spacing:-0.01em;flex:1}
+.airline-card .ac-region{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);text-align:right}
+.airline-card .ac-loc{display:flex;gap:6px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);letter-spacing:0.05em;margin-top:-6px}
+.airline-card .ac-loc .iata{color:var(--copper);font-weight:600;letter-spacing:0.1em}
+.airline-card .ac-loc .ctry{color:var(--ink)}
+.airline-card .ac-matrix{display:grid;grid-template-columns:auto repeat(4,1fr);gap:2px;font-family:'JetBrains Mono',monospace;font-size:10px}
+.matrix-h{color:var(--ink-mute);padding:2px 4px;font-size:9px;letter-spacing:0.1em;text-align:center}
+.matrix-r{color:var(--ink-mute);padding:3px 4px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;align-self:center}
+.matrix-c{padding:4px;text-align:center;font-weight:600;border-radius:1px}
+.matrix-c.t1{background:rgba(79,184,168,0.15);color:var(--tier-1)}
+.matrix-c.t2{background:rgba(232,185,74,0.15);color:var(--tier-2)}
+.matrix-c.t3{background:rgba(229,78,78,0.15);color:var(--tier-3)}
+.matrix-c.t0{background:var(--bg-elev);color:var(--ink-mute)}
+.ac-flags{display:flex;gap:6px;flex-wrap:wrap}
+.flag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:3px 7px;border:1px solid var(--line);background:var(--bg-elev);color:var(--ink-dim);text-transform:uppercase;font-weight:500}
+.flag.duty{border-color:var(--teal);color:var(--teal)}
+.flag.score{border-color:var(--gold);color:var(--gold)}
+
+/* ====== MODAL — main fare info ====== */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,7,11,0.85);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-card);border:1px solid var(--copper);max-width:1200px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
+.modal-head{padding:32px 36px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;position:sticky;top:0;background:var(--bg-card);z-index:10}
+.modal-head .h-title h2{font-family:'Fraunces',serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.modal-head .h-title .h-sub{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;color:var(--copper);margin-top:6px;text-transform:uppercase}
+.modal-head .h-title .h-loc{font-size:13px;color:var(--ink-dim);margin-top:6px;font-family:'Inter Tight',sans-serif}
+.modal-head .h-title .h-loc strong{color:var(--ink);font-weight:500}
+.modal-close{background:none;border:1px solid var(--line);color:var(--ink-dim);width:36px;height:36px;font-size:20px;cursor:pointer;font-family:'Fraunces',serif;flex-shrink:0}
+.modal-close:hover{color:var(--copper);border-color:var(--copper)}
+.modal-body{padding:0 36px 36px}
+
+/* TABS for modal */
+.modal-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin:0 -36px 28px}
+.modal-tab{flex:1;padding:14px 18px;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;cursor:pointer;transition:all 0.15s;text-transform:uppercase;font-weight:500;text-align:center}
+.modal-tab:hover{color:var(--ink-dim);background:rgba(255,255,255,0.02)}
+.modal-tab.active{color:var(--copper);border-bottom-color:var(--copper)}
+.modal-tab.disabled{color:var(--ink-mute);opacity:0.3;cursor:not-allowed}
+.modal-tab .badge{display:inline-block;margin-left:6px;padding:1px 6px;background:var(--bg-elev);color:var(--ink-dim);font-size:9px;border-radius:2px;border:1px solid var(--line)}
+.modal-tab.active .badge{background:var(--copper);color:var(--bg-deep);border-color:var(--copper)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+.fare-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;margin-top:18px}
+.fare-table th, .fare-table td{padding:12px 14px;text-align:center;font-size:12px;border:1px solid var(--line)}
+.fare-table th{background:var(--bg-elev);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.fare-table .row-h{text-align:left;color:var(--ink-dim);font-size:11px;letter-spacing:0.1em}
+.fare-table .cell-1{background:rgba(79,184,168,0.12);color:var(--tier-1);font-weight:700}
+.fare-table .cell-2{background:rgba(232,185,74,0.12);color:var(--tier-2);font-weight:700}
+.fare-table .cell-3{background:rgba(229,78,78,0.12);color:var(--tier-3);font-weight:700}
+.fare-table .cell-0{color:var(--ink-mute)}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.metric-grid .m{padding:14px 16px;background:var(--bg-panel);border:1px solid var(--line)}
+.metric-grid .m .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:6px}
+.metric-grid .m .val{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--ink)}
+.metric-grid .m .val em{color:var(--copper);font-style:italic;font-weight:400}
+
+/* NETWORK MAP IN MODAL */
+.network-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.ns-stat{padding:16px;background:var(--bg-panel);border:1px solid var(--line)}
+.ns-stat .l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:6px}
+.ns-stat .v{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1;color:var(--ink)}
+.ns-stat .v em{color:var(--copper);font-style:italic;font-weight:400}
+.ns-stat .sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-top:6px;letter-spacing:0.05em}
+
+.net-map{background:#080a0e;border:1px solid var(--line);overflow:hidden;position:relative;margin-bottom:24px}
+.net-map svg{display:block;width:100%;height:auto}
+.net-route{stroke:var(--copper);fill:none;opacity:0.55;stroke-linecap:round}
+.net-route.heavy{stroke-width:1.5;opacity:0.85}
+.net-route.medium{stroke-width:1.0;opacity:0.65}
+.net-route.light{stroke-width:0.5;opacity:0.4}
+.net-hub{fill:var(--gold);stroke:#000;stroke-width:0.5}
+.net-dest{fill:var(--teal);stroke:#000;stroke-width:0.4;cursor:pointer;transition:r 0.15s}
+.net-dest:hover{stroke:#fff;stroke-width:1.5;r:4}
+.net-label{fill:var(--ink-dim);font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;pointer-events:none}
+.net-label.hub-label{fill:var(--gold);font-weight:700}
+
+.no-data{padding:40px;text-align:center;color:var(--ink-mute);background:var(--bg-panel);border:1px dashed var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;line-height:1.8}
+.no-data .strong{color:var(--copper);font-weight:600;letter-spacing:0.15em;text-transform:uppercase}
+
+/* ROUTE TABLE */
+.route-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
+.route-table th{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.route-table td{padding:10px 12px;border-bottom:1px solid var(--line-soft)}
+.route-table tr:hover td{background:rgba(255,255,255,0.02)}
+.route-table .rt-cells{font-weight:600;color:var(--ink)}
+.route-table .rt-iata{color:var(--copper);font-weight:600;letter-spacing:0.05em}
+.route-table .rt-arrow{color:var(--ink-mute);padding:0 4px}
+.route-table .rt-name{color:var(--ink-dim);font-family:'Inter Tight',sans-serif;font-size:13px}
+.route-table .rt-freq{text-align:center;color:var(--gold);font-weight:600}
+.route-table .rt-dur{text-align:right;color:var(--ink-dim)}
+
+/* SCHEDULE */
+.schedule-controls{display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
+.schedule-search{flex:1;min-width:200px;background:var(--bg-panel);border:1px solid var(--line);padding:8px 12px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em}
+.schedule-search:focus{outline:none;border-color:var(--copper)}
+.sched-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:11px}
+.sched-table th{padding:10px;text-align:left;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.sched-table td{padding:8px 10px;border-bottom:1px solid var(--line-soft)}
+.sched-table tr:hover td{background:rgba(255,255,255,0.02)}
+.sched-table .sched-flight{color:var(--copper);font-weight:600;letter-spacing:0.05em}
+.sched-table .sched-time{color:var(--ink-dim);font-size:10px}
+.sched-table .sched-route{color:var(--ink);font-weight:500}
+
+/* FLEET */
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:16px}
+.fleet-card{padding:18px;background:var(--bg-panel);border:1px solid var(--line);position:relative}
+.fleet-card .ac-icon{position:absolute;top:14px;right:16px;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--copper);font-weight:700;opacity:0.4;letter-spacing:0.05em}
+.fleet-card .ac-type{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;letter-spacing:0.08em;color:var(--ink);margin-bottom:8px}
+.fleet-card .ac-name{font-family:'Inter Tight',sans-serif;font-size:11px;color:var(--ink-dim);margin-bottom:14px;line-height:1.3}
+.fleet-card .ac-count{font-family:'Fraunces',serif;font-size:32px;color:var(--copper);font-style:italic;font-weight:600;line-height:1}
+.fleet-card .ac-count-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-top:4px}
+
+/* DESTINATION FINDER */
+.dest-wrap{background:var(--bg-panel);border:1px solid var(--line);padding:32px}
+.dest-search-wrap{position:relative;margin-bottom:24px}
+.dest-input{width:100%;background:var(--bg-card);border:1px solid var(--line);padding:14px 18px;color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:15px;transition:border-color 0.15s}
+.dest-input:focus{outline:none;border-color:var(--copper)}
+.dest-input::placeholder{color:var(--ink-mute)}
+.dest-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--copper);border-top:none;z-index:50;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-height:300px;overflow-y:auto}
+.dest-dd-item{padding:11px 16px;cursor:pointer;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:12px}
+.dest-dd-item:hover,.dest-dd-item.focused{background:var(--bg-elev)}
+.dest-dd-item:last-child{border-bottom:none}
+.dest-dd-iata{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--copper);font-size:13px;letter-spacing:0.08em;width:40px;flex-shrink:0}
+.dest-dd-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dest-dd-ctry{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+.dest-ap-head{padding:18px 22px;background:var(--bg-card);border:1px solid var(--copper);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.dest-ap-iata{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--copper);letter-spacing:0.05em}
+.dest-ap-name{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-0.02em;margin-top:2px}
+.dest-ap-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase;margin-top:6px}
+.dest-stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.dest-stat-box{padding:12px 18px;background:var(--bg-card);border:1px solid var(--line);display:flex;align-items:baseline;gap:10px}
+.dest-sn{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic;line-height:1}
+.dest-sl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase}
+.dest-subhead{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin:24px 0 14px;display:flex;align-items:center;gap:12px}
+.dest-subhead::after{content:'';flex:1;height:1px;background:var(--line-soft)}
+.dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:8px}
+.dest-card{background:var(--bg-card);border:1px solid var(--line);padding:18px;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:12px}
+.dest-card:hover{border-color:var(--copper);background:var(--bg-elev);transform:translateY(-1px)}
+.dc-head{display:flex;justify-content:space-between;align-items:flex-start}
+.dc-code{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;letter-spacing:0.06em;color:var(--copper)}
+.dc-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin-top:2px}
+.dc-freq{font-family:'Fraunces',serif;font-size:18px;color:var(--teal);font-style:italic;font-weight:600;line-height:1;text-align:right}
+.dc-freq-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-mute);letter-spacing:0.1em;text-align:right;margin-top:2px}
+.dc-route{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;flex-wrap:wrap}
+.dc-hub-tag{color:var(--ink-dim);padding:3px 7px;border:1px solid var(--line);background:var(--bg-elev)}
+.dc-arr-tag{color:var(--copper);padding:3px 7px;border:1px solid var(--copper);background:rgba(217,127,74,0.08)}
+.dc-dur{font-size:10px;color:var(--ink-mute);font-weight:400;margin-left:4px}
+.dc-fares{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.dc-fare{padding:6px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:var(--bg-panel)}
+.dc-fare-lbl{font-size:7.5px;letter-spacing:0.08em;color:var(--ink-mute);text-transform:uppercase;font-weight:400;margin-bottom:3px;line-height:1.3}
+
+.legend{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em}
+.legend .li{display:flex;align-items:center;gap:8px;color:var(--ink-dim)}
+.legend .sw{width:14px;height:14px;border-radius:1px}
+.legend .sw.t1{background:var(--tier-1)} .legend .sw.t2{background:var(--tier-2)} .legend .sw.t3{background:var(--tier-3)} .legend .sw.t0{background:var(--tier-0)}
+
+footer{padding:48px 0 60px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-align:center}
+footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);font-size:13px}
+
+@media (max-width:980px){
+  .hero-inner{grid-template-columns:1fr;gap:24px}
+  .hero-meta{align-items:flex-start;text-align:left}
+  .ticker{grid-template-columns:repeat(2,1fr)}
+  .ticker .stat{border-bottom:1px solid var(--line)}
+  .region-grid{grid-template-columns:repeat(2,1fr)}
+  .picks-grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:repeat(2,1fr)}
+  .section-head{flex-direction:column;align-items:flex-start;gap:12px}
+  .network-summary{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:580px){
+  .shell{padding:0 18px}
+  .hero h1{font-size:42px}
+  .hero-inner{padding:32px 0 36px}
+  section{padding:40px 0}
+  .ticker{grid-template-columns:1fr}
+  .region-grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr}
+  .modal-head{padding:20px}
+  .modal-body{padding:0 20px 20px}
+}
+</style>
+</head>
+<body>
+
+
+<div id="loader" style="position:fixed;inset:0;background:#0a0d12;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:24px">
+  <div style="font-family:'Fraunces',serif;font-size:48px;color:#e8ecf2;letter-spacing:-0.03em;line-height:1">The <em style="color:#d97f4a;font-weight:400">ZED</em> Atlas.</div>
+  <div id="loader-status" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#5a6478;text-transform:uppercase">Loading data files…</div>
+  <div style="width:240px;height:1px;background:#1d2330;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:-50%;width:50%;height:100%;background:#d97f4a;animation:slide 1.2s ease-in-out infinite"></div>
+  </div>
+  <style>@keyframes slide{0%{left:-50%}100%{left:100%}}</style>
+</div>
+<div id="app" style="display:none">
+<header class="hero">
+  <div class="shell hero-inner">
+    <div>
+      <span class="version-tag">V4 · 38 CARRIERS · FR24 DATA</span>
+      <div class="eyebrow" style="margin-bottom:18px">ETIHAD CREW · ZED travel intelligence</div>
+      <h1>The <em>ZED</em> Atlas.<br>Where they fly. <em>Live</em> data.</h1>
+      <p class="hero-sub">All <strong>218 ZED agreements</strong> with <strong>FR24 network coverage</strong> for <span id="stat-network-count">38</span> priority carriers — the routes they flew last week, fleet breakdown, and live schedule. Click any carrier to drill down.</p>
+    </div>
+    <div class="hero-meta">
+      <span class="stamp"><span class="dot"></span>FR24 DATA · 1 MAY 2026</span>
+      <span class="stamp">218 CARRIERS · 99 COUNTRIES</span>
+      <span class="stamp">ZED &amp; LT · 30 APR 2026</span>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="stat"><div class="num" id="stat-total">218</div><div class="lbl">Active agreements</div></div>
+    <div class="stat"><div class="num"><em id="stat-networks">—</em></div><div class="lbl">w/ FR24 network data</div></div>
+    <div class="stat"><div class="num"><em id="stat-routes">—</em></div><div class="lbl">Routes mapped</div></div>
+    <div class="stat"><div class="num"><em id="stat-airports">—</em></div><div class="lbl">Airports referenced</div></div>
+    <div class="stat"><div class="num"><em id="stat-low">—</em></div><div class="lbl">All-low ($ everywhere)</div></div>
+  </div>
+</header>
+
+<!-- WORLD MAP -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>The <em>world</em> of your ZED.<br>Carriers with networks light up.</h2>
+      <p class="desc">Each dot is a carrier hub. Glowing dots have FR24 network data — click them to see actual routes flown last week. Switch view to filter by scenario.</p>
+    </div>
+    <div class="map-wrap">
+      <div class="map-toolbar">
+        <div class="left">
+          <span class="label-strong">View:</span>
+          <div class="map-mode-row" id="map-mode">
+            <span class="map-chip active" data-v="overall">Overall</span>
+            <span class="map-chip" data-v="network">Network data</span>
+            <span class="map-chip" data-v="sub_eco">$ Sub Eco</span>
+            <span class="map-chip" data-v="sub_biz">$ Sub Biz</span>
+            <span class="map-chip" data-v="duty">Duty</span>
+            <span class="map-chip" data-v="family">Family</span>
+          </div>
+        </div>
+        <div class="left">
+          <span class="label-strong" id="map-count">—</span>
+        </div>
+      </div>
+
+      <div class="map-svg-wrap" id="map-svg-wrap">
+        <svg id="map-svg" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background grid at 20° latitude / 30° longitude intervals -->
+          <g class="hub-grat">
+            <line x1="0" y1="79" x2="1000" y2="79"/><!-- 60°N -->
+            <line x1="0" y1="142" x2="1000" y2="142"/><!-- 40°N -->
+            <line x1="0" y1="205.5" x2="1000" y2="205.5"/><!-- 20°N -->
+            <line x1="0" y1="333" x2="1000" y2="333"/><!-- 20°S -->
+            <line x1="0" y1="396.5" x2="1000" y2="396.5"/><!-- 40°S -->
+            <line x1="166.7" y1="0" x2="166.7" y2="460"/><!-- 120°W -->
+            <line x1="333.3" y1="0" x2="333.3" y2="460"/><!-- 60°W -->
+            <line x1="666.7" y1="0" x2="666.7" y2="460"/><!-- 60°E -->
+            <line x1="833.3" y1="0" x2="833.3" y2="460"/><!-- 120°E -->
+          </g>
+          <!-- Geographic reference lines -->
+          <line class="hub-grat-tr" x1="0" y1="195" x2="1000" y2="195"/><!-- Tropic of Cancer 23.5°N -->
+          <line class="hub-grat-eq" x1="0" y1="270" x2="1000" y2="270"/><!-- Equator -->
+          <line class="hub-grat-tr" x1="0" y1="344" x2="1000" y2="344"/><!-- Tropic of Capricorn 23.5°S -->
+          <line class="hub-grat-pm" x1="500" y1="0" x2="500" y2="460"/><!-- Prime Meridian -->
+          <path class="country-path" d=""/>
+          <g id="hub-ring-layer"></g>
+          <g id="hub-layer"></g>
+        </svg>
+        <div class="map-tooltip" id="tooltip"></div>
+      </div>
+
+      <div class="map-foot">
+        <div class="map-legend" id="map-legend"></div>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(79,184,168,0.5)"></span>Equator</span><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(232,185,74,0.5);border-top:1px dashed rgba(232,185,74,0.5)"></span>Tropics</span><span>FR24 sample: 1 May 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP PICKS -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>The <em>shortlist</em>.<br>Best agreements, by use case.</h2>
+      <p class="desc">Cuts through the wall of dollar signs. For personal travel, family, business class, and duty trips. Click any row to open the deep-dive.</p>
+    </div>
+    <div class="picks-grid">
+      <div class="pick-card"><div class="pick-header"><h3>Most Attractive Overall</h3><div class="icon">★</div></div><p class="pick-desc">Composite score: breadth × inverse fare.</p><ul class="rank-list" id="pick-overall"></ul></div>
+      <div class="pick-card"><div class="pick-header"><h3>Cheapest Subload Business</h3><div class="icon">J</div></div><p class="pick-desc">Subload business at $ for SSC.</p><ul class="rank-list" id="pick-biz"></ul></div>
+      <div class="pick-card"><div class="pick-header"><h3>Best for Family Travel</h3><div class="icon">F</div></div><p class="pick-desc">Parents and siblings covered at low fare.</p><ul class="rank-list" id="pick-family"></ul></div>
+      <div class="pick-card"><div class="pick-header"><h3>Best for Duty Travel</h3><div class="icon">D</div></div><p class="pick-desc">Duty travel eligible in both cabins at $.</p><ul class="rank-list" id="pick-duty"></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- REGIONS -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Coverage <em>heatmap</em>.<br>By region, at a glance.</h2>
+      <p class="desc">Where the agreements concentrate. Click to filter the scenario builder.</p>
+    </div>
+    <div class="region-grid" id="region-grid"></div>
+  </div>
+</section>
+
+<!-- SCENARIO -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Build a <em>scenario</em>.<br>Filter to a specific trip.</h2>
+      <p class="desc">Pick traveler, cabin, booking, region. Get the ranked list of carriers.</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-grid">
+        <div class="scenario-field"><label>Traveler</label><div class="chip-row" id="filter-traveler">
+          <span class="chip active" data-v="0">Self / Spouse / Child</span><span class="chip" data-v="1">Parent (ZEP)</span>
+          <span class="chip" data-v="2">Sibling (ZES)</span><span class="chip" data-v="3">Travel Companion</span></div></div>
+        <div class="scenario-field"><label>Cabin</label><div class="chip-row" id="filter-cabin">
+          <span class="chip active" data-v="eco">Economy</span><span class="chip" data-v="biz">Business</span></div></div>
+        <div class="scenario-field"><label>Booking</label><div class="chip-row" id="filter-book">
+          <span class="chip active" data-v="sub">Subload</span><span class="chip" data-v="firm">Firm</span></div></div>
+        <div class="scenario-field"><label>Region</label><div class="chip-row" id="filter-region">
+          <span class="chip active" data-v="all">All</span><span class="chip" data-v="Middle East">ME</span>
+          <span class="chip" data-v="Europe">Europe</span><span class="chip" data-v="Asia">Asia</span>
+          <span class="chip" data-v="North America">N.America</span><span class="chip" data-v="Latin America">L.America</span>
+          <span class="chip" data-v="Africa">Africa</span><span class="chip" data-v="Oceania">Oceania</span></div></div>
+      </div>
+      <div class="results">
+        <div class="results-head">
+          <div><span class="count" id="scenario-count">—</span><span class="count-lbl">carriers match · ranked by fare, then coverage</span></div>
+          <div class="legend">
+            <div class="li"><div class="sw t1"></div>$</div><div class="li"><div class="sw t2"></div>$$</div>
+            <div class="li"><div class="sw t3"></div>$$$</div><div class="li"><div class="sw t0"></div>n/a</div>
+          </div>
+        </div>
+        <div style="overflow-x:auto"><table class="results-table" id="scenario-table">
+          <thead><tr><th>#</th><th>Code</th><th>Airline</th><th>Country / Hub</th><th>Region</th><th>Fare</th><th>Duty E</th><th>Duty J</th><th>DG</th></tr></thead>
+          <tbody id="scenario-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION FINDER -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Search by <em>destination</em>.<br>Who flies there. At what fare.</h2>
+      <p class="desc">Type any airport code or city. See every ZED carrier with FR24-verified routes there, their hub, fare tiers, and flight time. Click any card for the full deep-dive.</p>
+    </div>
+    <div class="dest-wrap">
+      <div class="dest-search-wrap">
+        <input type="text" id="dest-input" class="dest-input" placeholder="Type airport code or city — e.g. CDG, London, Dubai, JFK, Bangkok…" autocomplete="off">
+        <div id="dest-dropdown" class="dest-dropdown"></div>
+      </div>
+      <div id="dest-selected" style="display:none">
+        <div id="dest-ap-head" class="dest-ap-head"></div>
+        <div id="dest-stats-row" class="dest-stats-row"></div>
+        <div id="dest-results"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPLORER -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>The full <em>directory</em>.<br>All 218, searchable. Glowing cards have networks.</h2>
+      <p class="desc">Search by airline, IATA code, country, or hub. Sort by attractiveness, coverage, or alphabetically.</p>
+    </div>
+    <div class="explorer-controls">
+      <input type="text" class="search-input" id="search" placeholder="Search by airline, IATA code, country, hub (e.g., 'BKK' or 'Brazil')…">
+      <select class="sort-select" id="sort">
+        <option value="att">Sort: Attractiveness</option><option value="net">Sort: Network data first</option>
+        <option value="cov">Sort: Coverage</option><option value="name">Sort: A→Z</option>
+        <option value="ctry">Sort: Country</option><option value="reg">Sort: Region</option>
+      </select>
+    </div>
+    <div class="airline-grid" id="airline-grid"></div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="h-title">
+        <h2 id="m-name"></h2>
+        <div class="h-sub" id="m-sub"></div>
+        <div class="h-loc" id="m-loc"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="zed" onclick="switchTab('zed')">ZED Fares</button>
+        <button class="modal-tab" data-tab="network" onclick="switchTab('network')">Network <span class="badge" id="tab-net-badge">—</span></button>
+        <button class="modal-tab" data-tab="schedule" onclick="switchTab('schedule')">Schedule <span class="badge" id="tab-sch-badge">—</span></button>
+        <button class="modal-tab" data-tab="fleet" onclick="switchTab('fleet')">Fleet <span class="badge" id="tab-fleet-badge">—</span></button>
+      </div>
+      <div id="tab-zed" class="tab-pane active"></div>
+      <div id="tab-network" class="tab-pane"></div>
+      <div id="tab-schedule" class="tab-pane"></div>
+      <div id="tab-fleet" class="tab-pane"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="shell">
+    <em>ZED &amp; LT</em> agreements 30 Apr 2026 · FR24 sample 1 May 2026 · Built for Etihad crew use · Verify in OSS / IDTGR before travel
+  </div>
+</footer>
+
+</div><!-- #app -->
+
+
+<!-- SHARE / EXPORT PANEL -->
+<div id="share-panel" style="position:fixed;bottom:24px;right:24px;z-index:200;display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+  <div id="share-menu" style="display:none;background:var(--bg-card);border:1px solid var(--copper);padding:20px;min-width:280px;box-shadow:0 8px 32px rgba(0,0,0,0.6)">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--copper);text-transform:uppercase;margin-bottom:16px;font-weight:600">Share &amp; Export</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button onclick="exportCSV()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download CSV (all 218)</button>
+      <button onclick="exportFilteredCSV()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download CSV (current filter)</button>
+      <button onclick="exportNetworkJSON()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download Network JSON</button>
+      <button onclick="copyShareLink()" id="copy-link-btn" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">⎘ Copy page URL</button>
+      <div style="margin-top:8px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.08em;line-height:1.6">
+        ZED &amp; LT data: 30 Apr 2026<br>
+        FR24 network sample: 1–3 May 2026<br>
+        38 carriers w/ route data<br>
+        Always verify in OSS / IDTGR before travel
+      </div>
+    </div>
+  </div>
+  <button onclick="toggleShare()" style="background:var(--copper);color:var(--bg-deep);border:none;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;cursor:pointer;font-weight:700;text-transform:uppercase;box-shadow:0 4px 16px rgba(217,127,74,0.4)">⬆ SHARE / EXPORT</button>
+</div>
+
+<script>
+function toggleShare(){
+  const m = document.getElementById('share-menu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+function csvRow(r, idx){
+  const f = r.f;
+  const TL = {0:'n/a',1:'$',2:'$$',3:'$$$'};
+  return [idx+1, r.c, '"'+r.n+'"', r.r, '"'+r.h.country+'"', r.h.iata, '"'+r.h.name+'"', r.e,
+    TL[f[0]],TL[f[1]],TL[f[2]],TL[f[3]],
+    TL[f[4]],TL[f[5]],TL[f[6]],TL[f[7]],
+    TL[f[8]],TL[f[9]],TL[f[10]],TL[f[11]],
+    TL[f[12]],TL[f[13]],TL[f[14]],TL[f[15]],
+    r.d.eco, r.d.biz, r.d.dg_refund,
+    r.m.attractiveness, r.m.coverage,
+    NETWORKS[r.c] ? 'YES' : 'NO',
+    NETWORKS[r.c] ? NETWORKS[r.c].dest.length : 0
+  ].join(',');
+}
+
+const CSV_HEADER = '#,Code,Airline,Region,Country,Hub IATA,Hub Name,Entity,Sub-E SSC,Sub-E ZEP,Sub-E ZES,Sub-E TC,Sub-J SSC,Sub-J ZEP,Sub-J ZES,Sub-J TC,Firm-E SSC,Firm-E ZEP,Firm-E ZES,Firm-E TC,Firm-J SSC,Firm-J ZEP,Firm-J ZES,Firm-J TC,Duty Eco,Duty Biz,DG Refund,Attractiveness,Coverage,Has FR24,FR24 Destinations';
+
+function exportCSV(){
+  const rows = [CSV_HEADER].concat(DATA.map(csvRow));
+  download('zed_atlas_all_218.csv', rows.join('\n'), 'text/csv');
+}
+
+function exportFilteredCSV(){
+  const idx = getFareIndex();
+  let filtered = DATA.filter(function(r){ return r.f[idx] > 0; });
+  if(filters.region !== 'all') filtered = filtered.filter(function(r){ return r.r === filters.region; });
+  filtered.sort(function(a,b){ return a.f[idx]-b.f[idx] || b.m.coverage-a.m.coverage; });
+  const rows = [CSV_HEADER].concat(filtered.map(csvRow));
+  const scene = 'T'+filters.traveler+'_'+filters.cabin+'_'+filters.book+(filters.region!=='all'?'_'+filters.region.replace(/ /g,''):'');
+  download('zed_atlas_filtered_'+scene+'.csv', rows.join('\n'), 'text/csv');
+}
+
+function exportNetworkJSON(){
+  const out = {};
+  Object.entries(NETWORKS).forEach(function(entry){
+    const code = entry[0], n = entry[1];
+    const r = DATA.find(function(x){ return x.c === code; });
+    out[code] = {
+      airline: r ? r.n : code,
+      hub_iata: AIRPORTS[n.hub] ? AIRPORTS[n.hub][0] : n.hub,
+      hub_name: AIRPORTS[n.hub] ? AIRPORTS[n.hub][1] : '',
+      hub_country: AIRPORTS[n.hub] ? AIRPORTS[n.hub][2] : '',
+      sample_flights: n.sf,
+      unique_routes: n.ur,
+      destinations: n.dest.map(function(icao){
+        const ap = AIRPORTS[icao];
+        return ap ? {icao:icao,iata:ap[0],name:ap[1],country:ap[2]} : {icao:icao};
+      }),
+      top_routes: n.tr.map(function(t){
+        return {from:(AIRPORTS[t[0]]||[t[0]])[0], to:(AIRPORTS[t[1]]||[t[1]])[0], frequency:t[2], avg_flight_min:t[3]};
+      }),
+      aircraft_mix: n.ac,
+      data_window: n.win
+    };
+  });
+  download('zed_atlas_network_data.json', JSON.stringify(out, null, 2), 'application/json');
+}
+
+function copyShareLink(){
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(function(){
+    const btn = document.getElementById('copy-link-btn');
+    btn.textContent = '\u2713 Copied!';
+    btn.style.color = 'var(--tier-1)';
+    setTimeout(function(){ btn.textContent = '\u2358 Copy page URL'; btn.style.color = ''; }, 2000);
+  });
+}
+
+function download(filename, content, type){
+  const blob = new Blob([content], {type:type});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+<script>
+// ── ZED Atlas · External Data Loader ──────────────────────────────────────────
+// Loads data/zed_agreements.json, data/networks.json, data/airports.json,
+// and data/world_path.txt from the same folder as this HTML file.
+//
+// TO UPDATE FR24 DATA: replace data/networks.json with a new version.
+// TO UPDATE ZED DATA:  replace data/zed_agreements.json.
+// TO UPDATE AIRPORTS:  replace data/airports.json.
+
+var DATA, NETWORKS, AIRPORTS, WORLD_PATH_STR;
+
+const TIER_LABEL = {0:'—',1:'$',2:'$$',3:'$$$'};
+
+function loadAll() {
+  const base = './data/';
+  const loaderEl = document.getElementById('loader');
+
+  Promise.all([
+    fetch(base + 'zed_agreements.json').then(r => r.json()),
+    fetch(base + 'networks.json').then(r => r.json()),
+    fetch(base + 'airports.json').then(r => r.json()),
+    fetch(base + 'world_path.txt').then(r => r.text()),
+  ]).then(([agreements, networks, airports, worldPath]) => {
+    DATA         = agreements;
+    NETWORKS     = networks;
+    AIRPORTS     = airports;
+    WORLD_PATH_STR = worldPath.trim();
+
+    // Inject world paths into both SVG elements
+    document.querySelectorAll('.country-path').forEach(el => {
+      el.setAttribute('d', WORLD_PATH_STR);
+    });
+
+    // Hide loader, show content
+    loaderEl.style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+
+    // Boot the app
+    renderStats();
+    buildAirportIndex();
+    renderMap();
+    renderPicks();
+    renderRegions();
+    renderScenario();
+    renderExplorer();
+
+  }).catch(err => {
+    loaderEl.innerHTML = `
+      <div style="max-width:560px;margin:0 auto;font-family:'JetBrains Mono',monospace">
+        <div style="color:#e54e4e;font-size:14px;letter-spacing:0.1em;margin-bottom:16px">
+          ⚠ DATA FILES NOT FOUND
+        </div>
+        <div style="color:#8a93a6;font-size:12px;line-height:1.8">
+          This tool needs the <strong style="color:#e8ecf2">data/</strong> folder next to the HTML file.<br><br>
+          Make sure you have this structure:<br>
+          <span style="color:#d97f4a">zed_atlas/</span><br>
+          &nbsp;&nbsp;<span style="color:#e8ecf2">ZED_Atlas.html</span><br>
+          &nbsp;&nbsp;<span style="color:#d97f4a">data/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">zed_agreements.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">networks.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">airports.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">world_path.txt</span><br><br>
+          Error: <span style="color:#e54e4e">${err.message}</span><br><br>
+          <span style="color:#5a6478;font-size:11px">
+            If opening from a local file, try using a local server:<br>
+            &nbsp;&nbsp;python3 -m http.server 8080<br>
+            then open: http://localhost:8080/ZED_Atlas.html
+          </span>
+        </div>
+      </div>
+    `;
+  });
+}
+
+window.addEventListener('DOMContentLoaded', loadAll);
+</script>
+
+<script>
+
+// Aircraft-type → friendly name
+const AC_NAMES = {
+  'A20N':'Airbus A320neo','A21N':'Airbus A321neo','A319':'Airbus A319','A320':'Airbus A320','A321':'Airbus A321',
+  'A332':'Airbus A330-200','A333':'Airbus A330-300','A343':'Airbus A340-300','A346':'Airbus A340-600',
+  'A359':'Airbus A350-900','A35K':'Airbus A350-1000','A388':'Airbus A380','AT46':'ATR 42','AT76':'ATR 72',
+  'B38M':'Boeing 737 MAX 8','B738':'Boeing 737-800','B739':'Boeing 737-900','B744':'Boeing 747-400',
+  'B748':'Boeing 747-8','B77L':'Boeing 777F','B77W':'Boeing 777-300ER','B772':'Boeing 777-200','B763':'Boeing 767-300',
+  'B788':'Boeing 787-8','B789':'Boeing 787-9','B78X':'Boeing 787-10','BCS3':'Airbus A220-300','DHC6':'DHC-6 Twin Otter',
+  'E190':'Embraer E190','E195':'Embraer E195','E290':'Embraer E190-E2','E295':'Embraer E195-E2','F100':'Fokker 100',
+};
+
+// Geographic projection: equirectangular, with clamping at 85°N and 60°S to avoid distortion at the poles.
+
+const MAP_W = 1000, MAP_H = 460;
+const LAT_MIN = -60, LAT_MAX = 85;
+const LAT_RANGE = LAT_MAX - LAT_MIN;
+function project(lon, lat){
+  const lat2 = Math.max(LAT_MIN, Math.min(LAT_MAX, lat));
+  return [(lon + 180) / 360 * MAP_W, (LAT_MAX - lat2) / LAT_RANGE * MAP_H];
+}
+function tierFromStr(s){ return s==='$'?1: s==='$$'?2: s==='$$$'?3: 0; }
+
+function hasNetwork(code){ return !!NETWORKS[code]; }
+
+// ====== STATS ======
+function renderStats(){
+  const netCount = Object.keys(NETWORKS).length;
+  const allRoutes = Object.values(NETWORKS).reduce((a, n) => a + (n.tr ? n.tr.length : 0), 0);
+  const allAirports = new Set();
+  Object.values(NETWORKS).forEach(n => {
+    (n.dest||[]).forEach(d => allAirports.add(d));
+    if(n.hub) allAirports.add(n.hub);
+  });
+  document.getElementById('stat-network-count').textContent = netCount;
+  document.getElementById('stat-networks').textContent = netCount;
+  document.getElementById('stat-routes').textContent = allRoutes;
+  document.getElementById('stat-airports').textContent = allAirports.size;
+  document.getElementById('stat-low').textContent = DATA.filter(r=>r.m.avg_fare>0 && r.m.avg_fare<=1.0).length;
+}
+
+// ====== MAP ======
+let mapMode = 'overall';
+function clusterPositions(rows){
+  const byHub = {};
+  rows.forEach(r => {
+    const k = r.h.iata;
+    if(!byHub[k]) byHub[k] = [];
+    byHub[k].push(r);
+  });
+  const out = [];
+  Object.values(byHub).forEach(group => {
+    const [bx, by] = project(group[0].h.lon, group[0].h.lat);
+    if(group.length === 1){ out.push({r: group[0], x: bx, y: by}); }
+    else {
+      const radius = 5;
+      const n = group.length;
+      group.forEach((r, i) => {
+        const angle = (i / n) * Math.PI * 2 - Math.PI/2;
+        out.push({r, x: bx + Math.cos(angle)*radius, y: by + Math.sin(angle)*radius});
+      });
+    }
+  });
+  return out;
+}
+function getDotColor(r, mode){
+  if(mode === 'overall'){
+    const a = r.m.attractiveness;
+    if(a >= 36) return 'var(--tier-1)'; if(a >= 24) return 'var(--gold)';
+    if(a >= 12) return 'var(--copper)'; return 'var(--tier-3)';
+  }
+  if(mode === 'network'){ return hasNetwork(r.c) ? 'var(--tier-1)' : 'var(--ink-mute)'; }
+  if(mode === 'sub_eco'){ return r.f[0]===1?'var(--tier-1)':r.f[0]===2?'var(--tier-2)':r.f[0]===3?'var(--tier-3)':'var(--ink-mute)'; }
+  if(mode === 'sub_biz'){ return r.f[4]===1?'var(--tier-1)':r.f[4]===2?'var(--tier-2)':r.f[4]===3?'var(--tier-3)':'var(--ink-mute)'; }
+  if(mode === 'duty'){
+    const e=tierFromStr(r.d.eco), b=tierFromStr(r.d.biz);
+    if(e===1 && b===1) return 'var(--tier-1)';
+    if(e===1 || b===1) return 'var(--gold)';
+    if(e || b) return 'var(--copper)';
+    return 'var(--ink-mute)';
+  }
+  if(mode === 'family'){
+    const z=r.f[1], s=r.f[2];
+    if(z===1 && s===1) return 'var(--tier-1)';
+    if(z && s) return 'var(--gold)';
+    if(z || s) return 'var(--copper)';
+    return 'var(--ink-mute)';
+  }
+  return 'var(--ink-mute)';
+}
+function dotIsHighlight(r, mode){
+  if(mode === 'overall') return r.m.attractiveness >= 36;
+  if(mode === 'network') return hasNetwork(r.c);
+  if(mode === 'sub_eco') return r.f[0] === 1;
+  if(mode === 'sub_biz') return r.f[4] === 1;
+  if(mode === 'duty') return tierFromStr(r.d.eco) === 1 && tierFromStr(r.d.biz) === 1;
+  if(mode === 'family') return r.f[1] === 1 && r.f[2] === 1;
+  return false;
+}
+function dotIsRelevant(r, mode){
+  if(mode === 'overall') return true;
+  if(mode === 'network') return true;
+  if(mode === 'sub_eco') return r.f[0] > 0;
+  if(mode === 'sub_biz') return r.f[4] > 0;
+  if(mode === 'duty') return tierFromStr(r.d.eco) > 0 || tierFromStr(r.d.biz) > 0;
+  if(mode === 'family') return r.f[1] > 0 || r.f[2] > 0;
+  return true;
+}
+const LEGENDS = {
+  overall: [['var(--tier-1)','★ 36+ pts'],['var(--gold)','24–35'],['var(--copper)','12–23'],['var(--tier-3)','< 12'],['var(--ink-mute)','no biz']],
+  network: [['var(--tier-1)','FR24 network captured'],['var(--ink-mute)','No network data yet']],
+  sub_eco: [['var(--tier-1)','$ low'],['var(--tier-2)','$$ med'],['var(--tier-3)','$$$ high'],['var(--ink-mute)','n/a']],
+  sub_biz: [['var(--tier-1)','$ low'],['var(--tier-2)','$$ med'],['var(--tier-3)','$$$ high'],['var(--ink-mute)','n/a']],
+  duty: [['var(--tier-1)','$/$ both'],['var(--gold)','$ in one'],['var(--copper)','available'],['var(--ink-mute)','none']],
+  family: [['var(--tier-1)','$ for both'],['var(--gold)','both avail'],['var(--copper)','one of'],['var(--ink-mute)','neither']],
+};
+function renderMap(){
+  const layer = document.getElementById('hub-layer');
+  const ringLayer = document.getElementById('hub-ring-layer');
+  const positions = clusterPositions(DATA);
+  let rings = '', dots = '';
+  positions.forEach(p => {
+    const color = getDotColor(p.r, mapMode);
+    const relevant = dotIsRelevant(p.r, mapMode);
+    const highlight = dotIsHighlight(p.r, mapMode);
+    const a = p.r.m.attractiveness;
+    // Graduated radius: 3 tiers for highlight, 2 for normal
+    const dotR = highlight ? (a >= 48 ? 6.5 : a >= 36 ? 5.5 : 5) : (a >= 24 ? 4.2 : 3.4);
+    const opacity = relevant ? (highlight ? 1 : 0.78) : 0.15;
+    const cls = hasNetwork(p.r.c) ? 'hub-dot has-network' : 'hub-dot';
+    // Pulsing ring for network carriers
+    if(hasNetwork(p.r.c) && relevant){
+      const fromOpacity = highlight ? '0.55' : '0.28';
+      const toR = (dotR * 2.8).toFixed(1);
+      const dur = highlight ? '2.2s' : '3.2s';
+      rings += `<circle fill="none" stroke="${color}" stroke-width="0.7" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${dotR}" pointer-events="none"><animate attributeName="r" from="${dotR}" to="${toR}" dur="${dur}" repeatCount="indefinite"/><animate attributeName="opacity" from="${fromOpacity}" to="0" dur="${dur}" repeatCount="indefinite"/></circle>`;
+    }
+    dots += `<circle class="${cls}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${dotR}" fill="${color}" opacity="${opacity}" data-code="${p.r.c}"/>`;
+  });
+  ringLayer.innerHTML = rings;
+  layer.innerHTML = dots;
+  const relevantCount = DATA.filter(r => dotIsRelevant(r, mapMode)).length;
+  const topCount = DATA.filter(r => dotIsHighlight(r, mapMode)).length;
+  if(mapMode === 'network') document.getElementById('map-count').textContent = `${topCount} carriers w/ FR24 data`;
+  else if(mapMode === 'overall') document.getElementById('map-count').textContent = `218 carriers · ${topCount} top tier`;
+  else document.getElementById('map-count').textContent = `${relevantCount} match · ${topCount} at $`;
+  const leg = document.getElementById('map-legend');
+  leg.innerHTML = LEGENDS[mapMode].map(([c, t]) => `<div class="item"><div class="swatch" style="background:${c}"></div>${t}</div>`).join('');
+  bindMapInteractions();
+}
+const tt = document.getElementById('tooltip');
+function bindMapInteractions(){
+  const wrap = document.getElementById('map-svg-wrap');
+  document.querySelectorAll('.hub-dot').forEach(dot => {
+    dot.addEventListener('mouseenter', e => {
+      const code = e.target.dataset.code;
+      const r = DATA.find(x => x.c === code);
+      if(!r) return;
+      const net = NETWORKS[code];
+      tt.innerHTML = `
+        <div class="tt-head"><div class="tt-name">${r.n}</div><div class="tt-code">${r.c}</div></div>
+        <div class="tt-meta">${r.h.country} · ${r.h.iata} ${r.h.name}</div>
+        ${net ? `<span class="tt-network-tag">▶ ${net.dest.length} destinations · ${net.tr.length} routes</span>` : ''}
+        <div class="tt-stats">
+          <div class="tt-stat"><div class="l">Attract</div><div class="v">${r.m.attractiveness}</div></div>
+          <div class="tt-stat"><div class="l">Coverage</div><div class="v">${r.m.coverage}/16</div></div>
+          <div class="tt-stat"><div class="l">Avg fare</div><div class="v">${r.m.avg_fare || '—'}</div></div>
+        </div>
+        <div class="tt-cta">${net ? 'Click for full network' : 'Click for fare detail'}</div>
+      `;
+      tt.classList.add('show');
+    });
+    dot.addEventListener('mousemove', e => {
+      const wr = wrap.getBoundingClientRect();
+      const x = e.clientX - wr.left, y = e.clientY - wr.top;
+      const tr = tt.getBoundingClientRect();
+      let nx = x + 16, ny = y + 16;
+      if(nx + tr.width > wr.width - 8) nx = x - tr.width - 16;
+      if(ny + tr.height > wr.height - 8) ny = y - tr.height - 16;
+      if(nx < 8) nx = 8; if(ny < 8) ny = 8;
+      tt.style.left = nx + 'px'; tt.style.top = ny + 'px';
+    });
+    dot.addEventListener('mouseleave', () => tt.classList.remove('show'));
+    dot.addEventListener('click', e => openModal(e.target.dataset.code));
+  });
+}
+document.querySelectorAll('#map-mode .map-chip').forEach(c => {
+  c.onclick = () => {
+    document.querySelectorAll('#map-mode .map-chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active'); mapMode = c.dataset.v; renderMap();
+  };
+});
+
+// ====== PICKS ======
+function renderPick(elId, list, fn){
+  document.getElementById(elId).innerHTML = list.slice(0,8).map((r,i) => `
+    <li class="rank-row" onclick="openModal('${r.c}')">
+      <span class="pos">${(i+1).toString().padStart(2,'0')}</span>
+      <span class="code">${r.c}</span>
+      <span class="nm">${r.n}${hasNetwork(r.c)?' <span style="color:var(--tier-1);font-size:9px">●</span>':''}</span>
+      <span class="reg">${r.h.iata}</span>
+      <span class="reg">${r.r.replace(' ','\u00a0')}</span>
+      <span class="met">${fn(r)}</span>
+    </li>`).join('');
+}
+function renderPicks(){
+  const overall = [...DATA].sort((a,b)=>b.m.attractiveness-a.m.attractiveness);
+  renderPick('pick-overall', overall, r=>`${r.m.attractiveness}`);
+  const biz = DATA.filter(r=>r.f[4]===1).map(r=>({...r, _bc: r.f.slice(4,8).filter(x=>x>0).length+r.f.slice(12,16).filter(x=>x>0).length})).sort((a,b)=>b._bc-a._bc || a.m.avg_fare-b.m.avg_fare);
+  renderPick('pick-biz', biz, r=>`${r._bc}/8`);
+  const family = DATA.filter(r=>r.f[1]>0 && r.f[2]>0).map(r=>({...r, _fs:(r.f[1]===1?2:r.f[1]===2?1:0)+(r.f[2]===1?2:r.f[2]===2?1:0)})).sort((a,b)=>b._fs-a._fs||a.m.avg_fare-b.m.avg_fare);
+  renderPick('pick-family', family, r=>`${TIER_LABEL[r.f[1]]}/${TIER_LABEL[r.f[2]]}`);
+  const duty = DATA.filter(r=>r.d.eco==='$'&&r.d.biz==='$').sort((a,b)=>b.m.coverage-a.m.coverage);
+  renderPick('pick-duty', duty, r=>`${r.d.eco}/${r.d.biz}`);
+}
+
+// ====== REGIONS ======
+let activeRegion = 'all';
+function renderRegions(){
+  const reg = {};
+  DATA.forEach(r=>{
+    if(!reg[r.r]) reg[r.r] = {name:r.r,count:0,t1:0,t2:0,t3:0,total:0};
+    reg[r.r].count++;
+    r.f.forEach(v=>{ if(v>0){reg[r.r].total++; if(v===1)reg[r.r].t1++;else if(v===2)reg[r.r].t2++;else reg[r.r].t3++;} });
+  });
+  const order = ['Middle East','Europe','Asia','North America','Latin America','Africa','Oceania','Other'];
+  document.getElementById('region-grid').innerHTML = order.filter(o=>reg[o]).map(o=>{
+    const r = reg[o], t1=r.total?r.t1/r.total*100:0, t2=r.total?r.t2/r.total*100:0, t3=r.total?r.t3/r.total*100:0;
+    const avg = r.total ? ((r.t1*1+r.t2*2+r.t3*3)/r.total).toFixed(2) : '—';
+    return `<div class="region-card" data-region="${r.name}" onclick="filterByRegion('${r.name}')">
+      <h3>${r.name}</h3><div class="count">${r.count} carriers · ${r.total} fare cells active</div>
+      <div class="bars"><div class="b1" style="width:${t1}%"></div><div class="b2" style="width:${t2}%"></div><div class="b3" style="width:${t3}%"></div></div>
+      <div class="legend-row"><span>$ ${Math.round(t1)}%</span><span>$$ ${Math.round(t2)}%</span><span>$$$ ${Math.round(t3)}%</span><span>avg ${avg}</span></div></div>`;
+  }).join('');
+}
+function filterByRegion(r){
+  activeRegion = (activeRegion === r) ? 'all' : r;
+  document.querySelectorAll('.region-card').forEach(el=>el.classList.toggle('active', el.dataset.region===activeRegion));
+  document.querySelectorAll('#filter-region .chip').forEach(c=>c.classList.toggle('active', c.dataset.v===activeRegion));
+  filters.region = activeRegion; renderScenario();
+  document.getElementById('filter-region').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// ====== SCENARIO ======
+const filters = {traveler:'0',cabin:'eco',book:'sub',region:'all'};
+function getFareIndex(){
+  const t=parseInt(filters.traveler), c=filters.cabin==='eco'?0:1, b=filters.book==='sub'?0:1;
+  return b*8 + c*4 + t;
+}
+function renderScenario(){
+  const idx = getFareIndex();
+  let rows = DATA.filter(r=>r.f[idx]>0);
+  if(filters.region !== 'all') rows = rows.filter(r=>r.r===filters.region);
+  rows.sort((a,b)=> a.f[idx]-b.f[idx] || b.m.coverage-a.m.coverage);
+  document.getElementById('scenario-count').textContent = rows.length;
+  document.getElementById('scenario-tbody').innerHTML = rows.map((r,i)=>{
+    const fare = r.f[idx];
+    return `<tr onclick="openModal('${r.c}')" style="cursor:pointer">
+      <td class="mono" style="color:var(--ink-mute);width:36px">${(i+1).toString().padStart(2,'0')}</td>
+      <td class="td-code">${r.c}${hasNetwork(r.c)?' <span style="color:var(--tier-1);font-size:9px">●</span>':''}</td>
+      <td>${r.n}</td>
+      <td class="td-hub">${r.h.country} · ${r.h.iata}</td>
+      <td class="mono" style="font-size:11px;color:var(--ink-mute);letter-spacing:0.08em;text-transform:uppercase">${r.r}</td>
+      <td class="td-fare fare-tier-${fare}">${TIER_LABEL[fare]}</td>
+      <td class="td-fare fare-tier-${tierFromStr(r.d.eco)}">${r.d.eco}</td>
+      <td class="td-fare fare-tier-${tierFromStr(r.d.biz)}">${r.d.biz}</td>
+      <td class="mono" style="font-size:11px;color:${r.d.dg_refund==='YES'?'var(--tier-1)':r.d.dg_refund==='NO'?'var(--tier-3)':'var(--ink-mute)'};text-align:center">${r.d.dg_refund}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="9" style="padding:40px;text-align:center;color:var(--ink-mute)">No carriers match.</td></tr>`;
+}
+['traveler','cabin','book','region'].forEach(k=>{
+  document.querySelectorAll(`#filter-${k} .chip`).forEach(c=>{
+    c.onclick = ()=>{
+      document.querySelectorAll(`#filter-${k} .chip`).forEach(x=>x.classList.remove('active'));
+      c.classList.add('active'); filters[k] = c.dataset.v;
+      if(k==='region'){
+        activeRegion = c.dataset.v;
+        document.querySelectorAll('.region-card').forEach(el=>el.classList.toggle('active', el.dataset.region===activeRegion));
+      }
+      renderScenario();
+    };
+  });
+});
+
+// ====== EXPLORER ======
+let searchQ='', sortBy='att';
+document.getElementById('search').addEventListener('input', e=>{ searchQ = e.target.value.toLowerCase(); renderExplorer(); });
+document.getElementById('sort').addEventListener('change', e=>{ sortBy = e.target.value; renderExplorer(); });
+function renderExplorer(){
+  let list = DATA;
+  if(searchQ){
+    list = list.filter(r => r.n.toLowerCase().includes(searchQ) || r.c.toLowerCase().includes(searchQ) ||
+      r.h.country.toLowerCase().includes(searchQ) || r.h.iata.toLowerCase().includes(searchQ) ||
+      r.h.name.toLowerCase().includes(searchQ));
+  }
+  if(sortBy==='att') list = [...list].sort((a,b)=>b.m.attractiveness-a.m.attractiveness);
+  else if(sortBy==='net') list = [...list].sort((a,b)=>(hasNetwork(b.c)?1:0)-(hasNetwork(a.c)?1:0) || b.m.attractiveness-a.m.attractiveness);
+  else if(sortBy==='cov') list = [...list].sort((a,b)=>b.m.coverage-a.m.coverage);
+  else if(sortBy==='name') list = [...list].sort((a,b)=>a.n.localeCompare(b.n));
+  else if(sortBy==='ctry') list = [...list].sort((a,b)=> a.h.country.localeCompare(b.h.country) || b.m.attractiveness-a.m.attractiveness);
+  else if(sortBy==='reg') list = [...list].sort((a,b)=> a.r.localeCompare(b.r) || b.m.attractiveness-a.m.attractiveness);
+
+  document.getElementById('airline-grid').innerHTML = list.map(r=>`
+    <div class="airline-card ${hasNetwork(r.c)?'has-network':''}" onclick="openModal('${r.c}')">
+      <div class="ac-head">
+        <div><div class="ac-code">${r.c}</div><div class="ac-name">${r.n}</div></div>
+        <div class="ac-region">${r.r.replace(' ','\u00a0')}</div>
+      </div>
+      <div class="ac-loc"><span class="iata">${r.h.iata}</span> · <span class="ctry">${r.h.country}</span></div>
+      <div class="ac-matrix">
+        <div></div><div class="matrix-h">SSC</div><div class="matrix-h">ZEP</div><div class="matrix-h">ZES</div><div class="matrix-h">TC</div>
+        ${miniRow('SUB·E', r.f.slice(0,4))}${miniRow('SUB·J', r.f.slice(4,8))}
+        ${miniRow('FRM·E', r.f.slice(8,12))}${miniRow('FRM·J', r.f.slice(12,16))}
+      </div>
+      <div class="ac-flags">
+        <span class="flag score">${r.m.attractiveness}</span>
+        ${r.d.eco!=='-' && r.d.eco!=='NA'?`<span class="flag duty">DUTY E·${r.d.eco}</span>`:''}
+        ${r.d.biz!=='-' && r.d.biz!=='NA'?`<span class="flag duty">DUTY J·${r.d.biz}</span>`:''}
+        ${r.d.dg_refund==='YES'?`<span class="flag duty">DG RFND</span>`:''}
+      </div>
+    </div>`).join('') || `<div style="grid-column:1/-1;padding:48px;text-align:center;color:var(--ink-mute)">No airlines match.</div>`;
+}
+function miniRow(lbl, cells){
+  return `<div class="matrix-r">${lbl}</div>` + cells.map(v=>`<div class="matrix-c t${v}">${TIER_LABEL[v]}</div>`).join('');
+}
+
+// ====== MODAL ======
+let currentCode = null;
+
+function openModal(code){
+  const r = DATA.find(x=>x.c===code);
+  if(!r) return;
+  currentCode = code;
+  document.getElementById('m-name').textContent = r.n;
+  document.getElementById('m-sub').textContent = `${r.c} · ${r.r} · Entity ${r.e}`;
+  document.getElementById('m-loc').innerHTML = `Hub: <strong>${r.h.iata}</strong> ${r.h.name} · <strong>${r.h.country}</strong>`;
+  
+  // Tab badges
+  const net = NETWORKS[code];
+  if(net){
+    document.getElementById('tab-net-badge').textContent = net.dest.length;
+    document.getElementById('tab-sch-badge').textContent = net.sch.length;
+    document.getElementById('tab-fleet-badge').textContent = Object.keys(net.ac).length;
+    document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('disabled'));
+  } else {
+    document.getElementById('tab-net-badge').textContent = '0';
+    document.getElementById('tab-sch-badge').textContent = '0';
+    document.getElementById('tab-fleet-badge').textContent = '0';
+    ['network','schedule','fleet'].forEach(t => document.querySelector(`.modal-tab[data-tab="${t}"]`).classList.add('disabled'));
+  }
+  
+  // Render all tab contents
+  renderZedTab(r);
+  renderNetworkTab(r, net);
+  renderScheduleTab(r, net);
+  renderFleetTab(r, net);
+  
+  // Default to ZED tab
+  switchTab('zed');
+  
+  document.getElementById('modal').classList.add('open');
+}
+
+function switchTab(tab){
+  // Don't switch if disabled
+  const btn = document.querySelector(`.modal-tab[data-tab="${tab}"]`);
+  if(btn.classList.contains('disabled')) return;
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`tab-${tab}`).classList.add('active');
+}
+
+function renderZedTab(r){
+  const tiers = idxs => idxs.map(i => `<td class="cell-${r.f[i]}">${TIER_LABEL[r.f[i]]}</td>`).join('');
+  document.getElementById('tab-zed').innerHTML = `
+    <div class="metric-grid">
+      <div class="m"><div class="lbl">Attractiveness</div><div class="val"><em>${r.m.attractiveness}</em></div></div>
+      <div class="m"><div class="lbl">Coverage</div><div class="val">${r.m.coverage}<span style="color:var(--ink-mute);font-size:14px">/16</span></div></div>
+      <div class="m"><div class="lbl">Avg fare tier</div><div class="val">${r.m.avg_fare || '—'}</div></div>
+    </div>
+    <div style="margin-top:30px">
+      <div class="label" style="margin-bottom:8px">Fare matrix · row × column</div>
+      <table class="fare-table"><thead><tr><th></th>
+        <th>SSC<br><span style="font-weight:400;text-transform:none;color:var(--ink-mute);font-size:9px;letter-spacing:0.05em">self·spouse·child</span></th>
+        <th>ZEP<br><span style="font-weight:400;text-transform:none;color:var(--ink-mute);font-size:9px;letter-spacing:0.05em">parents</span></th>
+        <th>ZES<br><span style="font-weight:400;text-transform:none;color:var(--ink-mute);font-size:9px;letter-spacing:0.05em">siblings</span></th>
+        <th>TC<br><span style="font-weight:400;text-transform:none;color:var(--ink-mute);font-size:9px;letter-spacing:0.05em">companion</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="row-h">Subload Eco</td>${tiers([0,1,2,3])}</tr>
+          <tr><td class="row-h">Subload Biz</td>${tiers([4,5,6,7])}</tr>
+          <tr><td class="row-h">Firm Eco</td>${tiers([8,9,10,11])}</tr>
+          <tr><td class="row-h">Firm Biz</td>${tiers([12,13,14,15])}</tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:24px">
+      <div class="label" style="margin-bottom:8px">Duty travel &amp; refund</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div style="padding:14px 16px;background:var(--bg-panel);border:1px solid var(--line)"><div class="label" style="margin-bottom:6px">Duty · economy</div><div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:${tierFromStr(r.d.eco)?'var(--tier-'+tierFromStr(r.d.eco)+')':'var(--ink-mute)'}">${r.d.eco}</div></div>
+        <div style="padding:14px 16px;background:var(--bg-panel);border:1px solid var(--line)"><div class="label" style="margin-bottom:6px">Duty · business</div><div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:${tierFromStr(r.d.biz)?'var(--tier-'+tierFromStr(r.d.biz)+')':'var(--ink-mute)'}">${r.d.biz}</div></div>
+        <div style="padding:14px 16px;background:var(--bg-panel);border:1px solid var(--line)"><div class="label" style="margin-bottom:6px">DG refund</div><div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;color:${r.d.dg_refund==='YES'?'var(--tier-1)':r.d.dg_refund==='NO'?'var(--tier-3)':'var(--ink-mute)'}">${r.d.dg_refund}</div></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderNetworkTab(r, net){
+  if(!net){
+    document.getElementById('tab-network').innerHTML = `<div class="no-data">
+      <div class="strong">No FR24 network data captured</div>
+      <div style="margin-top:12px;text-transform:none;letter-spacing:0;line-height:1.6">This carrier (${r.c} · ${r.n}) is in the long tail.<br>Network data is captured progressively in priority order.<br><br>Hub: ${r.h.iata} ${r.h.name}, ${r.h.country}</div>
+    </div>`;
+    return;
+  }
+  
+  // Build the network map
+  const hub = AIRPORTS[net.hub];
+  const [hubX, hubY] = hub ? project(hub[4], hub[3]) : [500, 230];
+  
+  // Compute bounding box around hub + destinations to zoom intelligently
+  const points = [{lat: hub[3], lon: hub[4]}];
+  net.dest.forEach(icao => {
+    const ap = AIRPORTS[icao];
+    if(ap) points.push({lat: ap[3], lon: ap[4]});
+  });
+  
+  const lats = points.map(p => p.lat), lons = points.map(p => p.lon);
+  let minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  let minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  
+  // Pad
+  const padLat = Math.max(8, (maxLat - minLat) * 0.15);
+  const padLon = Math.max(10, (maxLon - minLon) * 0.15);
+  minLat -= padLat; maxLat += padLat;
+  minLon -= padLon; maxLon += padLon;
+  
+  // Don't go beyond global bounds
+  minLat = Math.max(minLat, -60); maxLat = Math.min(maxLat, 85);
+  minLon = Math.max(minLon, -180); maxLon = Math.min(maxLon, 180);
+  
+  // Map this region to viewBox
+  const projLocal = (lon, lat) => {
+    const lat2 = Math.max(LAT_MIN, Math.min(LAT_MAX, lat));
+    return [(lon + 180) / 360 * MAP_W, (LAT_MAX - lat2) / LAT_RANGE * MAP_H];
+  };
+  const [vbX1, vbY2] = projLocal(minLon, minLat);
+  const [vbX2, vbY1] = projLocal(maxLon, maxLat);
+  const vbW = vbX2 - vbX1, vbH = vbY2 - vbY1;
+  
+  // Draw routes from hub
+  const routeLines = net.tr.map(([o,d,cnt,dur]) => {
+    const oa = AIRPORTS[o], da = AIRPORTS[d];
+    if(!oa || !da) return '';
+    const [x1,y1] = projLocal(oa[4], oa[3]);
+    const [x2,y2] = projLocal(da[4], da[3]);
+    // Curved path
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const dx = x2-x1, dy = y2-y1;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const curveOffset = Math.min(dist * 0.15, 30);
+    const cx = mx - dy/dist * curveOffset, cy = my + dx/dist * curveOffset;
+    const cls = cnt >= 3 ? 'heavy' : cnt >= 2 ? 'medium' : 'light';
+    return `<path class="net-route ${cls}" d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}"/>`;
+  }).join('');
+  
+  // Draw destination dots — radius also in viewBox units
+  const destRadius = (vbW * 0.004).toFixed(1);
+  const destDots = net.dest.map(icao => {
+    const ap = AIRPORTS[icao];
+    if(!ap || icao === net.hub) return '';
+    const [x,y] = projLocal(ap[4], ap[3]);
+    return `<circle class="net-dest" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${destRadius}" data-icao="${icao}"><title>${ap[0]} · ${ap[1]}</title></circle>`;
+  }).join('');
+  
+  // Hub dot
+  // Font sizes in viewBox units — proportional to map area so they never blow up on zoom
+  const labelFontSize = (vbW * 0.022).toFixed(1);   // dest labels: ~2.2% of viewBox width
+  const hubFontSize   = (vbW * 0.028).toFixed(1);   // hub label slightly larger
+  const labelOffset   = (vbW * 0.012).toFixed(1);   // horizontal offset from dot
+
+  const hubDot = hub ? `<circle class="net-hub" cx="${projLocal(hub[4], hub[3])[0].toFixed(1)}" cy="${projLocal(hub[4], hub[3])[1].toFixed(1)}" r="${(vbW*0.006).toFixed(1)}"/>
+    <text class="net-label hub-label" font-size="${hubFontSize}" x="${(projLocal(hub[4], hub[3])[0] + parseFloat(labelOffset) * 1.2).toFixed(1)}" y="${(projLocal(hub[4], hub[3])[1] + parseFloat(hubFontSize)*0.35).toFixed(1)}">${hub[0]}</text>` : '';
+  
+  // Destination labels (only for top routes — don't clutter)
+  const labelDest = new Set();
+  net.tr.slice(0,8).forEach(([o,d]) => { if(o !== net.hub) labelDest.add(o); if(d !== net.hub) labelDest.add(d); });
+  const labels = [...labelDest].map(icao => {
+    const ap = AIRPORTS[icao];
+    if(!ap) return '';
+    const [x,y] = projLocal(ap[4], ap[3]);
+    return `<text class="net-label" font-size="${labelFontSize}" x="${(x + parseFloat(labelOffset)).toFixed(1)}" y="${(y + parseFloat(labelFontSize)*0.35).toFixed(1)}">${ap[0]}</text>`;
+  }).join('');
+  
+  // Aircraft mix summary
+  const totalFlights = Object.values(net.ac).reduce((a,b)=>a+b,0);
+  
+  // Top destinations from hub by frequency
+  const fromHub = net.tr.filter(([o,d]) => o === net.hub).map(([o,d,cnt,dur]) => ({d, cnt, dur}));
+  const toHub = net.tr.filter(([o,d]) => d === net.hub).map(([o,d,cnt,dur]) => ({d:o, cnt, dur}));
+  // Combine: prefer from-hub, supplement with to-hub
+  const destCount = {};
+  fromHub.forEach(({d, cnt, dur}) => { destCount[d] = {cnt, dur}; });
+  toHub.forEach(({d, cnt, dur}) => {
+    if(!destCount[d]) destCount[d] = {cnt: 0, dur};
+    destCount[d].cnt += cnt;
+    if(!destCount[d].dur) destCount[d].dur = dur;
+  });
+  const topDests = Object.entries(destCount).map(([d, info]) => ({d, ...info})).sort((a,b)=>b.cnt-a.cnt);
+  
+  document.getElementById('tab-network').innerHTML = `
+    <div class="network-summary">
+      <div class="ns-stat"><div class="l">Destinations from hub</div><div class="v"><em>${net.dest.length}</em></div><div class="sub">in 1-day sample</div></div>
+      <div class="ns-stat"><div class="l">Unique routes</div><div class="v">${net.tr.length}</div><div class="sub">${net.sf} flights observed</div></div>
+      <div class="ns-stat"><div class="l">Aircraft types</div><div class="v">${Object.keys(net.ac).length}</div><div class="sub">${totalFlights} movements</div></div>
+      <div class="ns-stat"><div class="l">Data window</div><div class="v" style="font-size:18px">${net.win}</div><div class="sub">FR24 sample · ~20 records</div></div>
+    </div>
+    
+    <div class="label" style="margin-bottom:10px">Network — routes flown from <span style="color:var(--gold)">${hub ? hub[0] : net.hub}</span></div>
+    <div class="net-map">
+      <svg viewBox="${vbX1.toFixed(1)} ${vbY1.toFixed(1)} ${vbW.toFixed(1)} ${vbH.toFixed(1)}" preserveAspectRatio="xMidYMid meet" style="aspect-ratio: ${vbW/vbH}">
+        <rect x="${vbX1}" y="${vbY1}" width="${vbW}" height="${vbH}" fill="#080a0e"/>
+        <path class="country-path" d="${WORLD_PATH_STR}" />
+        ${routeLines}
+        ${destDots}
+        ${hubDot}
+        ${labels}
+      </svg>
+    </div>
+    
+    <div class="label" style="margin-bottom:10px;margin-top:24px">Top destinations · last 24h sample</div>
+    <table class="route-table">
+      <thead><tr><th>Destination</th><th>Country</th><th style="text-align:center">Frequency</th><th style="text-align:right">Avg flight time</th></tr></thead>
+      <tbody>
+        ${topDests.slice(0, 15).map(({d, cnt, dur}) => {
+          const ap = AIRPORTS[d];
+          if(!ap) return '';
+          return `<tr>
+            <td><span class="rt-iata">${ap[0]}</span> <span class="rt-arrow">·</span> <span class="rt-name">${ap[1]}</span></td>
+            <td class="rt-name">${ap[2]}</td>
+            <td class="rt-freq">${cnt}×</td>
+            <td class="rt-dur">${dur ? `${Math.floor(dur/60)}h ${dur%60}m` : '—'}</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderScheduleTab(r, net){
+  if(!net){
+    document.getElementById('tab-schedule').innerHTML = `<div class="no-data"><div class="strong">No schedule data</div><div style="margin-top:12px;text-transform:none;letter-spacing:0">FR24 data not yet captured for this carrier.</div></div>`;
+    return;
+  }
+  
+  // Check if we have time data
+  const withTimes = net.sch.filter(s => s[3] || s[4]).length;
+  const hasTimes = withTimes > 0;
+  
+  document.getElementById('tab-schedule').innerHTML = `
+    <div class="label" style="margin-bottom:10px">Live schedule — ${net.win} sample · ${net.sch.length} flights observed</div>
+    ${!hasTimes ? `<div style="padding:10px 14px;background:rgba(232,185,74,0.08);border:1px solid var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;color:var(--gold);margin-bottom:14px">⚠ Departure/arrival times not in cache for this carrier — showing flights with route &amp; aircraft only.</div>` : ''}
+    <div class="schedule-controls">
+      <input type="text" class="schedule-search" id="sched-search" placeholder="Filter by flight number, IATA airport, aircraft (e.g., 'A380')…">
+    </div>
+    <table class="sched-table" id="sched-table">
+      <thead><tr><th>Flight</th>${hasTimes?'<th>Departure</th>':''}<th>Route</th>${hasTimes?'<th>Arrival</th>':''}<th>Aircraft</th></tr></thead>
+      <tbody id="sched-tbody"></tbody>
+    </table>
+  `;
+  
+  renderScheduleRows(net.sch, '', hasTimes);
+  
+  document.getElementById('sched-search').addEventListener('input', e => {
+    renderScheduleRows(net.sch, e.target.value.toLowerCase(), hasTimes);
+  });
+}
+
+function renderScheduleRows(schedule, q, hasTimes){
+  const filtered = schedule.filter(([fl,o,d,dep,arr,ac]) => {
+    if(!q) return true;
+    const oa = AIRPORTS[o], da = AIRPORTS[d];
+    return (fl||'').toLowerCase().includes(q) ||
+      o.toLowerCase().includes(q) || d.toLowerCase().includes(q) ||
+      (oa && oa[0].toLowerCase().includes(q)) ||
+      (da && da[0].toLowerCase().includes(q)) ||
+      (oa && oa[1].toLowerCase().includes(q)) ||
+      (da && da[1].toLowerCase().includes(q)) ||
+      (ac||'').toLowerCase().includes(q) ||
+      (AC_NAMES[ac]||'').toLowerCase().includes(q);
+  });
+  
+  document.getElementById('sched-tbody').innerHTML = filtered.map(([fl,o,d,dep,arr,ac]) => {
+    const oa = AIRPORTS[o], da = AIRPORTS[d];
+    const depT = dep ? new Date(dep).toISOString().substring(11,16) + 'Z' : '—';
+    const arrT = arr ? new Date(arr).toISOString().substring(11,16) + 'Z' : '—';
+    const acFull = AC_NAMES[ac] || ac || '—';
+    return `<tr>
+      <td class="sched-flight">${fl||'—'}</td>
+      ${hasTimes ? `<td class="sched-time">${depT}</td>` : ''}
+      <td class="sched-route">${oa?oa[0]:o} <span style="color:var(--ink-mute)">→</span> ${da?da[0]:d}</td>
+      ${hasTimes ? `<td class="sched-time">${arrT}</td>` : ''}
+      <td title="${acFull}" style="color:var(--ink-dim)">${ac||'—'}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="${hasTimes?5:3}" style="padding:24px;text-align:center;color:var(--ink-mute)">No flights match.</td></tr>`;
+}
+
+function renderFleetTab(r, net){
+  if(!net){
+    document.getElementById('tab-fleet').innerHTML = `<div class="no-data"><div class="strong">No fleet data</div><div style="margin-top:12px;text-transform:none;letter-spacing:0">FR24 data not yet captured for this carrier.</div></div>`;
+    return;
+  }
+  
+  const total = Object.values(net.ac).reduce((a,b)=>a+b, 0);
+  const sortedAc = Object.entries(net.ac).sort((a,b) => b[1]-a[1]);
+  
+  // Sort into wide-body, narrow-body, regional
+  const isWB = (t) => /^(A33|A34|A35|A38|B74|B75|B76|B77|B78|MD11)/.test(t);
+  const isNB = (t) => /^(A19|A20|A21|A22|A31|A32|B73|B38|BCS|MD80|MD90|E19|E29)/.test(t);
+  
+  const widebody = sortedAc.filter(([t,c]) => isWB(t));
+  const narrow = sortedAc.filter(([t,c]) => isNB(t));
+  const regional = sortedAc.filter(([t,c]) => !isWB(t) && !isNB(t));
+  
+  let html = `
+    <div class="label" style="margin-bottom:10px">Fleet observed in ${net.win} sample · <span style="color:var(--copper)">${total} movements across ${Object.keys(net.ac).length} types</span></div>
+  `;
+  
+  if(widebody.length){
+    html += `<div class="label" style="margin-top:24px;color:var(--copper)">Widebody · ${widebody.reduce((a,b)=>a+b[1],0)} flights</div>`;
+    html += `<div class="fleet-grid">${widebody.map(([t,c]) => `
+      <div class="fleet-card">
+        <div class="ac-icon">▲</div>
+        <div class="ac-type">${t}</div>
+        <div class="ac-name">${AC_NAMES[t]||'Aircraft type'}</div>
+        <div class="ac-count">${c}</div>
+        <div class="ac-count-lbl">flights observed</div>
+      </div>`).join('')}</div>`;
+  }
+  
+  if(narrow.length){
+    html += `<div class="label" style="margin-top:24px;color:var(--copper)">Narrowbody · ${narrow.reduce((a,b)=>a+b[1],0)} flights</div>`;
+    html += `<div class="fleet-grid">${narrow.map(([t,c]) => `
+      <div class="fleet-card">
+        <div class="ac-icon">▴</div>
+        <div class="ac-type">${t}</div>
+        <div class="ac-name">${AC_NAMES[t]||'Aircraft type'}</div>
+        <div class="ac-count">${c}</div>
+        <div class="ac-count-lbl">flights observed</div>
+      </div>`).join('')}</div>`;
+  }
+  
+  if(regional.length){
+    html += `<div class="label" style="margin-top:24px;color:var(--copper)">Regional / Other · ${regional.reduce((a,b)=>a+b[1],0)} flights</div>`;
+    html += `<div class="fleet-grid">${regional.map(([t,c]) => `
+      <div class="fleet-card">
+        <div class="ac-icon">▵</div>
+        <div class="ac-type">${t}</div>
+        <div class="ac-name">${AC_NAMES[t]||'Aircraft type'}</div>
+        <div class="ac-count">${c}</div>
+        <div class="ac-count-lbl">flights observed</div>
+      </div>`).join('')}</div>`;
+  }
+  
+  document.getElementById('tab-fleet').innerHTML = html;
+}
+
+// ====== DESTINATION FINDER ======
+const IATA_TO_ICAO = {};
+let _apList = [];
+let _destFocusIdx = -1;
+
+function buildAirportIndex(){
+  Object.entries(AIRPORTS).forEach(([icao, ap]) => {
+    if(ap[0]) IATA_TO_ICAO[ap[0]] = icao;
+  });
+  _apList = Object.entries(AIRPORTS)
+    .map(([icao, ap]) => ({icao, iata: ap[0]||'', name: ap[1]||'', country: ap[2]||''}))
+    .filter(ap => ap.iata)
+    .sort((a, b) => a.iata.localeCompare(b.iata));
+}
+
+function selectDestination(icao){
+  const ap = AIRPORTS[icao];
+  if(!ap) return;
+  document.getElementById('dest-dropdown').style.display = 'none';
+  document.getElementById('dest-input').value = `${ap[0]} · ${ap[1]}, ${ap[2]}`;
+  renderDestResults(icao, ap);
+  document.getElementById('dest-selected').style.display = 'block';
+  setTimeout(() => document.getElementById('dest-selected').scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+}
+
+function renderDestResults(icao, ap){
+  const iata = ap[0], apName = ap[1], apCountry = ap[2];
+
+  // Carriers with FR24 network data flying TO this airport
+  const direct = [];
+  Object.entries(NETWORKS).forEach(([code, net]) => {
+    if(!net.dest.includes(icao)) return;
+    const r = DATA.find(x => x.c === code);
+    if(!r) return;
+    const routes = net.tr.filter(([o, d]) => d === icao || o === icao);
+    const freq = routes.reduce((s, rt) => s + rt[2], 0);
+    const mainRt = [...routes].sort((a, b) => b[2] - a[2])[0];
+    const dur = mainRt ? mainRt[3] : null;
+    const hubAp = AIRPORTS[net.hub];
+    direct.push({r, net, freq, dur, hubIata: hubAp ? hubAp[0] : net.hub});
+  });
+  direct.sort((a, b) => b.freq - a.freq || b.r.m.attractiveness - a.r.m.attractiveness);
+
+  // ZED carriers whose hub IS this airport (not already in direct)
+  const directCodes = new Set(direct.map(d => d.r.c));
+  const based = DATA.filter(r => r.h.iata === iata && !directCodes.has(r.c));
+  based.sort((a, b) => b.m.attractiveness - a.m.attractiveness);
+
+  // Airport header
+  document.getElementById('dest-ap-head').innerHTML = `
+    <div>
+      <div class="dest-ap-iata">${iata}</div>
+      <div class="dest-ap-name">${apName}</div>
+      <div class="dest-ap-meta">${apCountry} · ICAO ${icao}</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-family:'Fraunces',serif;font-size:28px;font-style:italic;font-weight:600;color:var(--teal);line-height:1">${direct.length}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--ink-mute);text-transform:uppercase">carriers fly here</div>
+      ${based.length ? `<div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--gold)">${based.length} based here</div>` : ''}
+    </div>`;
+
+  // Stats strip
+  document.getElementById('dest-stats-row').innerHTML = [
+    [direct.length, 'FR24 verified routes'],
+    [based.length, 'Carriers based here'],
+    [direct.filter(d => d.r.f[0] === 1).length, '$ Sub·Eco SSC'],
+    [direct.filter(d => d.r.f[4] === 1).length, '$ Sub·Biz SSC'],
+  ].map(([n, l]) => `<div class="dest-stat-box"><span class="dest-sn">${n}</span><span class="dest-sl">${l}</span></div>`).join('');
+
+  const fareCell = (tier, lbl) => `<div class="dc-fare fare-tier-${tier}"><div class="dc-fare-lbl">${lbl}</div>${TIER_LABEL[tier]}</div>`;
+
+  let html = '';
+
+  if(direct.length){
+    html += `<div class="dest-subhead">Direct routes · FR24 verified <span style="color:var(--copper)">${direct.length} carriers</span></div>
+    <div class="dest-grid">` +
+    direct.map(({r, hubIata, freq, dur}) => `
+      <div class="dest-card" onclick="openModal('${r.c}')">
+        <div class="dc-head">
+          <div>
+            <div class="dc-code">${r.c}${hasNetwork(r.c) ? ' <span style="font-size:8px;color:var(--teal)">●</span>' : ''}</div>
+            <div class="dc-name">${r.n}</div>
+          </div>
+          <div>
+            <div class="dc-freq">${freq}</div>
+            <div class="dc-freq-lbl">flights seen</div>
+          </div>
+        </div>
+        <div class="dc-route">
+          <span class="dc-hub-tag">${hubIata}</span>
+          <span style="color:var(--ink-mute)">→</span>
+          <span class="dc-arr-tag">${iata}</span>
+          ${dur ? `<span class="dc-dur">${Math.floor(dur/60)}h${String(dur%60).padStart(2,'0')}m</span>` : ''}
+        </div>
+        <div class="dc-fares">
+          ${fareCell(r.f[0], 'Sub·E<br>SSC')}${fareCell(r.f[4], 'Sub·J<br>SSC')}
+          ${fareCell(r.f[1], 'Sub·E<br>ZEP')}${fareCell(r.f[5], 'Sub·J<br>ZEP')}
+        </div>
+      </div>`).join('') + `</div>`;
+  } else {
+    html += `<div class="no-data" style="margin-bottom:24px">
+      <div class="strong">No FR24-confirmed direct routes to ${iata}</div>
+      <div style="margin-top:10px;text-transform:none;letter-spacing:0;line-height:1.6">
+        None of the 38 network carriers show direct flights here in the May 2026 FR24 sample.
+        This may be a secondary airport. Check the carriers based here below, or search a nearby hub.
+      </div>
+    </div>`;
+  }
+
+  if(based.length){
+    html += `<div class="dest-subhead">Carriers based at ${iata} <span style="color:var(--copper)">${based.length} carriers</span></div>
+    <div class="dest-grid">` +
+    based.map(r => `
+      <div class="dest-card" onclick="openModal('${r.c}')">
+        <div class="dc-head">
+          <div>
+            <div class="dc-code">${r.c}</div>
+            <div class="dc-name">${r.n}</div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;text-transform:uppercase;text-align:right">${r.r}</div>
+        </div>
+        <div class="dc-fares">
+          ${fareCell(r.f[0], 'Sub·E<br>SSC')}${fareCell(r.f[4], 'Sub·J<br>SSC')}
+          ${fareCell(r.f[1], 'Sub·E<br>ZEP')}${fareCell(r.f[5], 'Sub·J<br>ZEP')}
+        </div>
+      </div>`).join('') + `</div>`;
+  }
+
+  if(!direct.length && !based.length){
+    html = `<div class="no-data">
+      <div class="strong">No ZED coverage found for ${iata}</div>
+      <div style="margin-top:10px;text-transform:none;letter-spacing:0">
+        This airport doesn't appear as a hub or destination in any ZED carrier's data. Try a nearby hub airport.
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('dest-results').innerHTML = html;
+}
+
+document.getElementById('dest-input').addEventListener('input', function(){
+  const q = this.value.trim(), dd = document.getElementById('dest-dropdown');
+  _destFocusIdx = -1;
+  if(q.length < 2){ dd.style.display = 'none'; dd.innerHTML = ''; return; }
+  const ql = q.toLowerCase();
+  const matches = _apList.filter(ap =>
+    ap.iata.toLowerCase().startsWith(ql) ||
+    ap.name.toLowerCase().includes(ql) ||
+    ap.country.toLowerCase().includes(ql)
+  ).slice(0, 10);
+  if(!matches.length){ dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map((ap, i) => `
+    <div class="dest-dd-item" data-idx="${i}" onclick="selectDestination('${ap.icao}')">
+      <span class="dest-dd-iata">${ap.iata}</span>
+      <span class="dest-dd-name">${ap.name}</span>
+      <span class="dest-dd-ctry">${ap.country}</span>
+    </div>`).join('');
+  dd.style.display = 'block';
+});
+
+document.getElementById('dest-input').addEventListener('keydown', function(e){
+  const dd = document.getElementById('dest-dropdown');
+  const items = dd.querySelectorAll('.dest-dd-item');
+  if(!items.length) return;
+  if(e.key === 'ArrowDown'){ e.preventDefault(); _destFocusIdx = Math.min(_destFocusIdx + 1, items.length - 1); }
+  else if(e.key === 'ArrowUp'){ e.preventDefault(); _destFocusIdx = Math.max(_destFocusIdx - 1, 0); }
+  else if(e.key === 'Enter' && _destFocusIdx >= 0){ items[_destFocusIdx].click(); return; }
+  else if(e.key === 'Escape'){ dd.style.display = 'none'; _destFocusIdx = -1; return; }
+  items.forEach((it, i) => it.classList.toggle('focused', i === _destFocusIdx));
+});
+
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#dest-input') && !e.target.closest('#dest-dropdown')){
+    const dd = document.getElementById('dest-dropdown');
+    if(dd) dd.style.display = 'none';
+  }
+});
+
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e=>{ if(e.target.id==='modal') closeModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+// World path reference for network maps (smaller scope)
+const WORLD_PATH_REF = "M1000.0,320.6L1000.0,322.2L996.5,323.6L996.1,322.4L1000.0,320.6ZM594.2,272.7L604.7,279.5L608.9,284.5L607.6,288.4L609.6,291.4L608.9,296.6L612.0,302.4L609.8,304.2L601.4,306.8L596.0,306.2L593.7,299.5L585.4,296.1L582.3,290.3L581.5,283.9L585.4,280.3L584.5,273.3L594.2,272.7ZM475.9,181.9L475.9,187.5L466.8,187.4L466.8,195.5L464.2,195.8L464.1,202.0L452.6,203.0L452.7,201.7L459.0,201.4L461.4,194.5L465.3,191.1L466.6,187.1L468.4,184.4L475.6,183.6L475.9,181.9ZM158.8,114.2L151.0,109.7L146.0,108.4L144.9,103.6L141.3,102.3L140.8,99.7L137.5,97.4L138.9,92.3L134.1,90.2L123.7,80.0L118.2,82.8L113.8,79.3L108.3,78.3L108.4,48.5L120.8,51.1L139.5,47.0L141.4,48.3L144.1,46.1L150.7,49.2L154.4,47.1L154.8,49.5L162.6,48.2L179.9,51.1L183.6,52.7L179.7,54.2L184.7,54.9L194.6,54.0L197.6,55.9L200.6,54.3L197.7,52.9L199.5,51.9L205.1,51.4L218.2,55.1L226.5,54.6L226.2,52.6L228.7,52.1L233.0,53.2L233.0,56.2L234.8,53.6L237.0,53.7L238.2,50.5L232.0,47.3L232.2,43.8L235.5,41.5L242.0,43.4L245.8,47.0L243.3,48.5L248.5,49.2L248.5,52.4L252.2,49.9L255.5,52.0L254.7,54.3L257.4,56.5L262.3,51.4L262.4,48.0L270.5,48.7L274.2,50.2L272.3,53.5L273.9,56.8L268.5,59.0L261.8,58.5L257.4,64.2L248.0,67.9L247.9,69.9L244.6,70.3L238.2,76.5L237.0,82.6L241.1,83.2L243.6,88.6L247.5,87.9L263.9,94.2L271.5,94.7L271.9,100.6L278.0,107.2L281.7,102.9L278.3,96.2L287.4,90.3L285.3,85.5L281.9,83.1L285.2,79.8L283.0,72.0L294.9,71.6L301.7,75.7L306.7,75.9L307.5,82.6L312.1,85.0L320.6,78.2L329.5,88.9L328.3,90.9L340.7,96.4L345.1,100.7L345.3,104.2L333.2,110.3L315.6,110.3L302.5,121.1L309.3,116.4L319.3,113.5L321.7,115.0L319.1,117.2L320.9,123.0L324.5,124.6L329.1,124.1L331.9,120.5L333.9,124.0L318.4,131.5L316.3,131.3L316.2,128.6L321.0,126.0L313.5,126.5L311.7,124.7L311.7,120.3L307.7,119.1L301.4,126.9L292.0,126.9L286.6,131.2L281.3,131.3L280.7,133.7L271.0,137.4L269.1,136.5L271.8,131.4L270.7,125.8L254.5,116.4L245.4,116.9L238.0,115.3L236.6,113.0L158.8,114.2ZM266.7,71.5L268.7,70.1L272.6,70.1L269.3,72.5L266.7,71.5ZM278.4,38.7L275.5,35.9L283.2,36.0L288.2,38.6L278.4,38.7ZM240.0,31.8L238.5,33.0L231.1,32.0L236.5,29.7L240.0,31.8ZM239.3,23.7L232.9,23.6L232.1,22.7L237.7,22.8L239.3,23.7ZM226.0,19.4L234.6,20.9L229.7,22.7L226.0,19.4ZM255.1,33.7L243.3,32.2L242.0,28.9L239.2,27.5L230.2,26.2L231.3,24.9L245.5,26.1L252.3,29.8L274.6,29.5L278.2,32.0L255.1,33.7ZM184.6,23.1L194.8,22.2L188.7,24.1L184.6,23.1ZM190.3,19.5L195.4,20.3L187.4,20.9L190.3,19.5ZM345.6,106.9L342.2,111.6L344.0,110.6L345.9,111.2L344.9,112.3L351.5,113.4L350.6,115.7L352.5,115.2L353.8,118.9L352.6,121.6L349.5,121.2L349.3,118.2L346.1,120.9L344.5,120.8L346.4,119.3L343.7,118.5L335.4,118.6L336.7,116.6L335.5,115.7L340.7,108.8L345.6,106.9ZM261.4,61.1L273.5,66.7L277.5,67.5L275.0,68.5L269.1,66.3L262.4,69.6L261.5,67.8L257.7,68.1L260.1,66.5L261.4,61.1ZM275.7,41.0L283.8,38.9L294.2,43.4L299.3,42.6L308.9,45.9L314.0,50.2L308.9,51.6L328.2,57.5L322.4,63.5L314.7,59.0L311.1,59.4L310.7,61.3L318.6,65.4L320.4,68.5L319.4,70.8L308.9,67.4L316.2,73.2L308.7,71.9L292.1,64.5L281.8,64.8L283.6,62.5L294.6,62.0L294.6,59.3L298.2,56.2L296.4,53.7L286.5,51.1L288.3,50.3L280.7,47.1L274.2,48.4L253.7,46.3L251.4,45.2L254.3,43.7L250.3,43.7L249.4,40.5L254.4,36.4L261.6,35.5L259.5,37.6L261.7,39.5L264.3,37.0L271.3,35.7L276.1,39.0L275.7,41.0ZM237.5,34.5L243.3,34.6L248.6,35.4L238.1,41.2L235.0,41.0L233.3,36.7L237.5,34.5ZM158.7,28.2L169.2,23.8L177.2,23.3L174.7,26.9L158.7,28.2ZM130.1,97.8L134.0,98.0L133.2,101.6L135.6,104.1L130.4,100.2L130.1,97.8ZM207.0,18.1L219.9,19.7L223.1,22.5L207.8,21.0L210.5,20.1L207.0,18.1ZM156.9,115.8L151.0,114.8L144.3,111.1L143.4,108.6L150.7,110.1L156.9,115.8ZM153.0,34.0L173.5,34.3L179.1,36.6L168.8,39.6L165.4,43.2L158.1,44.7L150.2,41.7L155.7,35.9L153.0,34.0ZM200.5,29.0L205.9,28.6L206.4,30.2L188.3,33.6L183.7,32.6L189.5,31.2L173.0,31.0L179.4,27.0L197.0,30.2L193.1,27.2L195.6,26.0L200.5,29.0ZM198.9,37.8L207.2,39.1L209.8,44.4L219.5,47.5L219.2,48.9L214.6,49.2L216.4,50.4L215.5,51.5L205.7,50.2L185.2,52.2L174.1,47.7L187.7,46.4L172.5,45.9L171.0,44.7L177.5,43.4L168.3,42.6L172.6,39.0L180.0,37.1L182.9,37.7L181.5,39.2L187.7,38.2L191.5,39.8L194.7,38.2L199.5,42.3L200.9,41.0L198.9,37.8ZM221.0,39.0L217.9,36.9L229.5,35.7L227.6,38.1L231.8,39.5L231.3,42.3L226.8,43.5L215.3,39.6L221.0,39.0ZM203.9,36.2L207.6,36.0L209.7,36.7L207.3,38.8L203.9,36.2ZM226.4,26.3L228.5,27.7L227.3,31.7L215.3,29.9L215.1,27.5L226.4,26.3ZM231.4,15.4L243.3,11.9L261.6,18.0L252.7,21.3L242.0,21.1L239.0,19.8L241.3,17.8L231.4,15.4ZM245.6,9.9L262.5,7.4L268.9,8.5L279.7,5.9L328.2,7.5L312.1,11.1L318.1,11.1L302.3,16.5L286.4,18.0L290.2,18.4L288.3,19.0L290.6,20.5L278.4,24.7L283.6,26.1L276.2,28.0L251.4,27.1L251.1,25.5L256.2,24.8L254.8,22.5L264.0,23.7L255.7,21.0L263.6,17.9L258.5,15.1L272.6,14.4L256.7,14.2L245.6,9.9ZM291.1,55.7L286.1,56.8L285.5,55.2L289.2,53.0L291.3,53.9L291.1,55.7ZM227.2,47.1L234.3,50.4L232.6,51.5L222.8,49.5L227.2,47.1ZM320.8,111.4L325.4,112.0L328.3,113.9L323.4,112.9L320.8,111.4ZM322.2,120.4L323.2,122.0L327.7,122.3L325.3,123.8L321.8,122.5L322.2,120.4ZM158.8,114.2L236.6,113.0L238.0,115.3L245.4,116.9L254.5,116.4L270.7,125.8L271.8,131.4L269.1,136.2L270.3,137.4L280.7,133.7L281.3,131.3L286.6,131.2L292.0,126.9L301.4,126.9L307.7,119.1L311.7,120.3L311.7,124.7L314.0,127.5L305.2,131.1L303.3,135.4L305.7,137.6L295.2,139.8L300.2,139.8L294.6,140.4L291.9,146.1L290.2,144.3L291.5,147.8L289.1,151.6L287.9,145.5L288.0,148.8L286.1,148.3L288.1,149.4L289.6,156.9L274.1,169.9L277.6,184.4L276.7,189.7L273.0,187.6L267.5,174.7L263.6,175.6L260.0,173.2L251.1,174.0L251.6,177.1L237.0,176.1L230.2,181.4L229.1,187.7L224.9,186.0L219.6,176.4L215.3,175.2L213.6,177.8L211.3,176.8L204.1,168.9L191.6,170.2L181.3,165.9L174.6,166.4L170.8,161.7L164.9,159.9L154.4,141.8L155.8,125.2L153.6,116.8L158.0,117.3L159.5,120.2L158.8,114.2ZM68.3,206.0L70.0,207.8L67.5,209.6L66.5,207.1L68.3,206.0ZM74.4,85.8L77.4,87.0L70.8,88.9L70.4,87.4L74.4,85.8ZM108.4,48.5L108.3,78.3L113.8,79.3L118.2,82.8L123.7,80.0L134.1,90.2L138.9,92.3L137.4,95.8L133.4,93.6L127.6,85.3L120.5,85.0L111.5,80.8L91.3,76.5L88.3,77.2L88.8,79.4L78.6,82.0L79.4,77.0L81.6,75.2L72.2,81.4L74.2,82.9L71.6,85.2L59.9,92.0L41.8,96.5L59.2,88.8L63.8,82.7L50.1,83.5L50.3,80.5L48.6,79.3L44.9,80.0L40.7,77.7L38.6,74.6L39.6,72.7L42.9,69.3L53.4,67.4L51.3,65.3L53.4,64.1L41.8,65.2L33.0,61.3L43.1,58.4L50.9,59.9L36.8,52.8L38.3,51.1L43.2,51.0L50.3,46.5L65.1,43.3L71.3,45.4L108.4,48.5ZM23.0,67.3L26.4,67.6L31.4,68.8L29.1,69.9L23.0,67.3ZM742.7,113.5L738.2,115.9L736.6,120.5L731.1,119.5L729.1,125.2L722.1,127.2L724.6,132.7L722.7,133.5L722.9,135.3L706.1,132.3L704.1,134.8L697.7,134.2L690.6,140.6L685.3,139.1L683.6,133.2L680.3,130.9L672.3,131.6L662.5,125.0L655.4,126.9L655.5,138.6L650.2,135.4L645.8,137.1L645.8,133.9L642.6,132.8L639.7,128.1L647.3,126.1L647.3,121.0L642.2,120.4L636.4,122.5L633.5,118.2L629.1,116.1L632.1,109.6L634.9,111.4L635.3,109.1L641.0,105.7L654.8,109.1L670.4,108.5L671.1,107.0L666.6,104.8L671.4,101.6L669.4,99.4L670.7,98.3L691.9,94.0L696.8,94.6L697.7,97.9L704.2,98.2L704.0,100.0L713.6,96.8L712.6,97.8L722.3,108.3L723.8,106.6L727.6,108.5L731.6,107.6L742.7,113.5ZM655.5,138.6L655.4,126.9L662.5,125.0L672.3,131.6L680.3,130.9L683.6,133.2L685.3,139.1L689.6,140.7L697.1,135.6L695.6,137.9L702.9,140.0L699.4,142.3L696.1,142.1L696.3,139.7L692.6,140.4L690.4,144.2L688.1,144.1L687.3,145.5L690.0,148.6L688.4,151.8L684.8,151.1L684.9,149.2L678.3,146.3L673.3,142.6L671.9,139.3L668.0,138.9L666.6,135.7L662.9,134.0L658.1,137.0L658.6,138.6L655.5,138.6ZM891.7,277.9L901.6,281.9L905.5,287.0L910.1,289.0L910.8,290.6L908.3,291.0L908.9,293.1L918.6,303.2L910.9,301.8L905.7,295.2L902.1,293.9L898.0,295.8L898.4,298.2L896.2,299.2L891.8,298.6L891.7,277.9ZM923.1,285.1L915.9,289.7L912.0,287.9L917.1,285.5L918.9,287.0L920.9,282.9L922.6,282.8L923.1,285.1ZM929.9,286.6L933.4,290.4L933.0,291.3L931.0,290.4L929.9,286.6ZM891.7,277.9L891.8,298.6L889.3,296.0L882.3,296.3L885.2,292.9L883.1,286.8L871.3,280.9L869.4,282.7L866.6,278.6L871.4,276.7L867.3,276.7L862.6,272.6L867.7,270.8L872.2,272.1L873.4,278.4L876.3,280.3L881.8,275.1L891.7,277.9ZM847.1,297.9L845.7,301.8L842.9,302.1L844.4,299.1L847.1,297.9ZM827.5,256.5L825.9,259.4L830.5,266.8L827.3,267.2L826.4,272.2L823.8,274.4L822.6,282.4L806.2,279.0L802.6,268.3L804.6,263.3L807.0,267.2L813.5,264.9L816.1,265.8L818.4,265.1L821.8,256.0L827.5,256.5ZM855.9,278.7L862.4,279.5L863.4,281.9L855.3,280.4L855.9,278.7ZM855.4,262.8L857.5,266.1L855.8,272.5L853.9,266.4L855.4,262.8ZM841.5,266.9L847.9,265.2L843.6,268.9L833.8,268.9L833.4,271.3L835.9,274.1L842.6,271.6L837.5,275.7L842.1,286.6L839.5,286.4L840.9,283.8L837.5,284.2L836.0,278.0L834.2,279.0L834.5,287.2L832.8,287.7L831.9,280.7L829.9,278.5L832.8,269.2L835.8,265.5L841.5,266.9ZM835.3,295.8L838.9,296.5L841.4,295.3L841.0,297.1L833.1,297.6L835.3,295.8ZM827.5,295.3L830.9,297.3L824.3,298.3L827.5,295.3ZM794.6,288.4L812.8,291.7L813.8,293.7L821.4,296.2L818.2,297.4L792.7,291.4L794.6,288.4ZM789.9,273.1L791.4,277.1L794.7,279.4L793.9,288.2L790.9,288.3L785.0,283.0L773.9,263.9L764.7,252.3L770.8,253.0L779.6,263.0L784.7,265.2L788.4,269.3L787.3,271.9L789.9,273.1ZM309.3,436.6L311.8,440.5L319.3,443.2L315.4,444.9L309.4,443.7L309.3,436.6ZM339.9,365.5L337.5,378.9L341.0,381.6L342.3,386.7L339.6,390.8L335.5,392.5L326.8,392.8L327.4,398.7L325.7,399.8L319.1,399.9L319.5,403.1L323.7,404.7L318.9,407.6L317.9,412.5L313.1,414.2L312.3,416.5L317.7,419.5L307.9,430.6L310.7,435.7L300.2,434.6L299.1,430.4L296.3,429.5L296.1,426.1L299.1,422.7L302.2,411.7L299.6,403.7L301.6,393.1L303.3,392.0L302.4,385.9L306.1,378.1L304.1,369.2L306.5,359.9L310.3,355.0L310.0,347.4L313.0,345.9L315.9,338.9L321.2,342.0L322.3,339.4L325.4,339.6L331.0,345.4L339.5,349.5L337.2,355.7L345.3,356.5L349.6,350.7L351.0,355.1L339.9,365.5ZM309.3,436.6L309.4,443.7L314.0,443.8L310.7,446.1L302.8,444.3L292.6,437.3L302.5,441.2L304.8,437.6L309.3,436.6ZM306.7,325.4L309.9,331.2L309.0,334.3L311.6,342.2L313.9,342.6L313.0,345.9L310.0,347.4L310.3,355.0L306.5,359.9L304.1,369.2L306.1,378.1L302.4,385.9L303.3,392.0L301.6,393.1L299.6,403.7L302.2,411.7L299.1,422.7L296.1,426.1L296.3,429.5L299.1,430.4L300.2,434.6L309.5,435.6L303.2,437.5L301.6,440.5L291.8,435.5L290.0,424.1L294.1,418.6L289.9,417.6L292.5,414.8L293.5,409.6L296.6,410.7L298.0,404.1L296.1,403.3L295.3,407.2L293.5,406.8L296.6,394.2L295.6,387.5L301.6,372.5L301.4,361.2L305.3,337.5L304.5,327.9L306.7,325.4ZM580.6,278.7L582.3,290.3L585.4,296.1L579.8,296.7L578.8,307.1L582.3,308.3L582.5,311.7L580.4,311.7L575.5,306.5L561.5,304.8L560.4,292.8L555.8,291.7L552.8,295.0L548.5,295.3L545.4,288.3L533.8,288.0L537.8,283.9L540.5,285.4L544.5,280.9L545.6,275.2L549.0,271.0L551.5,256.3L554.1,253.7L562.2,256.9L563.4,254.7L571.3,253.0L576.0,253.1L579.0,256.1L582.5,255.1L586.6,262.7L583.0,267.8L580.6,278.7ZM615.5,275.0L613.9,272.4L613.8,260.8L617.0,256.2L624.9,253.8L635.9,239.7L636.0,233.5L642.0,231.5L640.4,240.5L635.0,252.7L615.5,275.0ZM608.9,284.5L604.7,279.5L594.2,272.7L594.1,269.3L597.3,263.6L594.5,256.2L598.1,252.2L605.9,258.2L609.9,258.8L613.2,256.2L616.3,257.2L613.8,260.8L613.9,272.4L615.5,275.0L611.8,277.8L608.9,284.5ZM568.2,243.5L566.1,242.2L565.2,241.2L565.4,237.6L560.9,229.7L564.0,219.9L566.4,220.1L566.3,206.2L569.4,206.2L569.4,199.9L602.4,199.9L604.1,210.6L606.7,212.6L602.4,215.9L600.8,226.6L595.2,235.9L594.4,242.1L592.2,231.0L591.0,230.8L589.1,231.7L590.0,234.5L587.1,238.5L583.3,237.0L580.5,239.8L574.3,239.6L571.6,236.6L569.6,237.1L566.4,242.3L568.2,243.5ZM566.2,207.5L566.4,220.1L564.0,219.9L560.9,229.7L563.5,234.3L558.3,239.6L552.3,241.2L549.9,244.6L542.4,246.1L541.6,241.8L538.8,239.4L543.0,238.0L540.5,227.4L538.8,227.3L537.6,224.1L538.8,219.9L542.4,216.9L544.2,205.0L541.3,197.1L544.1,195.4L566.2,207.5ZM300.8,207.1L300.8,212.4L293.2,211.5L299.1,210.4L296.7,206.5L300.8,207.1ZM301.7,213.8L301.1,206.6L310.2,210.6L303.7,211.2L301.7,213.8ZM636.4,122.5L629.7,128.1L635.0,137.0L632.8,139.1L626.3,134.8L611.0,131.9L601.9,126.1L606.2,123.0L604.6,121.7L608.7,120.4L606.2,120.2L606.3,118.8L610.4,117.7L611.3,112.3L598.2,109.2L593.8,103.6L588.3,104.4L587.0,101.3L590.8,100.4L585.4,95.8L585.8,93.4L578.3,91.5L575.8,87.3L576.2,83.4L580.9,79.2L578.0,77.7L587.5,70.2L583.4,68.0L584.6,66.0L582.1,63.6L583.9,60.9L580.7,57.3L583.3,54.9L579.0,52.8L579.4,50.6L589.3,47.9L614.1,55.7L614.2,57.8L606.6,60.3L592.2,58.3L596.7,60.6L597.1,65.3L602.8,67.1L601.5,64.2L603.3,63.0L610.0,65.0L612.3,64.2L610.5,61.9L616.9,58.8L622.1,60.1L623.7,57.9L621.4,56.0L622.7,54.1L620.7,52.1L628.5,53.1L630.1,54.9L626.5,55.3L626.6,57.1L628.7,58.2L649.2,51.2L651.3,51.4L648.6,53.3L663.3,51.1L666.5,53.0L669.7,50.9L666.8,49.1L668.2,48.1L690.3,53.6L692.2,52.0L685.9,49.3L685.3,44.3L694.3,37.9L701.6,38.8L702.2,40.5L699.6,43.1L702.2,46.3L701.6,50.7L704.6,52.6L698.0,59.3L701.2,59.7L708.5,54.7L706.9,52.9L708.2,50.8L704.4,48.8L706.7,45.6L703.1,43.0L708.0,40.9L707.4,38.6L710.2,40.3L709.1,43.3L712.1,43.9L710.8,41.6L715.5,40.4L726.4,42.0L723.9,39.4L723.6,36.0L741.2,35.1L738.9,33.4L742.1,31.4L779.9,27.2L789.9,23.2L797.9,27.0L808.5,26.3L817.0,29.0L816.3,30.7L803.9,34.3L813.9,35.0L815.4,37.0L821.0,35.7L842.2,38.2L842.4,35.7L852.7,36.3L857.2,37.9L858.5,40.0L856.8,41.3L864.7,45.1L867.4,41.8L888.5,42.9L886.5,39.9L890.2,38.5L915.3,40.6L924.9,44.9L941.7,44.8L944.0,46.1L943.6,48.5L947.1,49.4L966.2,48.9L971.0,51.7L974.5,50.7L972.2,48.7L973.5,47.3L988.1,48.0L1000.0,50.9L1000.0,63.5L992.8,64.7L998.3,69.8L997.9,72.0L992.7,71.3L982.4,74.1L973.1,79.7L969.2,77.5L961.9,80.0L954.3,79.7L950.0,84.9L953.3,86.9L952.9,91.5L950.4,91.6L949.2,94.3L950.3,95.6L945.5,97.3L944.5,100.9L940.4,101.6L939.5,104.9L935.5,107.8L931.8,94.0L933.1,89.6L935.6,86.2L939.9,85.5L954.6,75.7L956.9,71.2L953.5,71.5L944.8,77.6L942.5,73.7L935.3,74.8L928.4,80.1L930.7,82.0L920.2,83.2L920.4,80.9L916.1,80.4L895.0,82.4L875.4,96.0L883.8,99.1L888.6,97.7L892.6,101.2L889.1,116.0L874.6,132.0L870.9,133.8L867.4,132.3L863.3,135.7L864.0,127.0L869.7,126.4L875.1,115.9L863.9,118.0L859.4,112.8L854.6,111.8L849.9,102.2L843.3,100.1L833.8,102.3L835.4,104.8L831.4,110.6L827.4,112.6L817.7,110.2L807.4,113.8L801.3,113.3L796.9,110.2L788.0,110.7L784.0,109.4L783.5,107.0L774.6,104.5L771.7,107.8L772.9,109.7L770.2,111.9L756.2,108.5L742.7,113.5L731.6,107.6L727.6,108.5L723.8,106.6L722.3,108.3L712.6,97.8L713.6,96.8L704.0,100.0L704.2,98.2L697.7,97.9L696.8,94.6L691.9,94.0L670.7,98.3L669.4,99.4L671.4,101.6L666.6,104.8L671.1,107.0L670.4,108.5L654.8,109.1L641.0,105.7L635.3,109.1L634.9,111.4L632.1,109.6L629.1,116.1L633.5,118.2L636.4,122.5ZM753.3,14.8L766.5,11.9L778.3,16.6L777.6,19.4L771.5,19.8L753.3,14.8ZM781.3,18.3L792.7,19.9L776.2,22.5L781.3,18.3ZM885.6,28.1L893.0,28.3L903.0,29.9L900.8,32.3L886.0,33.0L880.5,30.9L885.6,28.1ZM905.9,31.2L918.7,31.5L915.5,32.7L905.9,31.2ZM888.5,36.9L894.6,35.3L898.9,37.4L894.7,37.4L888.5,36.9ZM624.6,14.0L639.0,12.9L643.1,13.6L632.2,15.8L629.2,15.1L630.8,14.1L624.6,14.0ZM563.1,97.3L558.0,97.4L554.6,97.0L559.1,94.6L563.2,95.6L563.1,97.3ZM648.6,35.7L655.3,32.9L654.5,31.5L669.9,27.8L689.3,25.6L691.3,26.8L662.4,33.9L653.9,40.1L654.5,42.7L659.8,45.3L649.1,45.2L643.3,42.9L642.9,41.2L645.8,40.5L645.7,38.8L651.2,36.1L648.6,35.7ZM897.0,99.3L901.8,114.3L897.7,113.2L896.0,117.8L898.6,123.3L896.5,121.4L894.7,123.8L893.6,100.6L896.1,99.1L895.0,97.6L897.0,99.3ZM14.1,56.5L13.8,58.4L15.7,59.2L15.1,56.9L22.6,57.4L28.1,60.3L20.7,62.1L19.6,65.8L10.5,62.3L4.6,62.2L3.6,59.9L0.3,60.7L1.6,62.2L0.0,63.5L0.0,50.9L14.1,56.5ZM6.7,43.6L0.0,44.9L0.0,42.8L6.7,43.6ZM590.2,125.9L593.6,123.0L601.5,125.4L594.1,128.9L590.2,125.9ZM330.0,434.1L337.4,431.8L339.6,433.2L335.0,435.3L330.0,434.1ZM529.0,17.0L547.2,15.7L559.8,19.2L552.9,20.4L547.6,26.0L544.2,26.1L538.2,24.2L540.7,23.0L529.0,17.0ZM586.4,49.0L579.4,50.6L580.6,48.3L577.0,47.1L568.7,51.9L559.0,49.6L555.6,50.6L555.2,52.6L550.0,52.1L537.7,64.1L537.7,66.5L534.9,66.4L533.1,69.4L533.3,73.6L535.1,75.2L534.2,78.9L530.6,82.9L528.8,81.0L523.3,84.7L515.7,83.8L513.9,73.1L529.2,65.1L541.0,54.5L553.3,48.2L578.2,43.8L586.9,46.1L583.3,47.0L586.4,49.0ZM576.1,15.7L564.0,17.8L548.2,14.9L563.7,13.8L576.1,15.7ZM568.7,22.7L562.5,24.0L557.6,23.2L559.5,22.4L557.8,21.4L563.6,20.8L568.7,22.7ZM370.1,7.5L392.7,4.6L424.7,4.7L442.1,7.2L411.4,8.9L438.7,10.4L435.6,12.2L456.2,9.8L466.1,11.8L444.3,15.3L450.7,15.5L445.3,19.8L445.4,23.4L448.7,25.4L439.8,26.6L444.9,28.2L445.6,30.9L442.6,31.2L446.2,34.0L440.0,34.2L443.2,35.5L442.3,36.6L434.5,37.1L438.1,40.7L431.1,40.2L438.5,42.9L439.6,45.5L434.6,46.1L429.0,43.0L430.0,45.2L426.8,46.9L437.9,47.2L422.9,52.4L411.7,53.5L405.0,58.1L389.4,62.0L385.6,68.3L381.1,70.8L382.2,73.3L379.5,79.0L365.9,76.6L356.6,67.8L350.1,56.5L352.8,52.8L357.0,51.6L358.7,47.8L351.5,49.9L348.1,48.8L349.0,45.0L357.2,45.8L344.9,42.3L348.0,39.4L337.3,30.1L329.8,28.2L309.7,28.4L301.7,25.4L314.5,24.2L296.4,22.1L317.5,17.8L318.5,16.6L311.0,15.5L327.1,11.7L326.0,10.2L352.7,9.9L360.0,8.1L376.3,10.6L369.7,8.9L370.1,7.5ZM691.5,423.9L695.9,425.3L696.0,425.9L691.0,427.6L691.5,423.9ZM847.1,297.9L849.9,296.4L853.7,296.3L847.5,299.5L847.1,297.9ZM545.4,360.3L546.7,358.7L551.3,361.8L555.3,359.9L555.3,348.2L558.0,354.8L560.0,354.4L564.8,349.8L571.3,350.5L575.3,344.4L581.8,339.7L586.6,340.2L588.7,347.0L588.4,351.6L586.2,351.3L585.2,354.5L586.9,356.2L591.2,354.5L589.5,360.9L578.4,373.6L571.6,377.3L562.7,377.1L555.8,380.0L551.0,378.0L550.6,370.1L545.4,360.3ZM578.0,361.2L581.5,362.5L578.1,366.6L575.0,364.4L578.0,361.2ZM174.6,166.4L181.3,165.9L191.6,170.2L204.1,168.9L211.3,176.8L213.6,177.8L217.6,175.2L224.9,186.0L230.2,187.6L228.1,198.5L233.6,209.9L237.7,212.1L246.1,209.8L249.2,203.0L258.2,201.3L256.0,211.7L247.2,213.1L246.0,214.9L248.7,218.7L245.1,218.7L243.8,223.5L239.2,219.1L231.8,220.0L212.5,211.6L207.0,206.4L207.6,201.7L205.5,197.4L188.3,177.8L185.7,170.8L181.2,168.8L180.7,170.1L181.5,174.0L190.0,185.1L192.6,192.6L196.1,195.5L194.8,197.3L188.4,191.2L188.1,187.1L180.4,181.7L182.9,179.0L179.1,175.9L174.6,166.4ZM339.9,365.5L350.6,371.3L352.2,373.5L350.5,378.8L343.8,380.2L337.7,377.2L339.9,365.5ZM351.7,376.8L352.2,373.5L350.6,371.3L339.9,365.5L351.0,355.1L351.0,352.5L348.3,351.3L349.2,345.9L346.1,345.7L345.0,340.6L339.1,339.7L338.4,333.7L340.3,327.3L338.2,321.4L332.9,321.2L331.9,313.4L318.3,306.3L318.5,300.6L310.4,304.6L304.0,304.6L304.2,299.8L299.5,301.5L296.6,299.7L294.5,293.5L297.5,286.4L305.9,283.3L307.2,273.2L305.5,267.9L307.7,266.5L306.1,264.2L312.4,263.2L313.7,266.1L317.9,267.2L324.0,262.7L321.5,261.7L320.0,256.8L324.7,257.7L330.6,255.3L331.3,253.2L333.4,253.7L334.6,257.1L333.4,260.9L336.0,265.5L344.5,263.9L344.5,261.7L352.9,262.9L357.5,256.3L361.2,264.1L360.0,269.9L364.9,270.4L365.0,273.6L367.2,271.5L375.3,274.6L376.2,278.2L388.9,278.8L396.6,284.9L401.1,286.0L403.5,293.0L402.4,298.2L392.6,311.1L390.9,326.3L386.3,339.2L383.4,342.5L376.0,343.7L367.6,348.6L365.3,351.7L364.2,360.6L351.7,376.8ZM306.9,304.4L310.4,304.6L318.5,300.6L318.3,306.3L331.9,313.4L332.9,321.2L338.2,321.4L340.3,327.3L339.3,333.0L335.8,331.1L328.4,331.9L325.9,340.2L322.3,339.4L321.2,342.0L315.9,338.9L311.6,342.2L309.0,334.3L309.9,331.2L306.7,325.4L308.4,322.0L307.4,317.1L309.3,309.5L306.9,304.4ZM305.9,283.3L297.5,286.4L294.5,293.5L296.6,299.7L299.5,301.5L304.2,299.8L304.0,304.6L306.9,304.4L309.3,309.5L307.4,317.1L308.4,322.0L304.5,327.9L288.9,316.1L278.4,292.5L274.3,289.1L273.9,284.7L276.9,280.5L276.5,283.7L280.0,285.4L281.6,284.1L283.8,279.2L290.2,274.6L291.4,269.8L297.0,277.0L305.4,278.3L303.6,281.5L305.9,283.3ZM314.2,265.7L312.4,263.2L306.1,264.2L307.7,266.5L305.5,267.9L307.2,273.2L305.9,283.3L303.6,281.5L305.4,278.3L297.0,277.0L291.4,269.8L284.9,268.4L280.6,264.3L285.8,257.4L283.7,246.7L284.8,242.6L289.8,239.7L291.9,234.5L301.7,230.4L296.4,240.6L297.8,240.8L300.1,247.5L312.9,250.3L311.6,255.4L313.0,259.1L311.6,260.7L314.2,265.7ZM285.1,242.1L283.7,246.7L280.2,241.1L276.7,243.3L277.8,245.7L275.3,246.7L273.0,243.9L269.9,244.0L269.6,239.6L273.8,241.8L280.5,239.3L285.1,242.1ZM270.7,239.3L269.5,243.6L264.0,237.7L263.6,239.3L262.1,238.1L261.3,235.1L267.6,235.0L270.7,239.3ZM267.6,235.0L261.9,234.5L256.5,228.7L264.1,222.7L269.0,222.1L267.6,235.0ZM269.0,222.1L264.1,222.7L257.5,228.5L255.9,225.6L251.8,223.9L255.8,219.3L263.9,218.9L269.0,222.1ZM251.8,223.9L256.3,225.9L255.8,227.9L249.7,226.1L251.8,223.9ZM243.8,223.5L245.1,218.7L248.7,218.7L246.0,214.9L247.2,213.1L252.4,213.2L252.1,219.3L254.9,219.8L251.8,223.9L249.7,226.1L243.8,223.5ZM252.4,213.2L255.3,211.4L253.0,219.3L252.1,219.3L252.4,213.2ZM331.3,253.2L330.6,255.3L324.7,257.7L320.0,256.8L321.5,261.7L324.0,262.7L315.8,267.4L311.6,260.7L313.0,259.1L311.6,255.4L312.9,250.3L300.1,247.5L297.8,240.8L296.4,240.6L297.5,236.5L300.1,232.8L301.9,232.3L300.1,233.4L299.8,238.4L302.0,240.7L301.7,234.9L305.1,233.6L305.7,231.1L310.6,236.2L319.7,237.7L321.3,235.9L328.1,235.7L325.7,236.6L334.0,243.1L329.4,250.8L331.3,253.2ZM342.9,263.6L337.4,265.6L334.3,264.0L333.4,253.7L329.4,250.8L334.0,243.1L341.3,250.7L338.8,256.8L342.9,263.6ZM348.5,262.3L344.5,261.7L344.5,263.9L342.9,263.6L340.0,259.1L338.8,256.8L341.3,250.7L350.1,251.4L348.5,262.3ZM356.5,256.5L352.9,262.9L348.5,262.3L350.1,251.4L356.5,256.5ZM507.0,107.4L522.5,114.2L520.7,118.6L516.8,121.4L519.0,123.8L520.7,131.0L518.1,132.8L508.6,133.0L508.3,134.9L505.1,135.3L494.7,131.9L496.7,123.7L491.8,118.7L487.5,117.5L487.2,115.2L495.5,115.3L494.6,111.7L497.3,113.1L507.0,107.4ZM524.3,134.4L526.1,133.2L525.6,138.4L524.4,137.7L524.3,134.4ZM290.6,270.1L290.2,274.6L283.8,279.2L281.6,284.1L280.0,285.4L276.5,283.7L278.4,278.1L275.1,276.8L275.2,273.0L277.5,267.2L281.0,265.3L290.6,270.1ZM271.5,196.1L282.4,198.2L293.9,205.3L284.0,206.7L285.9,204.9L281.3,201.1L271.8,198.6L272.8,197.8L264.0,200.2L271.5,196.1ZM586.6,340.2L577.8,337.8L570.2,325.9L575.1,326.6L584.1,318.9L591.2,322.7L590.7,334.1L586.6,340.2ZM581.8,339.7L575.3,344.4L571.3,350.5L564.8,349.8L560.0,354.4L558.0,354.8L555.3,348.2L555.3,339.0L558.0,338.9L558.1,327.6L570.2,325.9L577.8,337.8L581.8,339.7ZM555.3,339.0L555.3,359.9L551.3,361.8L546.7,358.7L545.4,360.3L542.3,355.6L539.6,339.8L532.6,324.5L537.4,323.5L559.4,326.5L569.7,325.4L565.5,327.7L564.4,326.3L558.1,327.6L558.0,338.9L555.3,339.0ZM453.6,226.5L451.0,222.9L455.2,217.5L459.5,217.0L466.2,223.3L468.0,230.2L453.7,230.4L453.2,227.9L461.5,226.8L453.6,226.5ZM468.0,230.2L466.2,223.3L467.6,220.8L484.6,220.5L482.1,190.5L486.3,190.4L508.7,207.2L508.8,209.2L511.9,208.9L511.9,216.2L510.1,220.3L497.0,222.2L488.9,226.9L485.0,236.8L477.7,237.3L474.6,230.6L471.8,232.1L468.0,230.2ZM452.6,203.0L464.1,202.0L464.2,195.8L466.8,195.5L466.8,187.4L475.9,187.5L475.9,182.7L486.3,190.4L482.1,190.5L484.6,220.5L467.6,220.8L466.2,223.3L459.5,217.0L454.3,218.5L454.8,205.9L452.6,203.0ZM507.5,249.8L505.2,250.2L504.6,240.7L502.1,236.4L507.9,230.8L510.5,235.6L507.6,242.7L507.5,249.8ZM541.3,197.1L544.2,205.0L542.4,216.9L538.8,219.9L537.6,224.1L538.8,227.3L540.5,227.4L539.4,230.1L536.3,226.5L534.2,228.3L530.5,227.2L525.0,229.0L515.1,225.7L511.4,226.7L510.0,232.7L502.8,228.9L501.0,222.3L510.1,220.3L511.9,216.2L511.9,208.9L533.3,195.2L539.3,198.3L541.3,197.1ZM507.5,249.8L507.6,242.7L510.3,237.7L510.2,229.8L512.1,226.0L525.0,229.0L530.5,227.2L534.2,228.3L536.3,226.5L540.5,231.3L532.6,247.5L525.6,249.2L523.6,254.5L516.4,256.1L512.0,249.8L507.5,249.8ZM540.3,228.9L543.0,238.0L538.8,239.4L542.9,245.3L540.4,249.9L540.2,254.6L544.1,260.1L544.3,264.2L526.8,262.4L527.2,259.9L523.6,255.4L524.3,252.3L528.1,247.3L532.6,247.5L540.0,232.9L540.3,228.9ZM502.5,234.8L505.2,250.2L502.9,250.8L499.9,235.7L502.5,234.8ZM500.1,234.7L502.9,250.8L494.5,254.7L492.1,253.8L491.8,234.9L500.1,234.7ZM477.7,237.3L482.8,236.3L488.0,239.2L492.1,239.1L492.1,253.8L487.1,253.3L478.6,255.8L479.0,251.5L476.1,249.1L478.2,242.4L477.7,237.3ZM461.9,229.7L471.8,232.1L474.6,230.6L477.7,237.3L477.0,245.3L474.4,246.5L472.9,242.6L470.8,243.2L469.1,237.8L465.5,238.5L463.2,241.4L458.0,234.6L461.8,232.2L461.9,229.7ZM453.7,230.4L461.9,229.7L461.8,232.2L458.0,234.6L453.7,230.4ZM476.6,245.3L476.1,249.1L479.0,251.5L478.6,255.8L468.2,248.1L471.6,243.0L472.9,242.6L474.4,246.5L476.6,245.3ZM463.2,241.4L465.5,238.5L469.1,237.8L471.6,243.0L468.2,248.1L464.0,244.9L463.2,241.4ZM485.0,236.8L488.1,227.7L497.0,222.2L501.0,222.3L502.8,228.9L506.0,229.6L505.4,232.7L502.5,234.8L491.8,234.9L492.1,239.1L488.0,239.2L485.0,236.8ZM576.0,253.1L567.8,253.4L562.2,256.9L554.1,253.7L551.3,258.5L547.6,257.8L544.5,262.5L540.2,252.4L542.4,246.1L549.9,244.6L552.3,241.2L558.3,239.6L563.5,234.3L565.2,241.2L576.0,253.1ZM551.3,258.5L549.0,271.0L545.6,275.2L544.5,280.9L540.5,285.4L535.1,283.7L533.1,285.6L530.8,282.3L532.9,280.5L531.9,278.4L534.9,275.8L538.9,277.5L540.1,273.9L538.5,269.5L539.7,265.9L536.9,265.5L536.3,262.5L544.3,264.2L547.6,257.8L551.3,258.5ZM531.3,262.5L536.0,262.3L536.9,265.5L539.7,265.9L538.5,269.5L540.1,273.9L538.9,277.5L534.9,275.8L531.9,278.4L532.9,280.5L530.8,282.3L524.4,273.2L526.4,266.5L531.3,266.3L531.3,262.5ZM526.8,262.4L531.3,262.5L531.3,266.3L526.4,266.5L526.8,262.4ZM585.4,296.1L592.3,300.4L592.5,309.1L590.8,313.2L592.3,314.0L583.8,316.6L584.1,318.9L575.1,326.6L564.5,325.2L560.8,320.7L560.9,310.6L566.7,310.6L566.4,304.3L571.5,307.0L575.5,306.5L580.4,311.7L582.5,311.7L582.3,308.3L578.8,307.1L579.0,298.7L580.6,296.3L585.4,296.1ZM591.0,298.9L595.2,301.9L596.0,312.7L599.1,316.0L599.4,320.1L597.3,323.0L595.5,321.0L595.7,316.0L590.8,313.2L593.0,303.0L591.0,298.9ZM596.0,306.2L604.1,306.4L612.0,302.4L613.3,316.3L609.6,322.7L596.6,332.4L598.8,339.7L598.5,346.2L591.7,350.1L591.2,354.5L589.1,354.5L586.6,340.2L590.7,334.1L591.2,322.7L584.3,320.0L583.8,316.6L592.3,314.0L595.7,316.0L595.5,321.0L597.3,323.0L599.4,320.1L599.1,316.0L596.0,312.7L596.0,306.2ZM589.1,354.5L586.9,356.2L585.2,354.5L586.2,351.3L588.4,351.6L589.1,354.5ZM534.2,289.0L545.4,288.3L548.5,295.3L552.8,295.0L555.8,291.7L560.4,292.8L561.5,304.8L566.7,305.3L566.7,310.6L560.9,310.6L560.8,320.7L564.5,325.2L559.4,326.5L537.4,323.5L532.6,324.5L533.8,315.5L538.2,305.5L534.2,289.0ZM584.6,277.3L585.4,280.3L581.5,283.9L580.6,278.7L584.6,277.3ZM599.5,164.1L597.2,168.6L598.4,171.0L597.0,176.1L595.2,170.6L597.5,164.7L599.5,164.1ZM636.7,307.9L639.9,319.5L638.0,319.5L638.3,323.2L630.8,348.8L626.1,350.9L622.3,348.9L620.4,341.9L623.5,331.3L622.1,324.9L623.5,321.1L628.6,319.7L636.7,307.9ZM453.2,227.9L458.1,225.6L461.5,226.8L453.2,227.9ZM526.3,173.5L525.2,167.8L520.9,161.5L522.6,159.7L523.4,152.4L526.4,151.2L528.3,153.2L530.6,152.0L530.0,159.1L528.2,160.7L531.9,164.5L526.3,173.5ZM475.9,182.7L475.9,178.2L485.4,174.5L489.7,171.6L489.9,169.3L496.4,167.3L494.0,158.1L496.6,156.4L504.1,153.5L523.4,152.4L522.6,159.7L520.9,161.5L525.2,167.8L527.2,176.3L525.9,186.9L528.6,192.3L533.3,195.2L515.8,207.5L508.8,209.2L508.7,207.2L475.9,182.7ZM598.7,166.9L602.3,167.1L607.8,163.8L608.9,167.6L602.8,169.7L605.6,172.9L600.2,177.0L597.0,176.1L598.7,166.9ZM643.3,192.7L650.0,193.1L656.3,188.1L656.7,190.6L655.2,190.6L652.8,198.3L644.4,196.7L643.3,192.7ZM642.7,191.5L641.0,188.8L642.5,186.8L643.4,189.7L642.7,191.5ZM633.3,174.6L634.5,179.1L629.4,177.3L631.4,174.3L633.3,174.6ZM608.9,167.6L607.8,163.8L613.9,160.5L614.7,154.3L618.8,151.1L624.4,151.7L628.0,156.5L626.2,161.9L631.5,166.6L634.9,174.7L631.4,174.3L629.4,177.3L624.2,177.1L616.4,170.7L608.9,167.6ZM653.4,197.6L655.2,190.6L656.7,190.6L666.1,198.9L660.6,205.4L660.3,209.6L652.2,215.9L647.5,216.8L644.4,209.4L652.8,206.2L654.6,199.9L653.4,197.6ZM787.5,235.9L784.3,227.2L786.1,224.5L794.6,225.6L795.8,223.4L798.9,226.7L798.6,230.5L793.9,233.0L795.1,234.9L787.5,235.9ZM792.3,224.4L786.1,224.5L784.3,227.2L785.0,231.0L778.0,227.1L775.6,240.3L777.4,240.4L779.1,246.1L783.7,249.9L781.0,251.6L772.6,243.2L776.6,231.9L772.8,221.7L774.7,218.3L770.5,211.1L772.9,207.1L778.1,204.9L781.3,207.9L780.7,214.1L786.7,211.6L790.9,214.4L793.3,220.3L792.3,224.4ZM798.3,224.6L792.3,224.4L793.3,220.3L788.8,211.8L780.7,214.1L781.3,207.9L778.1,204.9L781.1,201.6L782.8,202.5L782.4,198.9L783.8,198.4L786.7,203.8L790.1,203.8L791.2,206.6L788.6,208.5L791.9,210.4L798.1,219.2L798.3,224.6ZM778.1,204.9L772.9,207.1L770.5,211.1L774.7,218.3L772.8,221.7L776.6,231.9L773.8,238.1L773.6,228.0L769.9,216.0L764.9,219.8L761.6,218.8L762.0,211.9L756.4,201.5L758.8,199.0L759.2,193.3L761.4,194.0L764.2,185.4L769.8,183.7L770.4,180.0L774.1,182.4L774.1,187.4L771.5,190.1L771.1,193.8L774.1,193.3L776.5,196.9L775.7,199.5L781.0,200.3L778.1,204.9ZM789.8,236.4L795.1,234.9L793.9,233.0L798.6,230.5L798.8,221.4L791.9,210.4L788.6,208.5L791.2,206.6L790.1,203.8L786.7,203.8L783.8,198.4L792.6,195.6L800.1,201.3L793.5,209.2L802.4,221.2L803.3,232.6L792.1,242.4L791.9,238.2L789.8,236.4ZM862.9,135.2L860.2,137.7L860.3,140.0L854.3,143.5L856.1,147.9L848.0,150.2L846.4,148.8L848.3,144.7L845.2,143.0L847.4,141.0L852.4,137.0L856.1,138.1L855.7,136.4L861.1,133.3L862.9,135.2ZM850.5,149.9L856.5,147.2L859.6,153.0L858.6,158.4L851.3,160.6L850.3,153.1L852.4,152.6L850.5,149.9ZM743.8,113.3L756.2,108.5L770.2,111.9L772.9,109.7L771.7,107.8L774.6,104.5L783.5,107.0L784.0,109.4L788.0,110.7L796.9,110.2L801.3,113.3L807.4,113.8L817.7,110.2L824.1,111.4L821.5,118.2L828.0,117.2L832.7,120.4L826.2,121.6L815.2,127.5L810.8,126.6L809.3,128.6L810.6,130.9L806.7,133.6L791.6,137.7L780.1,134.3L767.6,134.1L764.7,129.3L752.6,126.0L752.7,120.9L744.5,115.5L743.8,113.3ZM770.4,180.0L769.8,183.7L764.2,185.4L761.4,194.0L759.2,193.3L757.4,199.7L756.0,194.7L754.7,196.7L753.2,195.1L756.6,190.4L749.8,189.5L749.5,187.3L746.0,185.8L745.0,187.9L747.0,189.6L744.7,191.9L746.4,192.8L746.9,200.8L741.6,201.5L740.3,205.7L736.3,207.9L728.3,217.1L723.1,219.2L721.8,236.8L715.4,244.4L712.8,241.4L704.3,218.9L701.8,201.9L695.8,203.4L689.4,194.5L691.2,192.4L697.3,192.4L693.1,184.2L696.2,180.9L699.4,181.1L709.1,167.3L704.9,160.8L713.5,159.7L716.2,157.1L719.2,160.8L718.7,169.7L725.3,173.9L722.5,178.3L731.4,182.8L744.6,185.9L744.8,181.2L746.5,180.6L746.8,183.7L749.3,184.9L755.6,184.5L754.7,181.6L767.0,176.2L767.4,179.5L770.4,180.0ZM757.4,199.7L756.6,204.1L753.9,197.4L751.4,197.3L750.8,200.4L747.3,199.7L746.4,192.8L744.7,191.9L747.0,189.6L745.0,187.9L746.0,185.8L749.5,187.3L749.8,189.5L756.6,190.4L753.2,195.1L754.7,196.7L756.0,194.7L757.4,199.7ZM754.7,181.6L755.6,184.5L746.8,183.7L750.0,179.9L754.7,181.6ZM744.8,181.2L744.6,185.9L742.3,185.9L722.5,178.3L726.5,173.1L738.4,180.2L744.8,181.2ZM716.2,157.1L713.5,159.7L704.9,160.8L709.1,167.3L699.4,181.1L696.2,180.9L693.1,184.2L697.3,192.4L691.2,192.4L689.4,194.5L684.4,189.0L670.8,190.1L671.9,186.4L675.9,184.8L674.2,180.0L669.1,175.0L673.7,176.6L684.3,174.8L685.9,170.3L692.5,168.5L695.3,163.8L694.3,161.7L696.9,161.8L699.6,153.8L708.8,151.9L711.6,155.8L716.2,157.1ZM682.6,150.2L692.2,151.8L696.7,147.6L699.6,153.1L703.5,150.7L708.8,151.9L698.0,155.2L698.9,158.1L696.9,161.8L694.3,161.7L695.3,163.8L692.5,168.5L685.9,170.3L684.3,174.8L673.7,176.6L669.1,175.0L671.6,172.1L668.2,165.0L670.0,156.6L675.0,157.3L679.3,154.5L679.9,151.9L682.6,150.2ZM688.4,151.8L690.0,148.6L687.3,145.5L688.1,144.1L696.3,139.7L697.3,142.0L693.2,142.4L693.0,144.3L704.7,144.6L705.4,147.5L708.0,147.9L708.3,150.9L703.5,150.7L699.6,153.1L696.7,147.6L692.2,151.8L688.4,151.8ZM695.6,137.9L699.6,133.7L704.1,134.8L706.1,132.3L722.9,135.3L712.6,141.4L707.7,141.6L704.7,144.6L693.0,144.3L693.2,142.4L699.4,142.3L702.9,140.0L695.6,137.9ZM645.8,137.1L650.2,135.4L654.0,138.8L658.6,138.6L658.1,137.0L662.9,134.0L666.6,135.7L668.0,138.9L671.9,139.3L673.3,142.6L678.3,146.3L684.9,149.2L684.8,151.1L682.6,150.2L679.3,154.5L672.9,157.8L670.0,156.6L669.8,153.9L659.3,149.0L649.8,151.6L649.7,146.1L647.5,145.0L648.2,142.8L646.4,142.7L647.0,140.0L652.0,139.7L649.2,136.0L647.0,136.8L646.7,139.2L645.8,137.1ZM634.9,174.7L631.5,166.6L626.2,161.9L628.0,156.5L622.8,149.2L622.5,144.6L624.4,143.7L628.2,146.8L633.5,144.1L633.4,146.6L636.7,150.4L641.2,152.7L649.5,152.4L657.3,148.7L669.8,153.9L668.2,165.0L671.6,172.1L669.1,175.0L674.2,180.0L675.9,184.8L671.9,186.4L670.8,190.1L659.4,188.0L658.3,184.1L648.6,184.6L643.1,181.3L639.2,174.0L634.9,174.7ZM599.2,165.9L601.7,161.2L599.7,157.3L602.1,152.9L617.6,151.5L614.7,154.3L613.9,160.5L602.3,167.1L599.2,165.9ZM629.2,146.7L621.3,142.0L621.1,139.3L626.6,140.2L629.2,146.7ZM530.6,82.9L535.1,75.2L533.3,73.6L533.1,69.4L534.9,66.4L537.7,66.5L537.7,64.1L546.6,53.9L555.2,52.6L557.3,50.4L565.4,54.1L566.4,60.3L561.6,61.2L558.9,63.4L559.4,65.3L549.6,70.6L547.6,75.1L552.2,79.1L549.6,82.6L546.7,83.4L544.1,91.7L536.0,94.0L530.6,82.9ZM578.3,91.5L585.8,93.4L585.4,95.8L590.8,100.4L587.0,101.3L588.3,104.4L585.9,104.6L584.9,106.8L565.4,106.0L565.2,98.6L570.9,97.4L573.6,93.2L578.3,91.5ZM585.9,104.6L593.8,103.6L598.2,109.2L611.3,112.3L610.4,117.7L597.1,122.9L597.3,124.6L588.0,121.5L585.4,121.9L582.2,126.0L579.7,125.9L578.4,125.3L580.2,122.3L583.4,122.4L579.6,117.0L576.5,115.9L569.1,118.2L561.3,116.0L566.5,109.7L565.4,106.0L584.9,106.8L585.9,104.6ZM565.2,98.6L566.1,102.5L564.4,103.1L566.7,108.8L562.6,112.7L563.3,114.1L555.1,113.5L544.9,109.7L541.7,107.5L539.1,101.6L539.2,99.1L549.0,95.6L565.2,98.6ZM547.2,117.0L544.5,121.6L540.6,122.4L526.3,120.2L527.5,118.7L535.9,119.1L537.8,114.6L545.8,114.9L547.2,117.0ZM561.3,116.0L563.1,117.8L558.4,122.7L551.3,124.5L545.0,121.0L547.2,117.0L549.6,118.1L561.3,116.0ZM573.9,116.7L579.6,117.0L583.4,122.4L580.2,122.3L578.4,125.3L578.1,121.2L573.9,116.7ZM578.4,125.3L582.2,126.0L580.1,127.2L579.3,131.0L575.7,129.5L563.7,130.6L563.1,128.2L559.9,127.6L556.2,123.3L564.3,117.1L569.1,118.2L573.9,116.7L578.1,121.2L578.4,125.3ZM573.6,93.2L570.9,97.4L565.2,98.6L563.2,95.6L559.1,94.6L558.5,91.9L569.1,90.8L573.6,93.2ZM575.8,87.3L578.3,91.5L573.6,93.2L569.1,90.8L558.5,91.9L559.9,87.5L562.6,86.4L564.8,88.8L569.9,85.7L575.8,87.3ZM577.7,81.0L575.8,87.3L567.5,86.3L567.9,84.4L565.1,83.7L564.8,81.9L577.7,81.0ZM539.2,99.1L541.7,107.5L534.0,110.2L537.8,114.6L535.9,119.1L520.7,118.6L522.5,114.2L518.5,113.6L516.8,110.6L516.6,105.2L519.0,104.0L519.7,99.3L522.6,99.8L524.4,98.3L523.7,95.3L527.6,95.2L530.4,98.3L534.8,96.9L539.2,99.1ZM562.9,129.3L563.7,130.6L575.7,129.5L579.3,131.0L576.9,134.6L577.8,136.4L572.5,137.0L572.5,138.5L563.8,138.5L562.2,135.4L563.9,132.6L562.9,129.3ZM573.0,157.7L568.7,158.9L565.3,157.7L565.8,156.4L573.0,157.7ZM558.4,140.1L573.9,137.8L572.4,140.1L565.9,140.6L567.8,142.4L562.9,141.9L566.8,150.2L564.2,149.4L564.3,154.1L562.5,154.1L560.2,152.8L556.0,143.9L558.4,140.1ZM624.4,151.7L602.1,152.9L600.4,156.0L600.4,153.4L596.4,152.9L594.5,154.8L585.1,153.3L582.5,155.0L576.8,153.4L573.1,148.4L574.5,146.0L572.7,144.5L575.8,141.4L580.1,141.3L581.2,138.9L586.5,139.3L593.1,136.4L606.5,139.7L618.4,137.7L624.4,143.7L622.5,144.6L624.4,151.7ZM572.5,137.0L577.8,136.4L580.5,138.6L573.2,142.3L572.4,140.1L573.9,137.8L572.5,137.0ZM558.4,140.1L556.0,143.9L553.9,142.0L554.8,134.2L558.4,140.1ZM546.0,122.1L553.9,126.1L543.8,127.5L551.3,134.9L544.5,131.6L541.4,126.7L537.9,126.5L542.6,125.5L546.0,122.1ZM526.7,118.9L528.8,122.2L520.2,124.4L516.7,122.9L518.7,118.8L526.7,118.9ZM517.1,108.5L515.8,112.5L507.0,107.4L513.8,106.4L517.1,108.5ZM519.2,100.0L519.0,104.0L516.6,105.2L517.1,108.5L513.8,106.4L509.2,106.8L513.1,101.2L519.2,100.0ZM474.9,136.8L477.0,135.5L482.3,138.4L479.2,143.9L480.5,148.9L478.2,152.8L475.3,152.7L475.4,148.3L473.5,146.8L475.6,140.3L474.9,136.8ZM479.3,152.0L480.5,148.9L479.2,143.9L482.3,138.4L477.0,135.5L474.9,136.8L473.9,133.2L477.8,130.9L508.3,134.9L505.8,138.9L502.3,139.5L499.2,144.9L500.3,146.8L494.0,153.3L487.9,153.3L485.1,155.6L479.3,152.0ZM482.8,98.8L483.2,101.0L481.1,103.9L472.3,105.3L474.5,101.9L473.1,98.7L479.0,94.8L479.0,98.2L482.8,98.8ZM955.6,333.4L964.2,340.0L959.7,338.4L955.6,333.4ZM995.9,389.2L988.9,400.6L986.8,401.9L985.1,400.6L986.7,398.0L982.8,395.0L984.9,392.7L985.3,388.2L979.5,379.2L984.2,381.5L988.8,388.8L995.9,389.2ZM971.3,407.8L980.0,398.1L981.2,400.8L983.2,399.5L984.0,400.8L979.8,407.3L980.8,408.8L976.3,410.0L973.9,415.3L970.4,417.6L963.0,416.3L964.0,412.8L971.3,407.8ZM902.1,398.8L911.9,399.3L910.9,406.7L905.7,407.8L902.1,398.8ZM864.8,369.6L845.1,374.2L843.5,377.2L833.0,377.4L827.8,380.9L819.5,378.1L821.7,371.8L814.8,352.5L816.1,353.9L815.1,350.9L817.3,353.1L815.0,347.0L815.9,341.0L817.1,338.7L817.3,341.1L824.2,335.3L835.7,332.1L841.7,321.7L842.9,324.4L844.1,323.8L843.1,322.3L849.1,314.8L853.0,313.5L856.6,316.8L860.1,317.1L859.5,315.4L862.8,309.4L868.3,308.1L866.2,305.4L867.7,305.0L875.8,308.5L879.1,307.3L880.4,308.8L877.7,311.9L876.4,317.2L889.5,325.8L892.4,321.6L893.6,309.0L895.9,303.5L899.8,315.8L901.6,314.6L903.8,317.2L906.6,329.8L913.5,334.3L915.8,340.5L918.7,340.7L919.2,344.1L924.6,349.8L926.6,358.8L924.7,370.0L917.6,382.8L916.7,388.4L906.4,393.5L902.4,391.5L902.9,389.9L898.9,392.8L890.7,390.3L887.7,384.3L883.7,382.6L883.9,378.7L880.1,381.5L882.8,374.0L877.7,380.3L873.0,373.1L864.8,369.6ZM727.2,245.8L726.8,249.1L723.2,250.7L721.4,243.6L722.6,238.5L727.2,245.8ZM806.5,210.4L801.8,210.9L801.7,208.2L807.7,206.0L806.5,210.4ZM722.9,135.3L722.7,133.5L724.6,132.7L722.1,127.2L729.1,125.2L731.1,119.5L736.6,120.5L738.2,115.9L743.8,113.3L744.5,115.5L752.7,120.9L752.6,126.0L764.7,129.3L767.6,134.1L780.1,134.3L791.6,137.7L803.5,134.8L810.6,130.9L809.3,128.6L810.8,126.6L815.2,127.5L826.2,121.6L832.4,121.5L828.0,117.2L821.5,118.2L820.8,116.9L824.1,111.4L827.4,112.6L831.4,110.6L835.4,104.8L833.8,102.3L839.6,100.1L849.9,102.2L854.6,111.8L859.4,112.8L863.9,118.0L875.1,115.9L869.7,126.4L864.0,127.0L864.3,133.5L862.9,135.2L861.1,133.3L855.7,136.4L856.1,138.1L852.4,137.0L845.2,143.0L836.3,146.3L839.4,141.4L837.9,139.8L826.5,146.8L832.5,151.8L835.6,149.5L839.9,150.8L840.3,152.5L836.4,153.4L831.0,158.9L834.0,160.6L838.6,169.1L836.8,172.3L839.1,175.0L838.0,180.1L829.6,191.8L821.9,197.4L807.7,201.8L806.8,205.1L805.2,205.3L805.2,201.8L797.3,200.5L796.5,197.3L792.6,195.6L782.4,198.9L782.8,202.5L781.0,200.3L775.7,199.5L776.5,196.9L774.1,193.3L771.1,193.8L771.5,190.1L774.1,187.4L774.1,182.4L772.0,179.8L767.4,179.5L767.0,176.2L762.7,176.8L757.0,181.2L750.0,179.9L746.7,183.1L746.5,180.6L738.4,180.2L718.7,169.7L719.2,160.8L716.2,157.1L711.6,155.8L704.7,144.6L707.7,141.6L712.6,141.4L722.9,135.3ZM837.5,189.4L836.6,197.4L835.4,200.0L833.6,194.9L837.5,189.4ZM524.9,123.6L533.8,120.2L538.4,122.1L538.7,125.0L534.2,125.7L535.0,129.8L542.1,136.6L551.0,141.6L550.8,143.4L546.9,141.4L545.7,143.4L547.4,146.2L543.6,149.4L544.7,146.0L542.8,142.6L531.1,135.3L528.3,130.3L524.7,128.9L520.7,131.0L519.0,123.8L524.9,123.6ZM534.9,148.7L543.1,148.4L541.9,153.5L534.5,150.3L534.9,148.7ZM522.7,139.7L525.6,138.9L527.2,141.2L526.9,145.4L524.5,146.2L522.7,139.7ZM527.6,95.2L523.7,95.3L522.5,90.3L529.4,86.5L528.5,89.2L530.3,90.5L526.8,93.7L527.6,95.2ZM534.4,91.6L535.3,93.2L533.6,95.8L530.7,94.0L530.3,92.7L534.4,91.6ZM482.8,98.8L479.0,98.2L479.0,94.8L484.3,96.6L482.8,98.8ZM491.4,100.2L489.9,96.4L485.9,95.0L486.0,92.7L484.5,94.2L482.9,89.5L486.1,83.7L491.7,83.6L488.7,87.1L494.6,86.7L491.3,92.1L494.2,92.3L501.3,101.7L504.7,102.3L502.9,105.3L504.0,106.9L484.0,110.5L490.5,106.5L485.4,104.7L488.3,103.7L487.3,99.9L491.4,100.2ZM459.7,58.8L459.1,60.9L462.2,63.0L448.2,68.2L436.8,66.7L439.5,65.3L433.5,63.8L438.3,62.2L432.4,61.5L438.5,59.0L442.8,61.1L459.7,58.8ZM628.9,136.9L632.8,139.1L635.0,137.0L640.0,141.9L637.7,142.2L635.8,148.1L633.4,146.6L633.5,144.1L629.2,146.7L629.1,144.5L626.7,143.1L624.9,138.8L629.2,139.4L628.9,136.9ZM628.2,146.8L626.3,146.3L624.4,143.7L627.1,144.4L628.2,146.8ZM611.0,131.9L626.3,134.8L629.5,139.0L615.4,137.9L615.1,134.4L611.0,131.9ZM836.8,230.9L834.2,226.9L837.6,228.2L836.8,230.9ZM841.7,241.0L841.5,235.1L843.1,234.9L842.6,237.1L844.7,234.0L841.7,241.0ZM848.4,238.7L851.5,246.8L850.5,249.8L849.5,246.5L848.2,248.1L848.3,251.9L845.1,250.1L845.1,246.3L843.4,244.8L838.7,246.8L843.0,242.1L844.0,243.5L848.5,241.1L848.4,238.7ZM832.5,236.2L825.5,243.1L832.0,233.6L832.5,236.2ZM839.8,211.8L838.1,224.2L844.3,225.9L844.7,229.9L841.5,226.7L835.1,225.7L836.1,223.6L833.1,220.8L835.3,210.9L839.8,211.8ZM838.9,236.5L838.6,231.9L842.0,232.9L838.9,236.5ZM848.6,231.1L849.4,234.6L847.3,233.8L848.0,236.8L846.7,237.5L845.3,233.2L846.9,232.2L845.2,229.8L848.6,231.1ZM778.0,249.1L781.0,251.6L783.7,249.9L786.0,252.1L789.5,265.6L781.6,260.9L778.0,249.1ZM827.5,256.5L821.8,256.0L818.4,265.1L807.0,267.2L805.1,265.4L804.6,263.3L808.8,263.8L809.4,261.1L813.9,259.8L817.2,255.3L818.5,256.9L820.4,256.0L820.7,252.4L824.2,247.7L831.1,252.5L827.5,256.5ZM820.7,252.4L820.4,256.0L818.5,256.9L817.2,255.3L820.7,252.4ZM538.4,122.1L545.0,121.0L546.0,122.1L542.6,125.5L538.1,125.3L538.4,122.1ZM580.6,48.3L579.0,52.8L583.3,54.9L580.7,57.3L583.9,60.9L582.1,63.6L584.6,66.0L583.4,68.0L587.5,70.2L586.5,71.8L578.0,77.7L563.5,79.8L559.2,77.0L558.5,71.0L559.8,69.2L570.6,63.1L565.5,59.0L565.4,54.1L557.3,50.4L568.7,51.9L577.0,47.1L580.6,48.3ZM562.7,113.9L560.8,116.4L557.8,115.4L549.6,118.1L546.9,115.9L551.5,112.6L562.7,113.9ZM541.7,107.5L548.8,109.9L552.4,112.6L547.1,115.5L542.4,114.1L539.8,115.6L534.8,112.5L534.0,110.2L541.7,107.5ZM601.2,223.9L602.4,215.9L606.7,212.6L609.1,219.1L619.7,229.4L617.6,229.9L611.2,223.6L605.3,222.2L604.4,224.6L601.2,223.9ZM894.1,145.4L891.6,148.6L889.6,158.2L881.2,159.9L877.2,163.5L875.2,159.9L863.9,162.2L866.7,164.5L864.8,169.9L863.0,171.2L861.7,170.0L862.4,167.1L859.5,164.0L868.4,157.2L876.9,156.9L879.8,151.3L881.6,152.8L887.3,148.4L889.7,139.0L892.7,138.4L894.1,145.4ZM901.7,130.2L903.7,128.8L904.3,132.4L900.2,133.3L897.7,136.4L893.4,134.3L891.9,137.7L888.8,137.8L888.4,134.6L889.8,132.2L892.7,132.0L894.4,125.1L901.7,130.2ZM867.7,163.5L872.0,160.6L874.4,162.4L869.5,165.9L867.7,163.5ZM338.4,333.7L339.1,339.7L345.0,340.6L346.1,345.7L349.2,345.9L347.8,354.1L345.3,356.5L337.2,355.7L339.5,349.5L331.0,345.4L325.9,340.2L328.4,331.9L335.8,331.1L338.4,333.7ZM644.4,209.4L647.5,216.8L644.9,220.2L625.0,229.4L620.8,229.6L618.3,221.4L620.5,213.9L630.6,215.9L636.4,210.6L644.4,209.4ZM597.1,176.5L600.2,177.0L604.2,174.5L605.6,172.9L602.8,169.7L608.9,167.6L616.4,170.7L624.2,177.1L631.8,177.6L639.3,185.0L639.6,188.4L642.7,191.5L644.4,196.7L653.4,197.6L654.6,199.9L652.8,206.2L636.4,210.6L630.6,215.9L620.5,213.9L618.8,217.8L608.7,202.1L606.9,194.5L596.2,180.6L597.1,176.5ZM589.6,158.3L592.7,158.1L594.5,158.7L591.6,160.0L589.6,158.3ZM494.0,158.1L496.4,167.3L489.9,169.3L489.7,171.6L485.4,174.5L475.9,178.2L475.6,183.6L468.4,184.4L465.3,191.1L461.4,194.5L459.0,201.4L452.7,201.7L459.9,186.4L473.4,174.7L472.7,170.7L476.0,164.2L480.8,161.4L483.5,156.2L494.0,158.1ZM602.4,199.9L569.4,199.9L568.6,174.3L569.9,169.5L580.3,171.7L586.0,169.5L588.8,171.5L595.2,170.6L597.0,176.1L594.9,181.4L589.8,175.2L599.1,193.7L598.7,196.4L602.4,199.9ZM569.2,168.5L569.4,206.2L566.2,207.5L544.1,195.4L539.3,198.3L528.6,192.3L525.9,186.9L527.6,170.1L531.8,167.0L531.9,164.5L542.3,167.3L543.6,170.1L553.0,173.6L557.9,165.9L569.2,168.5ZM632.7,244.3L624.9,253.8L616.3,257.2L613.2,256.2L609.9,258.8L600.4,255.5L596.4,248.7L591.5,245.0L594.0,243.1L595.2,235.9L599.6,229.8L601.2,223.9L604.4,224.6L605.3,222.2L615.6,227.0L617.6,229.9L616.0,234.6L618.8,235.0L621.3,240.5L632.7,244.3ZM617.6,229.9L620.3,230.3L618.8,235.0L616.0,234.6L617.6,229.9ZM636.0,233.5L635.9,239.7L632.7,244.3L621.3,240.5L618.2,236.1L619.8,233.3L622.5,236.5L636.0,233.5ZM594.2,272.7L582.2,273.9L583.0,267.8L586.6,262.7L585.5,262.2L586.8,257.7L594.5,256.2L595.8,258.4L597.3,263.6L594.1,269.3L594.2,272.7ZM584.5,273.3L585.4,276.9L580.6,278.7L581.4,274.8L584.5,273.3ZM551.6,134.4L545.7,129.9L544.3,126.2L553.8,127.3L554.0,131.4L551.6,134.4ZM562.2,135.4L563.8,138.5L557.2,139.3L557.7,136.2L562.2,135.4ZM552.3,124.0L556.2,123.3L559.9,127.6L563.1,128.2L562.6,135.0L559.9,135.6L560.5,134.2L557.8,132.4L556.3,133.8L553.4,131.6L554.4,129.9L552.3,124.0ZM556.5,133.6L553.8,136.8L551.3,134.9L553.4,131.6L556.5,133.6ZM557.2,136.9L555.8,134.5L557.3,132.6L560.5,134.2L557.2,136.9ZM585.6,258.5L582.5,255.1L577.7,255.7L566.4,242.3L571.6,236.6L574.3,239.6L580.5,239.8L583.3,237.0L587.1,238.5L590.0,234.5L589.1,231.7L592.2,231.0L594.4,242.1L591.5,245.0L598.1,252.2L592.8,257.6L585.6,258.5Z";
+
+// ====== INIT ======
+renderStats();
+renderMap();
+renderPicks();
+renderRegions();
+renderScenario();
+renderExplorer();
+
+</script>
+</body>
+</html>
