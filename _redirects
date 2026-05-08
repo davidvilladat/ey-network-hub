@@ -5,4 +5,4 @@
 /network-analysis   /ey-analysis.html   301
 
 # Catch-all: unknown paths → home
-/*                  /index.html         404
+/*                  /index.html         302
