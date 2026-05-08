@@ -112,6 +112,62 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper)}
 footer a{color:var(--ink-mute);text-decoration:none}
 footer a:hover{color:var(--teal)}
 
+/* DEEP DIVE */
+.dd-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:36px;overflow-x:auto}
+.dd-tab{padding:12px 22px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color 0.15s,border-color 0.15s;background:none;border-top:none;border-left:none;border-right:none}
+.dd-tab:hover{color:var(--ink)}
+.dd-tab.active{color:var(--copper);border-bottom-color:var(--copper)}
+.dd-panel{display:none}.dd-panel.active{display:block}
+.dd-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.dd-kpi{background:var(--bg-card);border:1px solid var(--line);padding:18px 20px}
+.dd-kpi .k-val{font-family:'Fraunces',serif;font-size:30px;font-weight:600;letter-spacing:-0.02em;line-height:1}
+.dd-kpi .k-val em{font-style:italic;color:var(--teal)}
+.dd-kpi .k-val.up em{color:var(--teal)}.dd-kpi .k-val.down em{color:var(--crimson)}
+.dd-kpi .k-lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute)}
+.dd-kpi .k-sub{margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:0.06em}
+.new-route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-bottom:28px}
+.nr-card{background:var(--bg-card);border:1px solid var(--line);padding:14px 14px 14px 16px;position:relative;overflow:hidden;transition:border-color 0.15s}
+.nr-card:hover{border-color:var(--copper)}
+.nr-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.nr-europe::before{background:var(--teal)}.nr-asia::before{background:var(--gold)}
+.nr-africa::before{background:var(--copper)}.nr-namerica::before{background:#a78bfa}
+.nr-mideast::before{background:#34d399}
+.nr-code{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+.nr-city{font-size:12px;color:var(--ink-dim);margin-top:3px}
+.nr-stats{display:flex;justify-content:space-between;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.07em}
+.nr-flt{color:var(--ink-mute)}.nr-seats{color:var(--teal);font-weight:600}
+.dropped-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.dropped-pill{display:flex;align-items:center;gap:10px;background:rgba(229,78,78,0.07);border:1px solid rgba(229,78,78,0.2);padding:10px 16px}
+.dp-code{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--crimson)}
+.dp-info{font-size:12px;color:var(--ink-dim)}.dp-info span{color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em}
+.route-table{width:100%;border-collapse:collapse;font-size:12px}
+.route-table th{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute);padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.route-table td{padding:7px 10px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+.route-table tr:hover td{background:rgba(255,255,255,0.018)}
+.rt-code{font-family:'Fraunces',serif;font-size:14px;font-weight:600;letter-spacing:-0.01em}
+.rt-bar-wrap{width:100%;background:var(--bg-elev);height:6px;border-radius:1px;overflow:hidden;min-width:80px}
+.rt-bar{height:100%;border-radius:1px;transition:width 0.3s}
+.rt-chg{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 6px}
+.rt-chg.up{background:rgba(79,184,168,0.12);color:var(--teal)}.rt-chg.new{background:rgba(167,139,250,0.15);color:#a78bfa}
+.rt-chg.down{background:rgba(229,78,78,0.12);color:var(--crimson)}.rt-chg.flat{background:var(--bg-elev);color:var(--ink-mute)}
+.cont-bar-section{display:flex;flex-direction:column;gap:16px}
+.cb-row{display:grid;grid-template-columns:120px 1fr 1fr 80px;gap:12px;align-items:center}
+.cb-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.09em;color:var(--ink-dim)}
+.cb-track{height:20px;background:var(--bg-elev);position:relative;overflow:hidden;border-radius:1px}
+.cb-fill25{position:absolute;left:0;top:0;bottom:0;background:rgba(79,184,168,0.35);border-radius:1px}
+.cb-fill26{position:absolute;left:0;top:0;bottom:0;background:var(--teal);border-radius:1px}
+.cb-nums{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:var(--ink-mute);text-align:right}
+.cb-chg{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-align:right}
+.fleet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.fleet-col{display:flex;flex-direction:column;gap:10px}
+.fleet-col-head{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:4px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.fl-row{display:grid;grid-template-columns:100px 1fr 60px;gap:8px;align-items:center}
+.fl-code{font-family:'Fraunces',serif;font-size:13px;font-weight:600;letter-spacing:-0.01em}
+.fl-track{height:14px;background:var(--bg-elev);border-radius:1px;overflow:hidden}
+.fl-fill{height:100%;border-radius:1px}
+.fl-pct{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-dim);text-align:right}
+.dd-source{margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.07em;padding-top:16px;border-top:1px solid var(--line)}
+
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr}
   .hero-stamps{align-items:flex-start}
@@ -293,6 +349,37 @@ footer a:hover{color:var(--teal)}
         <div class="sc-stat">4 North America gateways by end 2026 · 787 + A350 · 4× weekly each</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- CIRIUM DEEP DIVE -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">Cirium Schedule Data · Nonstop EY Flights</div>
+        <h2>Schedule <em>deep dive</em>.<br>Q4 2025 vs Q4 2026.</h2>
+      </div>
+      <p class="desc">Every scheduled EY departure — 58,000+ flight records from Cirium. Seats, frequencies, fleet mix, and route changes by quarter.</p>
+    </div>
+
+    <!-- KPI row -->
+    <div id="dd-kpi" class="dd-kpi-row"></div>
+
+    <!-- Tabs -->
+    <div class="dd-tabs">
+      <button class="dd-tab active" onclick="ddShowTab(0)">Network Changes</button>
+      <button class="dd-tab" onclick="ddShowTab(1)">Top 20 Routes</button>
+      <button class="dd-tab" onclick="ddShowTab(2)">Capacity by Region</button>
+      <button class="dd-tab" onclick="ddShowTab(3)">Fleet Mix</button>
+    </div>
+
+    <div id="dd-panel-routes" class="dd-panel active"></div>
+    <div id="dd-panel-top"    class="dd-panel"></div>
+    <div id="dd-panel-region" class="dd-panel"></div>
+    <div id="dd-panel-fleet"  class="dd-panel"></div>
+
+    <div class="dd-source">Source: Cirium Schedule Dynamic Table Report · EY nonstop Pax & Cargo · Q4 2025 vs Q4 2026 · All statistics per quarter · Seats by cabin contributed voluntarily by airline</div>
   </div>
 </section>
 
@@ -599,12 +686,244 @@ function buildTimeline(){
 }
 
 // ══════════════════════════════════════════════════
+// DEEP DIVE — Cirium Schedule Data Q4 2025 vs Q4 2026
+// ══════════════════════════════════════════════════
+const DD = {
+  totals: {
+    q25: { flights: 26553, seats: 6550915, seats_j: 591752, asks_b: 29.84 },
+    q26: { flights: 31949, seats: 7654387, seats_j: 656268, asks_b: 34.89 }
+  },
+  newRoutes: [
+    { code:'PVG', city:'Shanghai', country:'China', cont:'Asia',    cls:'nr-asia',     flt:92, seats:26535 },
+    { code:'TAS', city:'Tashkent', country:'Uzbekistan', cont:'Asia', cls:'nr-asia',   flt:92, seats:18032 },
+    { code:'KBL', city:'Kabul',    country:'Afghanistan', cont:'Asia', cls:'nr-asia',  flt:92, seats:14536 },
+    { code:'CLT', city:'Charlotte',country:'USA',   cont:'N. America', cls:'nr-namerica', flt:52, seats:19292 },
+    { code:'YYC', city:'Calgary',  country:'Canada', cont:'N. America',cls:'nr-namerica', flt:39, seats:11310 },
+    { code:'OTP', city:'Bucharest',country:'Romania',cont:'Europe', cls:'nr-europe',  flt:52, seats:10192 },
+    { code:'LUX', city:'Luxembourg',country:'Luxembourg',cont:'Europe',cls:'nr-europe',flt:41, seats:6560 },
+    { code:'SEZ', city:'Seychelles',country:'Seychelles',cont:'Africa',cls:'nr-africa',flt:92, seats:14536 },
+    { code:'ASM', city:'Asmara',   country:'Eritrea',cont:'Africa', cls:'nr-africa',  flt:32, seats:5056 },
+    { code:'DAM', city:'Damascus', country:'Syria', cont:'Mid-East',cls:'nr-mideast', flt:53, seats:10494 },
+    { code:'SLL', city:'Salalah',  country:'Oman',  cont:'Mid-East',cls:'nr-mideast', flt:27, seats:4266 },
+    { code:'DAC', city:'Dhaka',    country:'Bangladesh',cont:'Asia',cls:'nr-asia',    flt:15, seats:5829 }
+  ],
+  droppedRoutes: [
+    { code:'ALG', city:'Algiers',  country:'Algeria',   flt:10, seats:1600 },
+    { code:'KNO', city:'Medan',    country:'Indonesia',  flt:78, seats:12480 }
+  ],
+  topRoutes: [
+    { code:'BKK', city:'Bangkok',      cont:'Asia',         seats26:76386, seats25:67600, flt26:276, j_pct:11 },
+    { code:'LHR', city:'London',       cont:'Europe',       seats26:75334, seats25:75093, flt26:184, j_pct:14 },
+    { code:'TLV', city:'Tel Aviv',     cont:'Middle East',  seats26:51293, seats25:45395, flt26:276, j_pct:5  },
+    { code:'HKT', city:'Phuket',       cont:'Asia',         seats26:50101, seats25:47352, flt26:184, j_pct:10 },
+    { code:'DEL', city:'Delhi',        cont:'Asia',         seats26:45206, seats25:45627, flt26:184, j_pct:10 },
+    { code:'BOM', city:'Mumbai',       cont:'Asia',         seats26:45132, seats25:45602, flt26:184, j_pct:10 },
+    { code:'CDG', city:'Paris CDG',    cont:'Europe',       seats26:37914, seats25:35076, flt26:119, j_pct:13 },
+    { code:'DUB', city:'Dublin',       cont:'Europe',       seats26:37487, seats25:27706, flt26:112, j_pct:8  },
+    { code:'SVO', city:'Moscow',       cont:'Europe',       seats26:37366, seats25:37198, flt26:138, j_pct:9  },
+    { code:'JED', city:'Jeddah',       cont:'Middle East',  seats26:36402, seats25:35635, flt26:184, j_pct:4  },
+    { code:'MLE', city:'Maldives',     cont:'Asia',         seats26:35755, seats25:32753, flt26:126, j_pct:9  },
+    { code:'DOH', city:'Doha',         cont:'Middle East',  seats26:34883, seats25:27584, flt26:184, j_pct:4  },
+    { code:'DMM', city:'Dammam',       cont:'Middle East',  seats26:34833, seats25:33191, flt26:184, j_pct:4  },
+    { code:'MUC', city:'Munich',       cont:'Europe',       seats26:34170, seats25:30525, flt26:138, j_pct:10 },
+    { code:'RUH', city:'Riyadh',       cont:'Middle East',  seats26:33968, seats25:34390, flt26:184, j_pct:4  },
+    { code:'CMB', city:'Colombo',      cont:'Asia',         seats26:33800, seats25:33549, flt26:178, j_pct:4  },
+    { code:'MAN', city:'Manchester',   cont:'Europe',       seats26:31326, seats25:31567, flt26:97,  j_pct:10 },
+    { code:'MXP', city:'Milan',        cont:'Europe',       seats26:30914, seats25:30034, flt26:118, j_pct:10 },
+    { code:'JFK', city:'New York JFK', cont:'N. America',   seats26:29202, seats25:28350, flt26:92,  j_pct:12 },
+    { code:'CGK', city:'Jakarta',      cont:'Asia',         seats26:28394, seats25:28244, flt26:92,  j_pct:10 }
+  ],
+  freqChanges: [
+    { code:'AMM', city:'Amman',      flt25:3,  flt26:49,  chg:832  },
+    { code:'BEY', city:'Beirut',     flt25:7,  flt26:29,  chg:173  },
+    { code:'HAN', city:'Hanoi',      flt25:26, flt26:61,  chg:135  },
+    { code:'HKG', city:'Hong Kong',  flt25:21, flt26:46,  chg:119  },
+    { code:'DUS', city:'Dusseldorf', flt25:46, flt26:92,  chg:100  },
+    { code:'ORD', city:'Chicago',    flt25:46, flt26:89,  chg:93   },
+    { code:'MAD', city:'Madrid',     flt25:46, flt26:87,  chg:89   },
+    { code:'FCO', city:'Rome',       flt25:47, flt26:87,  chg:85   },
+    { code:'GVA', city:'Geneva',     flt25:46, flt26:80,  chg:74   },
+    { code:'DUB', city:'Dublin',     flt25:65, flt26:112, chg:72   },
+    { code:'NBO', city:'Nairobi',    flt25:60, flt26:92,  chg:53   },
+    { code:'ATH', city:'Athens',     flt25:57, flt26:92,  chg:61   },
+    { code:'LIS', city:'Lisbon',     flt25:41, flt26:10,  chg:-75  },
+    { code:'IST', city:'Istanbul',   flt25:77, flt26:46,  chg:-40  },
+    { code:'AMD', city:'Ahmedabad',  flt25:120,flt26:92,  chg:-23  }
+  ],
+  byContinent: [
+    { name:'Asia',         seats25:1372594, seats26:1563036, j_pct:8.4  },
+    { name:'Europe',       seats25:1016958, seats26:1140921, j_pct:10.1 },
+    { name:'Middle East',  seats25:478090,  seats26:597008,  j_pct:4.9  },
+    { name:'N. America',   seats25:218790,  seats26:278144,  j_pct:11.6 },
+    { name:'Africa',       seats25:117504,  seats26:176140,  j_pct:6.7  },
+    { name:'Australasia',  seats25:71522,   seats26:71944,   j_pct:11.4 }
+  ],
+  fleet: {
+    q25: [
+      { code:'B787-9',    pct:30.3, color:'#4fb8a8' },
+      { code:'A320',      pct:15.4, color:'#e8b94a' },
+      { code:'A321neo',   pct:11.0, color:'#d97f4a' },
+      { code:'B787-10',   pct:10.1, color:'#6b9fd4' },
+      { code:'A321',      pct:9.7,  color:'#a78bfa' },
+      { code:'B777-300ER',pct:8.7,  color:'#f472b6' },
+      { code:'A380',      pct:7.6,  color:'#34d399' },
+      { code:'A350-1000', pct:7.1,  color:'#fb923c' }
+    ],
+    q26: [
+      { code:'B787-9',    pct:27.6, color:'#4fb8a8' },
+      { code:'A321',      pct:15.7, color:'#a78bfa' },
+      { code:'A320',      pct:14.3, color:'#e8b94a' },
+      { code:'A321neo',   pct:11.7, color:'#d97f4a' },
+      { code:'B787-10',   pct:8.7,  color:'#6b9fd4' },
+      { code:'A350-1000', pct:8.1,  color:'#fb923c' },
+      { code:'A380',      pct:8.0,  color:'#34d399' },
+      { code:'B777-300ER',pct:5.5,  color:'#f472b6' }
+    ]
+  }
+};
+
+function ddPct(v25,v26){ return v25>0 ? ((v26-v25)/v25*100).toFixed(1) : '–'; }
+
+function buildDeepDive(){
+  // KPI row
+  const t25=DD.totals.q25, t26=DD.totals.q26;
+  const seatChg = ddPct(t25.seats,t26.seats);
+  const askChg  = ddPct(t25.asks_b,t26.asks_b);
+  const jChg    = ddPct(t25.seats_j,t26.seats_j);
+  document.getElementById('dd-kpi').innerHTML=`
+    <div class="dd-kpi"><div class="k-val up"><em>+${seatChg}%</em></div><div class="k-lbl">Total Seat Growth</div><div class="k-sub">${(t25.seats/1e6).toFixed(2)}M → ${(t26.seats/1e6).toFixed(2)}M</div></div>
+    <div class="dd-kpi"><div class="k-val up"><em>+${askChg}%</em></div><div class="k-lbl">ASK Growth</div><div class="k-sub">${t25.asks_b}B → ${t26.asks_b}B km</div></div>
+    <div class="dd-kpi"><div class="k-val up"><em>+${jChg}%</em></div><div class="k-lbl">Business Seat Growth</div><div class="k-sub">${(t25.seats_j/1000).toFixed(0)}K → ${(t26.seats_j/1000).toFixed(0)}K J seats</div></div>
+    <div class="dd-kpi"><div class="k-val"><em style="color:var(--copper)">12 new</em></div><div class="k-lbl">Route Changes</div><div class="k-sub">+12 added · 2 dropped · 99 total</div></div>`;
+
+  // Panel 1 – Network Changes
+  const newCards = DD.newRoutes.map(r=>`
+    <div class="nr-card ${r.cls}">
+      <div class="nr-code">${r.code}</div>
+      <div class="nr-city">${r.city} · ${r.country}</div>
+      <div class="nr-stats"><span class="nr-flt">${r.flt} flt/qtr</span><span class="nr-seats">${r.seats.toLocaleString()} seats</span></div>
+    </div>`).join('');
+  const droppedPills = DD.droppedRoutes.map(r=>`
+    <div class="dropped-pill">
+      <div class="dp-code">${r.code}</div>
+      <div class="dp-info">${r.city}<br><span>${r.flt} flt · ${r.seats.toLocaleString()} seats in Q4-25</span></div>
+    </div>`).join('');
+  document.getElementById('dd-panel-routes').innerHTML=`
+    <div class="eyebrow" style="margin-bottom:14px">12 new routes · Q4 2026</div>
+    <div class="new-route-grid">${newCards}</div>
+    <div class="eyebrow" style="margin-bottom:12px;color:var(--crimson)">2 routes discontinued</div>
+    <div class="dropped-row">${droppedPills}</div>`;
+
+  // Panel 2 – Top Routes table
+  const maxSeats = Math.max(...DD.topRoutes.map(r=>r.seats26));
+  const contColor = { 'Asia':'#e8b94a','Europe':'#4fb8a8','Middle East':'#34d399','N. America':'#a78bfa','Africa':'#d97f4a','Australasia':'#6b9fd4' };
+  const rows = DD.topRoutes.map((r,i)=>{
+    const chg = r.seats25>0 ? ((r.seats26-r.seats25)/r.seats25*100) : 9999;
+    const chgCls = chg>5?'up':chg<-2?'down':'flat';
+    const chgStr = chg===9999 ? 'NEW' : (chg>=0?'+':'')+chg.toFixed(0)+'%';
+    const barW = (r.seats26/maxSeats*100).toFixed(1);
+    const color = contColor[r.cont]||'#8a93a6';
+    return `<tr>
+      <td><span class="rt-code">${r.code}</span></td>
+      <td>${r.city}</td>
+      <td><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:${color};letter-spacing:0.07em">${r.cont}</span></td>
+      <td><div class="rt-bar-wrap"><div class="rt-bar" style="width:${barW}%;background:${color}"></div></div></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right">${r.seats26.toLocaleString()}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);text-align:right">${r.flt26}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);text-align:right">${r.j_pct}%</td>
+      <td style="text-align:right"><span class="rt-chg ${chgCls}">${chgStr}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('dd-panel-top').innerHTML=`
+    <table class="route-table">
+      <thead><tr>
+        <th>Code</th><th>City</th><th>Region</th><th style="min-width:100px">Seats (bar)</th>
+        <th style="text-align:right">Seats Q4-26</th><th style="text-align:right">Flights</th>
+        <th style="text-align:right">J%</th><th style="text-align:right">YoY</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="margin-top:20px">
+      <div class="eyebrow" style="margin-bottom:14px">Notable frequency moves</div>
+      ${DD.freqChanges.map(r=>{
+        const up=r.chg>0;
+        const barMax=900; const w=Math.min(Math.abs(r.chg)/barMax*100,100).toFixed(1);
+        const col=up?'var(--teal)':'var(--crimson)';
+        const arrow=up?'↑':'↓';
+        return `<div style="display:grid;grid-template-columns:50px 100px 1fr 90px;gap:8px;align-items:center;margin-bottom:8px">
+          <span style="font-family:'Fraunces',serif;font-size:13px;font-weight:600">${r.code}</span>
+          <span style="font-size:11px;color:var(--ink-mute)">${r.city}</span>
+          <div style="height:12px;background:var(--bg-elev);border-radius:1px;overflow:hidden"><div style="height:100%;width:${w}%;background:${col};border-radius:1px"></div></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:${col};text-align:right">${arrow} ${r.flt25}→${r.flt26} flt</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+
+  // Panel 3 – By Region
+  const maxS = Math.max(...DD.byContinent.map(r=>r.seats26));
+  document.getElementById('dd-panel-region').innerHTML=`
+    <div style="display:grid;grid-template-columns:80px 12px 1fr 1fr 80px 70px;gap:10px;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)">
+      <span class="label">Region</span><span></span>
+      <span class="label">Q4 2025 seats</span><span class="label">Q4 2026 seats</span>
+      <span class="label" style="text-align:right">J share</span><span class="label" style="text-align:right">Change</span>
+    </div>
+    ${DD.byContinent.map(r=>{
+      const w25=(r.seats25/maxS*100).toFixed(1), w26=(r.seats26/maxS*100).toFixed(1);
+      const chg=ddPct(r.seats25,r.seats26);
+      const chgCol=parseFloat(chg)>0?'var(--teal)':'var(--crimson)';
+      return `<div style="display:grid;grid-template-columns:80px 12px 1fr 1fr 80px 70px;gap:10px;align-items:center;margin-bottom:14px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim)">${r.name}</span>
+        <span></span>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-mute);margin-bottom:3px">${(r.seats25/1000).toFixed(0)}K</div>
+          <div style="height:14px;background:var(--bg-elev);border-radius:1px;overflow:hidden"><div style="height:100%;width:${w25}%;background:rgba(79,184,168,0.3);border-radius:1px"></div></div>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);margin-bottom:3px">${(r.seats26/1000).toFixed(0)}K</div>
+          <div style="height:14px;background:var(--bg-elev);border-radius:1px;overflow:hidden"><div style="height:100%;width:${w26}%;background:var(--teal);border-radius:1px"></div></div>
+        </div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);text-align:right">${r.j_pct}% J</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:${chgCol};text-align:right">+${chg}%</span>
+      </div>`;
+    }).join('')}`;
+
+  // Panel 4 – Fleet Mix
+  const mkFleetCol=(data,label)=>`
+    <div class="fleet-col">
+      <div class="fleet-col-head">${label}</div>
+      ${data.map(f=>`<div class="fl-row">
+        <span class="fl-code">${f.code}</span>
+        <div class="fl-track"><div class="fl-fill" style="width:${(f.pct/35*100).toFixed(1)}%;background:${f.color}"></div></div>
+        <span class="fl-pct">${f.pct}%</span>
+      </div>`).join('')}
+    </div>`;
+  document.getElementById('dd-panel-fleet').innerHTML=`
+    <div class="fleet-grid">
+      ${mkFleetCol(DD.fleet.q25,'Q4 2025 · seat share by type')}
+      ${mkFleetCol(DD.fleet.q26,'Q4 2026 · seat share by type')}
+    </div>
+    <div style="margin-top:24px;font-size:13px;color:var(--ink-dim);line-height:1.7">
+      <strong style="color:var(--ink)">Key shifts:</strong>
+      A321 classic surges from 9.7% → 15.7% of seats (EY leasing additional frames for high-frequency short/medium-haul).
+      B777-300ER share falls 8.7% → 5.5% as EY moves capacity to more fuel-efficient A350-1000 and B787 variants.
+      A380 quietly rebounds from 7.6% → 8.0% — frequency added on LHR and BKK.
+    </div>`;
+}
+
+function ddShowTab(idx){
+  document.querySelectorAll('.dd-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.dd-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+}
+
+// ══════════════════════════════════════════════════
 // BOOT
 // ══════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded',()=>{
   buildScatter();
   buildTimeline();
   buildRouteMap();
+  buildDeepDive();
+  ddShowTab(0);
 });
 </script>
 </body>
