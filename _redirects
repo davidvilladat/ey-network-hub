@@ -3,6 +3,3 @@
 /zed-atlas          /zed-atlas.html     301
 /ey-analysis        /ey-analysis.html   301
 /network-analysis   /ey-analysis.html   301
-
-# Catch-all: unknown paths → home
-/*                  /index.html         302
