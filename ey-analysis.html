@@ -168,6 +168,33 @@ footer a:hover{color:var(--teal)}
 .fl-pct{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-dim);text-align:right}
 .dd-source{margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.07em;padding-top:16px;border-top:1px solid var(--line)}
 
+/* FR24 LIVE PANEL */
+.fr-snap-badge{display:inline-flex;align-items:center;gap:9px;background:rgba(79,184,168,0.07);border:1px solid rgba(79,184,168,0.22);padding:7px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--teal);margin-bottom:24px}
+.fr-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulsedot 2s infinite;flex-shrink:0}
+@keyframes pulsedot{0%,100%{opacity:1}50%{opacity:0.25}}
+.fr-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.fr-section-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.fr-fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:8px;margin-bottom:8px}
+.fr-fleet-card{background:var(--bg-card);border:1px solid var(--line);padding:14px 16px;transition:border-color 0.15s}
+.fr-fleet-card:hover{border-color:var(--copper)}
+.fr-fleet-count{font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--copper);letter-spacing:-0.02em;line-height:1}
+.fr-fleet-code{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--ink-mute);margin-top:4px}
+.fr-fleet-name{font-size:11px;color:var(--ink-dim);margin-top:2px}
+.fr-fleet-regs{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-mute);margin-top:8px;line-height:1.7;letter-spacing:0.03em;word-break:break-word}
+.fr-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.09em;padding:2px 5px;margin:1px 2px 1px 0;white-space:nowrap}
+.fr-tag-new{background:rgba(167,139,250,0.15);color:#a78bfa}
+.fr-tag-flagship{background:rgba(217,127,74,0.12);color:var(--copper)}
+.fr-tag-multifreq{background:rgba(79,184,168,0.12);color:var(--teal)}
+.fr-tag-mixedgauge{background:rgba(232,185,74,0.12);color:var(--gold)}
+.fr-tag-ulr{background:rgba(96,165,250,0.12);color:#60a5fa}
+.fr-tag-seasonal{background:rgba(52,211,153,0.12);color:#34d399}
+.fr-tag-maintained{background:rgba(255,255,255,0.05);color:var(--ink-mute)}
+.fr-route-note{font-size:11px;color:var(--ink-dim);line-height:1.45}
+.fr-recon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;margin-top:12px}
+.fr-recon-card{background:var(--bg-card);border:1px solid var(--line);padding:12px 14px}
+.fr-recon-code{font-family:'Fraunces',serif;font-size:17px;font-weight:600;letter-spacing:-0.01em}
+.fr-recon-note{font-size:10px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;margin-top:4px;line-height:1.55;letter-spacing:0.03em}
+
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr}
   .hero-stamps{align-items:flex-start}
@@ -372,12 +399,14 @@ footer a:hover{color:var(--teal)}
       <button class="dd-tab" onclick="ddShowTab(1)">Top 20 Routes</button>
       <button class="dd-tab" onclick="ddShowTab(2)">Capacity by Region</button>
       <button class="dd-tab" onclick="ddShowTab(3)">Fleet Mix</button>
+      <button class="dd-tab" onclick="ddShowTab(4)">FR24 Live Snapshot</button>
     </div>
 
     <div id="dd-panel-routes" class="dd-panel active"></div>
     <div id="dd-panel-top"    class="dd-panel"></div>
     <div id="dd-panel-region" class="dd-panel"></div>
     <div id="dd-panel-fleet"  class="dd-panel"></div>
+    <div id="dd-panel-fr24"   class="dd-panel"></div>
 
     <div class="dd-source">Source: Cirium Schedule Dynamic Table Report · EY nonstop Pax & Cargo · Q4 2025 vs Q4 2026 · All statistics per quarter · Seats by cabin contributed voluntarily by airline</div>
   </div>
@@ -910,6 +939,188 @@ function buildDeepDive(){
     </div>`;
 }
 
+// ══════════════════════════════════════════════════
+// FR24 LIVE DATA  ·  snapshot 2026-05-08 ~14:00 UTC
+// ══════════════════════════════════════════════════
+const FR24 = {
+  ts: '08 May 2026 · ~14:00 UTC',
+  total: 44,
+  destinations: 37,
+  fleet: [
+    {code:'B789', name:'Boeing 787-9',     n:15, pct:34, regs:'A6-BNJ · A6-BNI · A6-BLD · A6-BLG · A6-BLB · A6-BNG · A6-BLR · A6-BLA · A6-BND · A6-BLQ · A6-BLK · A6-BLS · A6-BLL · A6-BNF · A6-BLM'},
+    {code:'A35K', name:'Airbus A350-1000', n:7,  pct:16, regs:'A6-XWI · A6-XWE · A6-XWC · A6-XWF · A6-XWJ · A6-XWB · A6-XWO'},
+    {code:'B78X', name:'Boeing 787-10',    n:6,  pct:14, regs:'A6-BMA · A6-BMG · A6-BMB · A6-BMF · A6-BMI · A6-BMH'},
+    {code:'A21N', name:'Airbus A321neo',   n:5,  pct:11, regs:'A6-LRJ · A6-LRB · A6-LRC · A6-LRH · A6-LRD'},
+    {code:'B77W', name:'Boeing 777-300ER', n:4,  pct:9,  regs:'A6-ETS · A6-ETH · A6-ETJ · A6-ETQ'},
+    {code:'B77L', name:'Boeing 777-200LR', n:3,  pct:7,  regs:'A6-DDF · A6-DDC · A6-DDE'},
+    {code:'A388', name:'Airbus A380-800',  n:2,  pct:5,  regs:'A6-APH · A6-APF'},
+    {code:'A320', name:'Airbus A320ceo',   n:1,  pct:2,  regs:'A6-EIY'},
+    {code:'A321', name:'Airbus A321ceo',   n:1,  pct:2,  regs:'A6-AEG'},
+  ],
+  routes: [
+    // ── Europe ──
+    {dest:'LHR', city:'London Heathrow',  country:'UK', flt:['EY62','EY63','EY65'], ac:['A35K','A388','B789'], tags:['FLAGSHIP','MULTI-FREQ'],          note:'3 frequencies airborne · A380 + A350-1000 + B787-9 mixed fleet · top-revenue route'},
+    {dest:'JFK', city:'New York JFK',     country:'US', flt:['EY1','EY3','EY4'],   ac:['A35K','B789'],        tags:['FLAGSHIP','MULTI-FREQ'],          note:'3 airborne simultaneously · A350-1000 flagship + B787-9 · primary US gateway'},
+    {dest:'CDG', city:'Paris CDG',        country:'FR', flt:['EY32'],              ac:['A35K'],               tags:['FLAGSHIP'],                       note:'A350-1000 deployed on Paris · premium yield priority'},
+    {dest:'AMS', city:'Amsterdam',        country:'NL', flt:['EY44'],              ac:['B789'],               tags:[],                                 note:'787-9 · Benelux gateway'},
+    {dest:'FRA', city:'Frankfurt',        country:'DE', flt:['EY122'],             ac:['B78X'],               tags:[],                                 note:'B787-10 · German hub connector'},
+    {dest:'MUC', city:'Munich',           country:'DE', flt:['EY126'],             ac:['B789'],               tags:[],                                 note:'787-9 · South German market'},
+    {dest:'MXP', city:'Milan Malpensa',   country:'IT', flt:['EY82'],              ac:['B78X'],               tags:[],                                 note:'B787-10 · Italian market'},
+    {dest:'DUB', city:'Dublin',           country:'IE', flt:['EY46'],              ac:['B77W'],               tags:[],                                 note:'777-300ER · strong Irish demand via AUH connections'},
+    {dest:'MAN', city:'Manchester',       country:'UK', flt:['EY78'],              ac:['B77W'],               tags:[],                                 note:'777-300ER · North England feed route alongside LHR'},
+    {dest:'BRU', city:'Brussels',         country:'BE', flt:['EY58'],              ac:['B78X'],               tags:[],                                 note:'B787-10 · EU institutions traffic'},
+    {dest:'MAD', city:'Madrid Barajas',   country:'ES', flt:['EY102'],             ac:['B789'],               tags:[],                                 note:'787-9 · Iberian peninsula hub'},
+    {dest:'GVA', city:'Geneva',           country:'CH', flt:['EY146'],             ac:['A21N'],               tags:[],                                 note:'A321neo · compact Swiss market · thin gauge'},
+    {dest:'CPH', city:'Copenhagen',       country:'DK', flt:['EY178'],             ac:['B789'],               tags:[],                                 note:'787-9 · Scandinavia gateway'},
+    {dest:'WAW', city:'Warsaw Chopin',    country:'PL', flt:['EY160'],             ac:['B78X'],               tags:[],                                 note:'B787-10 · Poland · growing Eastern Europe market'},
+    {dest:'PRG', city:'Prague',           country:'CZ', flt:['EY156'],             ac:['B789'],               tags:[],                                 note:'787-9 · Central Europe connector'},
+    {dest:'SVO', city:'Moscow SVO',       country:'RU', flt:['EY842'],             ac:['B789'],               tags:['MAINTAINED'],                     note:'787-9 · EY maintained Moscow service · notable amid widespread carrier suspensions'},
+    // ── Americas ──
+    {dest:'ATL', city:'Atlanta Hartsfield',country:'US',flt:['EY13','EY14'],       ac:['B789'],               tags:['MULTI-FREQ'],                     note:'Both inbound & outbound airborne simultaneously · daily nonstop · 787-9'},
+    {dest:'ORD', city:'Chicago O\'Hare',  country:'US', flt:['EY9'],               ac:['A35K'],               tags:['FLAGSHIP'],                       note:'A350-1000 · corporate US Midwest market'},
+    {dest:'CLT', city:'Charlotte',        country:'US', flt:['EY15'],              ac:['B789'],               tags:['NEW'],                            note:'NEW Q4 2026 · US South expansion · confirmed active in today\'s FR24 snapshot'},
+    {dest:'YYZ', city:'Toronto Pearson',  country:'CA', flt:['EY21'],              ac:['A388'],               tags:['FLAGSHIP'],                       note:'A380 deployed · Canada flagship · high-density premium cabin'},
+    // ── Asia-Pacific ──
+    {dest:'BKK', city:'Bangkok Suvarnabhumi',country:'TH',flt:['EY406','EY420'],   ac:['A21N','B77W'],        tags:['MULTI-FREQ','MIXED-GAUGE'],       note:'2 daily · A321neo + B777-300ER mixed gauge · high leisure demand · Cirium shows A380 frequency added Q4 2026'},
+    {dest:'HKT', city:'Phuket',           country:'TH', flt:['EY412','EY416'],     ac:['A21N','B78X'],        tags:['MULTI-FREQ','MIXED-GAUGE','SEASONAL'],note:'2 daily · A321neo + B787-10 mixed gauge · leisure peak season'},
+    {dest:'ICN', city:'Seoul Incheon',    country:'KR', flt:['EY823'],             ac:['A35K'],               tags:['FLAGSHIP'],                       note:'A350-1000 · South Korea flagship'},
+    {dest:'NRT', city:'Tokyo Narita',     country:'JP', flt:['EY801'],             ac:['A35K'],               tags:['FLAGSHIP'],                       note:'A350-1000 · Japan mainline · premium J-class demand'},
+    {dest:'KIX', city:'Osaka Kansai',     country:'JP', flt:['EY815'],             ac:['B789'],               tags:[],                                 note:'787-9 · second Japan gateway · VFR + leisure'},
+    {dest:'PVG', city:'Shanghai Pudong',  country:'CN', flt:['EY911'],             ac:['B77L'],               tags:['NEW','ULR'],                      note:'NEW Q4 2026 · B777-200LR ultra-long-range · confirmed in FR24 today'},
+    {dest:'HAN', city:'Hanoi Noi Bai',    country:'VN', flt:['EY980'],             ac:['B77L'],               tags:['ULR'],                            note:'B777-200LR · ~5,700 km sector · Vietnam'},
+    {dest:'SYD', city:'Sydney',           country:'AU', flt:['EY451'],             ac:['A35K'],               tags:['FLAGSHIP'],                       note:'A350-1000 · Australia flagship · ~14 h sector'},
+    {dest:'MEL', city:'Melbourne',        country:'AU', flt:['EY461'],             ac:['B789'],               tags:[],                                 note:'787-9 · Melbourne complement to SYD'},
+    {dest:'KUL', city:'Kuala Lumpur',     country:'MY', flt:['EY486'],             ac:['B78X'],               tags:[],                                 note:'B787-10 · Malaysia hub'},
+    {dest:'CGK', city:'Jakarta',          country:'ID', flt:['EY472'],             ac:['B789'],               tags:[],                                 note:'787-9 · Indonesia'},
+    {dest:'MNL', city:'Manila',           country:'PH', flt:['EY446'],             ac:['B77W'],               tags:[],                                 note:'777-300ER · Philippines · large OFW-VFR market'},
+    // ── Indian Subcontinent ──
+    {dest:'DEL', city:'Delhi',            country:'IN', flt:['EY215'],             ac:['A21N'],               tags:[],                                 note:'A321neo · largest India origin market for EY'},
+    {dest:'CCU', city:'Kolkata',          country:'IN', flt:['EY222'],             ac:['A21N'],               tags:[],                                 note:'A321neo · East India gateway'},
+    {dest:'AMD', city:'Ahmedabad',        country:'IN', flt:['EY240'],             ac:['A321'],               tags:[],                                 note:'A321ceo · Gujarat diaspora market · high VFR demand'},
+    {dest:'DAC', city:'Dhaka',            country:'BD', flt:['EY9781'],            ac:['B77L'],               tags:['NEW','ULR'],                      note:'NEW Q4 2026 · B777-200LR · Bangladesh confirmed in today\'s FR24 snapshot'},
+    // ── GCC / Short-haul ──
+    {dest:'BAH', city:'Bahrain',          country:'BH', flt:['EY642'],             ac:['A320'],               tags:[],                                 note:'A320 · short-haul GCC connector · 30-min sector'},
+  ],
+  cirium_unconfirmed: [
+    {dest:'TAS', city:'Tashkent',   country:'UZ', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'KBL', city:'Kabul',      country:'AF', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'YYC', city:'Calgary',    country:'CA', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'OTP', city:'Bucharest',  country:'RO', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'LUX', city:'Luxembourg', country:'LU', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'SEZ', city:'Seychelles', country:'SC', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'ASM', city:'Asmara',     country:'ER', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'DAM', city:'Damascus',   country:'SY', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'SLL', city:'Salalah',    country:'OM', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+  ],
+  dropped_confirmed: [
+    {dest:'ALG', city:'Algiers', country:'DZ', note:'Dropped per Cirium Q4 2026 · absent from FR24 confirms discontinuation'},
+    {dest:'KNO', city:'Medan',   country:'ID', note:'Dropped per Cirium Q4 2026 · absent from FR24 confirms discontinuation'},
+  ]
+};
+
+const FR24_TAG_META = {
+  'NEW':         {cls:'fr-tag-new',        label:'NEW ROUTE'},
+  'FLAGSHIP':    {cls:'fr-tag-flagship',   label:'FLAGSHIP'},
+  'MULTI-FREQ':  {cls:'fr-tag-multifreq',  label:'MULTI-FREQ'},
+  'MIXED-GAUGE': {cls:'fr-tag-mixedgauge', label:'MIXED-GAUGE'},
+  'ULR':         {cls:'fr-tag-ulr',        label:'ULR'},
+  'SEASONAL':    {cls:'fr-tag-seasonal',   label:'SEASONAL'},
+  'MAINTAINED':  {cls:'fr-tag-maintained', label:'MAINTAINED'},
+};
+
+function buildFR24Panel(){
+  const p = document.getElementById('dd-panel-fr24');
+
+  // Snapshot badge
+  const badge = `<div class="fr-snap-badge"><span class="fr-dot"></span>FR24 live snapshot · ${FR24.ts} · ${FR24.total} EY flights airborne</div>`;
+
+  // KPI tiles
+  const kpis = `<div class="fr-kpi-row">
+    <div class="dd-kpi"><div class="k-val"><em>${FR24.total}</em></div><div class="k-lbl">Flights Airborne</div><div class="k-sub">ETD callsigns live</div></div>
+    <div class="dd-kpi"><div class="k-val"><em>${FR24.destinations}</em></div><div class="k-lbl">Unique Destinations</div><div class="k-sub">AUH spoke count</div></div>
+    <div class="dd-kpi"><div class="k-val"><em>${FR24.fleet.length}</em></div><div class="k-lbl">Aircraft Types</div><div class="k-sub">fleet types airborne</div></div>
+  </div>`;
+
+  // Fleet cards
+  const fleetCards = FR24.fleet.map(f=>`
+    <div class="fr-fleet-card">
+      <div class="fr-fleet-count">${f.n}</div>
+      <div class="fr-fleet-code">${f.code} · ${f.pct}% of snapshot</div>
+      <div class="fr-fleet-name">${f.name}</div>
+      <div class="fr-fleet-regs">${f.regs}</div>
+    </div>`).join('');
+
+  // Route table
+  const mkTags = tags => tags.map(t=>{
+    const m=FR24_TAG_META[t]||{cls:'fr-tag-maintained',label:t};
+    return `<span class="fr-tag ${m.cls}">${m.label}</span>`;
+  }).join('');
+
+  const routeRows = FR24.routes.map(r=>`
+    <tr>
+      <td><span class="rt-code">${r.dest}</span></td>
+      <td style="font-size:12px;color:var(--ink-dim)">${r.city}<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute)">${r.country}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);white-space:nowrap">${r.flt.join('<br>')}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);white-space:nowrap">${r.ac.join('<br>')}</td>
+      <td><div>${mkTags(r.tags)}</div><div class="fr-route-note" style="margin-top:5px">${r.note}</div></td>
+    </tr>`).join('');
+
+  // Cirium reconciliation
+  const unconCards = FR24.cirium_unconfirmed.map(r=>`
+    <div class="fr-recon-card" style="border-color:rgba(167,139,250,0.2)">
+      <div class="fr-recon-code" style="color:#a78bfa">${r.dest}</div>
+      <div style="font-size:11px;color:var(--ink-dim);margin-top:2px">${r.city} · ${r.country}</div>
+      <div class="fr-recon-note">${r.note}</div>
+    </div>`).join('');
+
+  const dropCards = FR24.dropped_confirmed.map(r=>`
+    <div class="fr-recon-card" style="border-color:rgba(229,78,78,0.2)">
+      <div class="fr-recon-code" style="color:var(--crimson)">${r.dest}</div>
+      <div style="font-size:11px;color:var(--ink-dim);margin-top:2px">${r.city} · ${r.country}</div>
+      <div class="fr-recon-note">${r.note}</div>
+    </div>`).join('');
+
+  p.innerHTML = `
+    ${badge}
+    ${kpis}
+
+    <div class="fr-section-lbl">Live Fleet · Aircraft Airborne by Type</div>
+    <div class="fr-fleet-grid">${fleetCards}</div>
+    <p style="font-size:11px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;margin-top:8px;letter-spacing:0.05em">
+      B787-9 dominates (34%) — backbone of long-haul medium-capacity routes.
+      A350-1000 reserved for flagship routes (JFK, NRT, ICN, SYD, LHR, CDG, ORD).
+      B777-200LR handles ultra-long thin sectors (PVG, HAN, DAC).
+      A380 selectively deployed on LHR and YYZ for high-density premium demand.
+    </p>
+
+    <div class="fr-section-lbl">Route Intelligence · ${FR24.routes.length} Destinations</div>
+    <div style="overflow-x:auto">
+    <table class="route-table">
+      <thead><tr>
+        <th>DEST</th><th>CITY / COUNTRY</th><th>FLIGHT(S)</th><th>AIRCRAFT</th><th>INTELLIGENCE</th>
+      </tr></thead>
+      <tbody>${routeRows}</tbody>
+    </table>
+    </div>
+
+    <div class="fr-section-lbl">Cirium vs FR24 Reconciliation</div>
+    <p style="font-size:12px;color:var(--ink-dim);margin-bottom:12px">
+      3 of 12 Cirium Q4 2026 new routes confirmed active in today's FR24 snapshot
+      (<span style="color:#a78bfa">CLT · PVG · DAC</span>).
+      9 new routes not seen today — may operate on different days or not yet started.
+      2 dropped routes (ALG · KNO) absent from FR24, confirming discontinuation.
+    </p>
+    <p style="font-size:11px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;margin-bottom:16px;letter-spacing:0.05em">
+      NEW Q4 2026 — not in today's snapshot (may be limited frequency or future start):
+    </p>
+    <div class="fr-recon-grid">${unconCards}</div>
+    <p style="font-size:11px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;margin:20px 0 12px;letter-spacing:0.05em">
+      DROPPED — absent from FR24, consistent with Cirium discontinuation data:
+    </p>
+    <div class="fr-recon-grid" style="grid-template-columns:repeat(auto-fill,minmax(215px,1fr));max-width:500px">${dropCards}</div>
+  `;
+}
+
 function ddShowTab(idx){
   document.querySelectorAll('.dd-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
   document.querySelectorAll('.dd-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
@@ -923,6 +1134,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   buildTimeline();
   buildRouteMap();
   buildDeepDive();
+  buildFR24Panel();
   ddShowTab(0);
 });
 </script>
