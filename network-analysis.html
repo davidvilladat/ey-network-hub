@@ -173,12 +173,12 @@ footer a:hover{color:var(--teal)}
         <span class="version-tag">NETWORK INTELLIGENCE · 2024–2025</span>
         <div class="eyebrow" style="margin-bottom:16px">Major Network Carriers · Strategy Matrix</div>
         <h1>Where <em>every</em><br>major airline<br>is going.</h1>
-        <p class="hero-sub">Capacity growth versus network innovation — plotted across 30 major carriers. Etihad leads the expansion quadrant alone. <strong>Qatar Airways</strong> holds steady from DOH, constrained by airport caps but executing a quiet fleet and network shift. Select the QR dot on the matrix to explore the full picture.</p>
+        <p class="hero-sub">Capacity growth versus network innovation — plotted across 30 major carriers. Etihad leads the expansion quadrant alone. Select any highlighted dot — <strong>Qatar, Emirates, Ethiopian, Etihad</strong> — to open a Cirium Q4 2026 schedule deep-dive.</p>
       </div>
       <div class="hero-stamps">
         <div class="stamp"><span class="dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></span>IATA NETWORK STRATEGY MATRIX · 2025</div>
-        <div class="stamp"><span class="dot" style="background:var(--qr-bright);box-shadow:0 0 8px var(--qr-bright)"></span>QATAR AIRWAYS · DEEP-DIVE AVAILABLE</div>
-        <div class="stamp"><span class="dot" style="background:var(--copper);box-shadow:0 0 8px var(--copper)"></span>ETIHAD · FULL ANALYSIS AVAILABLE</div>
+        <div class="stamp"><span class="dot" style="background:var(--qr-bright);box-shadow:0 0 8px var(--qr-bright)"></span>QATAR · EMIRATES · ETHIOPIAN · CIRIUM Q4 DEEP-DIVES</div>
+        <div class="stamp"><span class="dot" style="background:var(--copper);box-shadow:0 0 8px var(--copper)"></span>ETIHAD · FULL NETWORK ANALYSIS AVAILABLE</div>
         <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);text-align:right">
           Sources: FR24 sample May 2025<br>IATA network data · QR Annual Report FY2024
         </div>
@@ -218,7 +218,7 @@ footer a:hover{color:var(--teal)}
       </div>
       <div class="insight-item">
         <div class="insight-icon">◈</div>
-        <div class="insight-text"><strong>Qatar: deliberate, not stalled.</strong> The 5% growth figure masks a significant fleet transition — A380 reactivation, A321XLR entry service, B777-200LR retirement. Select the QR dot to explore.</div>
+        <div class="insight-text"><strong>Qatar: deliberate, not stalled.</strong> Total seats −1.4% in Q4 2026 but ASK +0.4% — China and South Africa absorbing what San Francisco and Venice lose. Click the QR dot for the Cirium Q4 deep-dive.</div>
       </div>
       <div class="insight-item">
         <div class="insight-icon">↓</div>
@@ -228,231 +228,12 @@ footer a:hover{color:var(--teal)}
   </div>
 </section>
 
-<!-- QATAR DEEP-DIVE PANEL -->
-<div id="qr-panel">
-
-  <!-- PANEL HEADER -->
-  <div class="shell">
-    <div class="qr-panel-header">
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--qr-bright);font-weight:600;margin-bottom:12px">Qatar Airways · Network Deep-Dive</div>
-        <h2 style="font-family:'Fraunces',serif;font-size:clamp(28px,4vw,48px);font-weight:700;letter-spacing:-0.03em;line-height:1">DOH hub. <em style="color:var(--qr-bright);font-style:italic">Steady hand,</em><br>shifting fleet.</h2>
-        <p style="font-size:14px;color:var(--ink-dim);margin-top:14px;max-width:600px;line-height:1.65">Airport capacity constraints keep Qatar's headline growth modest — but beneath the surface the fleet mix is being rebuilt: A380s back on trunk routes, A321XLR opening thin-route corridors, B777-200LR exiting. A record $1.7B FY2024 profit funds the transition.</p>
-      </div>
-      <button class="qr-back" onclick="closeQRPanel()">✕ CLOSE</button>
-    </div>
-  </div>
-
-  <!-- QR STATS TICKER -->
-  <div class="ticker">
-    <div class="st">
-      <div class="num"><em style="color:var(--qr-bright)">170</em></div>
-      <div class="lbl">Destinations worldwide</div>
-      <div class="delta neutral">Stable · HIA-constrained</div>
-    </div>
-    <div class="st">
-      <div class="num"><em style="color:var(--gold)">~240</em></div>
-      <div class="lbl">Aircraft in fleet</div>
-      <div class="delta neutral">World's largest A350 operator</div>
-    </div>
-    <div class="st">
-      <div class="num"><em style="color:var(--teal)">$1.7B</em></div>
-      <div class="lbl">Net profit FY2024</div>
-      <div class="delta up">↑ Record group result</div>
-    </div>
-    <div class="st">
-      <div class="num"><em style="color:var(--qr-bright)">10</em></div>
-      <div class="lbl">A380s reactivated</div>
-      <div class="delta note">Back on trunk routes 2023–24</div>
-    </div>
-    <div class="st">
-      <div class="num"><em style="color:var(--gold)">+5%</em></div>
-      <div class="lbl">Capacity growth 2024</div>
-      <div class="delta neutral">Limited by HIA slot caps</div>
-    </div>
-  </div>
-
-  <!-- QR ROUTE MAP -->
-  <section style="border-top:none">
-    <div class="shell">
-      <div class="section-head">
-        <h2>New routes <em>from DOH</em>.<br>The 2024–2025 additions.</h2>
-        <p class="desc">New destinations launched from Hamad International. Maroon arcs = 2024. Gold arcs = 2025 A321XLR routes opening thinner corridors previously uneconomical for widebodies.</p>
-      </div>
-      <div class="rmap-wrap">
-        <svg id="qr-route-map" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
-          <path class="map-country" id="qr-map-path" d=""/>
-          <g id="qr-route-lines"></g>
-          <g id="qr-route-dots"></g>
-        </svg>
-      </div>
-      <div class="rmap-legend">
-        <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--qr-bright)" stroke-width="1.5" fill="none"/></svg>2024 new routes</div>
-        <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--gold)" stroke-width="1.5" fill="none"/></svg>2025 A321XLR routes</div>
-        <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--qr-bright)"></span>2024 destination</div>
-        <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--gold)"></span>2025 destination</div>
-        <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--teal)"></span>DOH hub</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- QR ROUTE TIMELINE -->
-  <section>
-    <div class="shell">
-      <div class="section-head">
-        <h2>All <em>new destinations</em>.<br>2024 & 2025.</h2>
-        <p class="desc">New points added or resumed — including the first A321XLR-enabled thin routes that open city pairs previously requiring a widebody Qatar couldn't fill profitably at frequency.</p>
-      </div>
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--ink-dim)">
-        <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--teal)"></span>Europe</span>
-        <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--gold)"></span>Asia-Pacific</span>
-        <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:var(--copper)"></span>Africa</span>
-        <span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#f472b6"></span>C. Asia / Caucasus</span>
-      </div>
-      <div id="qr-route-timeline"></div>
-    </div>
-  </section>
-
-  <!-- QR FLEET SHIFT -->
-  <section>
-    <div class="shell">
-      <div class="section-head">
-        <h2>Fleet <em>in transition</em>.<br>The quiet rebuild.</h2>
-        <p class="desc">HIA constraints cap route count, but the fleet mix is being fundamentally restructured — A350s dominating long-haul, A321XLR opening thin-route corridors, A380s back on flagship trunks, B777-200LR exiting.</p>
-      </div>
-      <div class="fleet-grid">
-        <div class="fleet-card">
-          <div class="fleet-type">Airbus A350</div>
-          <div class="fleet-count">75</div>
-          <div class="fleet-trend">WORLD'S LARGEST A350 OPERATOR</div>
-          <div class="fleet-role">Primary widebody backbone. A350-900 on mid/long-haul; A350-1000 on flagship routes (LHR, JFK, LAX). Deliveries continue through 2027 — the long-term platform bet.</div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-type">Boeing B777</div>
-          <div class="fleet-count">55</div>
-          <div class="fleet-trend">B777-200LR RETIRING · -300ER STAYS</div>
-          <div class="fleet-role">The -300ER remains the high-capacity workhorse on high-demand routes. B777-200LR ultra-long-haul variant being retired as A350 matures. Net B777 count declining through 2026.</div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-type">Airbus A380</div>
-          <div class="fleet-count">10</div>
-          <div class="fleet-trend">FULLY REACTIVATED · ALL BACK IN SERVICE</div>
-          <div class="fleet-role">All 10 A380s back by Q4 2024. Deployed on LHR, CDG, JFK, FRA, SIN. Qsuite retrofit adds premium density — economically justified when business cabin fills at record load factors.</div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-type">A321XLR</div>
-          <div class="fleet-count">entering&nbsp;2025</div>
-          <div class="fleet-trend">LAUNCH CUSTOMER · FIRST DELIVERIES 2025</div>
-          <div class="fleet-role">4,700km range from DOH unlocks the full Caucasus/Central Asia arc and thin African points. Opens routes impossible for widebodies: Tbilisi, Tashkent, Baku, Maputo — 4–5×/wk economics that work where an A350 wouldn't fill.</div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-type">Boeing B787</div>
-          <div class="fleet-count">30</div>
-          <div class="fleet-trend">SUPPLEMENTAL · STABLE COUNT</div>
-          <div class="fleet-role">Used on select Asia-Pacific, Australia, and North America routes. Not a primary growth vector — QR is doubling down on the A350 as the long-haul platform of record.</div>
-        </div>
-        <div class="fleet-card">
-          <div class="fleet-type">A320 Family</div>
-          <div class="fleet-count">~30</div>
-          <div class="fleet-trend">REGIONAL · A320CEO PHASING OUT 2026</div>
-          <div class="fleet-role">A320/A321neo on Gulf, Middle East, South Asia thin routes. Being augmented by A321XLR for medium-haul extension. Older A320ceo variants retiring through 2026.</div>
-        </div>
-      </div>
-
-      <!-- A380 Reactivation Table -->
-      <div style="margin-top:36px">
-        <div class="tl-year-head">
-          <span class="tl-badge" style="color:var(--qr-bright)">A380</span>
-          <span class="tl-count">Reactivation Timeline · 2023–2024</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em">All 10 aircraft back in service by Q4 2024</span>
-        </div>
-        <div style="background:var(--bg-panel);border:1px solid var(--line);overflow:hidden">
-          <table class="a380-table">
-            <thead>
-              <tr>
-                <th>Route from DOH</th>
-                <th>Reactivated</th>
-                <th>Frequency</th>
-                <th>Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>London Heathrow</td><td>Oct 2023</td><td>3× daily</td><td>Qsuite full retrofit · flagship product</td></tr>
-              <tr><td>Paris CDG</td><td>Nov 2023</td><td>2× daily</td><td>A380 Qsuite roll-out · high leisure + biz mix</td></tr>
-              <tr><td>New York JFK</td><td>Apr 2024</td><td>2× daily</td><td>Premium transatlantic · ultra-long-haul pitch</td></tr>
-              <tr><td>Frankfurt</td><td>Sep 2024</td><td>daily</td><td>German business market recovery</td></tr>
-              <tr><td>Singapore</td><td>Jun 2024</td><td>daily</td><td>High-density leisure + connecting traffic</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- QR vs EY COMPARISON -->
-  <section>
-    <div class="shell">
-      <div class="section-head">
-        <h2>Qatar vs. <em>Etihad</em>.<br>Two Gulf strategies diverging.</h2>
-        <p class="desc">Both Gulf hub carriers. Contrasting postures — Etihad in aggressive expansion mode, Qatar in premium consolidation. Scatter matrix positions tell half the story; strategic intent tells the rest.</p>
-      </div>
-      <div class="compare-grid">
-        <div class="cmp-card" style="border-color:rgba(196,48,90,0.4)">
-          <div class="cmp-airline" style="color:var(--qr-bright)">Qatar Airways · QR</div>
-          <div class="cmp-hub">DOH · Hamad International Airport</div>
-          <div class="cmp-row"><span class="k">Capacity growth</span><span class="v">+5%</span></div>
-          <div class="cmp-row"><span class="k">% seats on new routes</span><span class="v">1.8%</span></div>
-          <div class="cmp-row"><span class="k">Destinations</span><span class="v">~170</span></div>
-          <div class="cmp-row"><span class="k">Fleet</span><span class="v">~240 aircraft</span></div>
-          <div class="cmp-row"><span class="k">FY2024 profit</span><span class="v">$1.7B</span></div>
-          <div class="cmp-row"><span class="k">A380 status</span><span class="v">10 reactivated</span></div>
-          <div class="cmp-row"><span class="k">Key constraint</span><span class="v">HIA slot caps</span></div>
-          <div class="cmp-verdict"><strong>Premium consolidation.</strong> QR optimises yield quality over volume. Constrained by HIA but monetising Qsuite's reputation advantage. The A321XLR opens thin routes that don't require a new terminal gate — smart growth within capacity limits.</div>
-        </div>
-        <div class="cmp-card" style="border-color:rgba(79,184,168,0.4)">
-          <div class="cmp-airline" style="color:var(--teal)">Etihad Airways · EY</div>
-          <div class="cmp-hub">AUH · Abu Dhabi International Airport</div>
-          <div class="cmp-row"><span class="k">Capacity growth</span><span class="v">+21%</span></div>
-          <div class="cmp-row"><span class="k">% seats on new routes</span><span class="v">6.1%</span></div>
-          <div class="cmp-row"><span class="k">Destinations</span><span class="v">110 → 125+ target</span></div>
-          <div class="cmp-row"><span class="k">Fleet</span><span class="v">127 aircraft</span></div>
-          <div class="cmp-row"><span class="k">FY2025 profit</span><span class="v">$698M (+47% YoY)</span></div>
-          <div class="cmp-row"><span class="k">A380 status</span><span class="v">Retired from fleet</span></div>
-          <div class="cmp-row"><span class="k">Key constraint</span><span class="v">Fleet delivery pace</span></div>
-          <div class="cmp-verdict"><strong>Network builder in hyperdrive.</strong> 29 aircraft and 16 net new routes in a single year. Journey 2030 targets 125+ destinations. A321LR mirrors QR's XLR logic — same thin-route play, different timeline. <a href="ey-analysis.html" style="color:var(--teal);font-weight:600;text-decoration:none">→ Full EY Analysis</a></div>
-        </div>
-      </div>
-
-      <div class="strategy-grid" style="margin-top:24px">
-        <div class="sc">
-          <div class="sc-num">I</div>
-          <div class="sc-title">The A321XLR thin-route unlock</div>
-          <div class="sc-body">Qatar joins Etihad in using next-gen narrow-body long-range jets to open routes that won't fill a widebody. Tbilisi, Tashkent, Baku, Maputo — city pairs with real demand but frequency constraints. At 4–5×/wk and significantly lower operating costs, the economics work where an A350 wouldn't break even.</div>
-          <div class="sc-stat">A321XLR 2025 entry · ~4,700km from DOH · Caucasus + thin Africa arc</div>
-        </div>
-        <div class="sc">
-          <div class="sc-num">II</div>
-          <div class="sc-title">A380 as a yield-density amplifier</div>
-          <div class="sc-body">Reactivating A380s isn't about adding capacity — it's about Qsuite at scale. Full business-class density on LHR and JFK generates higher revenue per departure than an A350 at equal load factor. The bet: premium demand on trunk routes justifies the A380's economics when the front cabin fills consistently.</div>
-          <div class="sc-stat">10 A380s in service · LHR 3×/day · JFK 2×/day · CDG 2×/day · FRA daily</div>
-        </div>
-        <div class="sc">
-          <div class="sc-num">III</div>
-          <div class="sc-title">Africa as the decade's growth corridor</div>
-          <div class="sc-body">Sub-Saharan Africa is the clearest underpenetrated long-haul market. QR adds 3–4 points per year — Lusaka, Conakry, Libreville, Maputo — as HIA gate constraints mean each new route displaces something else. Africa offers high-yield business traffic (energy, mining, NGOs) with limited premium competition from European carriers.</div>
-          <div class="sc-stat">5+ Africa additions 2024–2025 · A321XLR enables thinner Sub-Saharan markets</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-</div><!-- end #qr-panel -->
 
 <footer>
   <div class="shell">
-    Sources: <em>Qatar Airways</em> Group Annual Report FY2024 ·
+    Sources: <em>Qatar Airways</em> Group Annual Report FY2024 · <em>Cirium</em> Schedule Analytics Q4 2025 vs Q4 2026 ·
     FR24 sample May 2025 · IATA Network Strategy matrix (adapted) ·
-    <a href="ey-analysis.html">Etihad full network analysis →</a><br>
+    <a href="qr-analysis.html">Qatar →</a> · <a href="ek-analysis.html">Emirates →</a> · <a href="et-analysis.html">Ethiopian →</a> · <a href="ey-analysis.html">Etihad →</a><br>
     <span style="color:var(--ink-mute)">For reference only — verify route availability and schedule in airline channels before travel planning</span>
   </div>
 </footer>
@@ -469,8 +250,8 @@ const SD = [
   {n:'RAM',       x:3.0, y:12,   t:'green', i:'Royal Air Maroc regional expansion · CMN hub'},
   {n:'Qantas',    x:0.85,y:10,   t:'green', i:'Domestic + trans-Pacific recovery · SYD/MEL'},
   {n:'Korean',    x:2.7, y:7,    t:'green', i:'ICN hub expansion · long-haul frequency growth'},
-  {n:'Ethiopian', x:3.2, y:7,    t:'green', i:'Pan-African network build · ADD hub'},
-  {n:'Emirates',  x:1.7, y:7,    t:'gold',  i:'Steady DXB hub growth · constrained by capacity cap'},
+  {n:'Ethiopian', x:3.2, y:7,    t:'et',    i:'Pan-African network build · ADD hub · +4.2% seats · 7 new destinations Q4-26 · click for Cirium deep-dive'},
+  {n:'Emirates',  x:1.7, y:7,    t:'ek',    i:'DXB hub steady · Tehran IKA exit (70k seats) · Africa surge NBO+CPT · A350 doubling in fleet · click for Cirium deep-dive'},
   {n:'Air India', x:2.0, y:7,    t:'gold',  i:'Tata-era fleet renewal · DEL/BOM widebody push'},
   {n:'Brussels',  x:0.7, y:6,    t:'gold',  i:'BRU hub moderate recovery'},
   {n:'UA',        x:1.5, y:5,    t:'gold',  i:'United Airlines ORD/EWR domestic + int\'l'},
@@ -493,47 +274,9 @@ const SD = [
   {n:'ITA',       x:1.8, y:-12,  t:'red',   i:'FCO still finding its footing post-Alitalia'},
   {n:'Kenya',     x:2.1, y:-20,  t:'red',   i:'NBO significant network contraction'},
 ];
-const COLS = {ey:'#4fb8a8', qr:'#c4305a', green:'#4fb86a', gold:'#e8b94a', grey:'#6b7280', red:'#e54e4e'};
-const RSIZ = {ey:10.5, qr:9.5, green:7.5, gold:7, grey:6.5, red:7};
+const COLS = {ey:'#4fb8a8', qr:'#c4305a', ek:'#e84040', et:'#3db858', green:'#4fb86a', gold:'#e8b94a', grey:'#6b7280', red:'#e54e4e'};
+const RSIZ = {ey:10.5, qr:9.5, ek:9, et:9, green:7.5, gold:7, grey:6.5, red:7};
 
-// ══════════════════════════════════════════════════════
-// QATAR ROUTE DATA
-// ══════════════════════════════════════════════════════
-const RC  = {europe:'var(--teal)',asia:'var(--gold)',africa:'var(--copper)',namerica:'#a78bfa',mideast:'#34d399',caucasus:'#f472b6'};
-const RL  = {europe:'Europe',asia:'Asia-Pacific',africa:'Africa',namerica:'N. America',mideast:'Middle East',caucasus:'C. Asia / Caucasus'};
-
-const QR24 = [
-  {d:'U-Tapao',    c:'Thailand',    r:'asia',     dt:'Jun 2024', f:'4×/wk',          a:'A320'},
-  {d:'Lusaka',     c:'Zambia',      r:'africa',   dt:'Mar 2024', f:'4×/wk',          a:'A321'},
-  {d:'Libreville', c:'Gabon',       r:'africa',   dt:'Apr 2024', f:'3×/wk',          a:'A321'},
-  {d:'Conakry',    c:'Guinea',      r:'africa',   dt:'Sep 2024', f:'3×/wk',          a:'A321'},
-  {d:'Almaty',     c:'Kazakhstan',  r:'caucasus', dt:'Jul 2024', f:'daily',           a:'A320'},
-  {d:'Sapporo',    c:'Japan',       r:'asia',     dt:'Oct 2024', f:'3×/wk seasonal', a:'B787-8'},
-];
-const QR25 = [
-  {d:'Baku',       c:'Azerbaijan',  r:'caucasus', dt:'Feb 2025', f:'daily',   a:'A321XLR'},
-  {d:'Tbilisi',    c:'Georgia',     r:'caucasus', dt:'Mar 2025', f:'daily',   a:'A321XLR'},
-  {d:'Tashkent',   c:'Uzbekistan',  r:'caucasus', dt:'Mar 2025', f:'5×/wk',  a:'A321XLR'},
-  {d:'Maputo',     c:'Mozambique',  r:'africa',   dt:'May 2025', f:'4×/wk',  a:'A321XLR'},
-  {d:'Abidjan',    c:'Ivory Coast', r:'africa',   dt:'Jun 2025', f:'5×/wk',  a:'A350'},
-  {d:'Fukuoka',    c:'Japan',       r:'asia',     dt:'Jul 2025', f:'4×/wk',  a:'B787-8'},
-];
-
-const DOH = [51.61, 25.27];
-const QR_COORDS = {
-  'U-Tapao':   [100.9, 12.7],
-  'Lusaka':    [28.4,  -15.4],
-  'Libreville':[9.4,    0.5],
-  'Conakry':   [-13.6,  9.5],
-  'Almaty':    [76.9,  43.4],
-  'Sapporo':   [141.7, 43.0],
-  'Baku':      [49.9,  40.4],
-  'Tbilisi':   [44.8,  41.7],
-  'Tashkent':  [69.3,  41.3],
-  'Maputo':    [32.6,  -25.9],
-  'Abidjan':   [-4.0,   5.4],
-  'Fukuoka':   [130.4, 33.6],
-};
 
 // ══════════════════════════════════════════════════════
 // SCATTER PLOT
@@ -574,20 +317,23 @@ function buildScatter(){
   o += `<text font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(217,127,74,0.35)" x="${xs(5.5)}" y="${ys(7.5)-6}" letter-spacing="1">TREND</text>`;
 
   // Draw non-special first, specials on top
-  const specials = SD.filter(d=>d.t==='ey'||d.t==='qr');
-  const rest     = SD.filter(d=>d.t!=='ey'&&d.t!=='qr');
+  const SPECIAL_TYPES = new Set(['ey','qr','ek','et']);
+  const specials = SD.filter(d=>SPECIAL_TYPES.has(d.t));
+  const rest     = SD.filter(d=>!SPECIAL_TYPES.has(d.t));
 
   [...rest,...specials].forEach(d=>{
     const cx=xs(d.x), cy=ys(d.y), r=RSIZ[d.t]||7, c=COLS[d.t];
     const isEY = d.t==='ey';
     const isQR = d.t==='qr';
-    const clickable = isEY||isQR;
-    const glow = isEY?`filter:drop-shadow(0 0 6px ${c})`:isQR?`filter:drop-shadow(0 0 5px ${c})`:'';
+    const isEK = d.t==='ek';
+    const isET = d.t==='et';
+    const clickable = SPECIAL_TYPES.has(d.t);
+    const glow = clickable?`filter:drop-shadow(0 0 5px ${c})`:'';
 
     o += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}" opacity="${clickable?1:0.83}" stroke="#000" stroke-width="${clickable?0.8:0.4}" style="cursor:${clickable?'pointer':'default'};${glow}" data-i="${SD.indexOf(d)}"/>`;
 
     // Pulsing rings
-    if(isEY||isQR){
+    if(clickable){
       const dur = isEY?'2.5s':'3s';
       const fromOp = isEY?'0.5':'0.45';
       o += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="0.8" pointer-events="none">
@@ -596,8 +342,8 @@ function buildScatter(){
       </circle>`;
     }
 
-    // QR "deep dive" label
-    if(isQR){
+    // Deep-dive labels for specials (except EY which has its own callout)
+    if(isQR||isEK||isET){
       o += `<text font-family="JetBrains Mono,monospace" font-size="7.5" fill="${c}" opacity="0.75" x="${cx+r+4}" y="${cy-10}" letter-spacing="0.8" pointer-events="none">▾ DEEP DIVE</text>`;
     }
 
@@ -606,7 +352,7 @@ function buildScatter(){
     if(isEY){ lx=cx+14; la='start'; }
     else if(d.x>5){ lx=cx-r-3; la='end'; }
     else if(d.x<1){ lx=cx+r+3; la='start'; }
-    o += `<text font-family="JetBrains Mono,monospace" font-size="${isEY?11:isQR?10:9}" fill="${isEY||isQR?c:'#8a93a6'}" font-weight="${isEY||isQR?700:400}" x="${lx}" y="${cy+4}" text-anchor="${la}" pointer-events="none">${d.n}</text>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="${isEY?11:clickable?10:9}" fill="${clickable?c:'#8a93a6'}" font-weight="${clickable?700:400}" x="${lx}" y="${cy+4}" text-anchor="${la}" pointer-events="none">${d.n}</text>`;
   });
 
   // EY callout annotation
@@ -626,17 +372,19 @@ function buildScatter(){
   const tt = document.getElementById('chart-tt');
   svg.querySelectorAll('circle[data-i]').forEach(el=>{
     const d = SD[+el.dataset.i];
-    if(d.t==='qr') el.addEventListener('click', openQRPanel);
+    if(d.t==='qr') el.addEventListener('click', ()=>location.href='qr-analysis.html');
     else if(d.t==='ey') el.addEventListener('click', ()=>location.href='ey-analysis.html');
+    else if(d.t==='ek') el.addEventListener('click', ()=>location.href='ek-analysis.html');
+    else if(d.t==='et') el.addEventListener('click', ()=>location.href='et-analysis.html');
 
     el.addEventListener('mouseenter', e=>{
       const d = SD[+e.target.dataset.i];
-      const c = d.t==='qr'?'#c4305a':COLS[d.t];
+      const c = COLS[d.t]||'#8a93a6';
       tt.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:${c};font-weight:700;margin-bottom:8px">${d.n}</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:3px">New seat %: <strong style="color:var(--ink)">${d.x}%</strong></div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:10px">Capacity Δ: <strong style="color:var(--ink)">${d.y>0?'+':''}${d.y}%</strong></div>
         <div style="font-size:12px;color:var(--ink-dim);line-height:1.55">${d.i}</div>`
-        +(d.t==='qr'?`<div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:#c4305a;letter-spacing:0.08em">▾ Click to open deep-dive</div>`:'');
+        +(SPECIAL_TYPES.has(d.t)?`<div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:${COLS[d.t]};letter-spacing:0.08em">▾ Click to open deep-dive</div>`:'');
       tt.classList.add('show');
     });
     el.addEventListener('mousemove', e=>{
@@ -650,103 +398,6 @@ function buildScatter(){
   });
 }
 
-// ══════════════════════════════════════════════════════
-// QR PANEL OPEN / CLOSE
-// ══════════════════════════════════════════════════════
-function openQRPanel(){
-  const panel = document.getElementById('qr-panel');
-  panel.classList.add('open');
-  if(!panel.dataset.built){
-    buildQRRouteMap();
-    buildQRTimeline();
-    panel.dataset.built='1';
-  }
-  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}), 60);
-}
-
-function closeQRPanel(){
-  const panel = document.getElementById('qr-panel');
-  panel.style.transition='opacity 0.3s';
-  panel.style.opacity='0';
-  document.querySelector('section').scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>{
-    panel.classList.remove('open');
-    panel.style.opacity='';
-    panel.style.transition='';
-  }, 350);
-}
-
-// ══════════════════════════════════════════════════════
-// QR ROUTE MAP
-// ══════════════════════════════════════════════════════
-const MW=1000,MH=460,LLo=-60,LHi=85,LR=145;
-function proj(lon,lat){return[(lon+180)/360*MW,(LHi-Math.max(LLo,Math.min(LHi,lat)))/LR*MH];}
-
-function buildQRRouteMap(){
-  fetch('./data/world_path.txt').then(r=>r.text()).then(p=>{
-    document.getElementById('qr-map-path').setAttribute('d',p.trim());
-  }).catch(()=>{});
-
-  const [ax,ay]=proj(DOH[0],DOH[1]);
-  let lines='', dots='';
-
-  const drawRoute=(rt,stroke,dotFill)=>{
-    const co=QR_COORDS[rt.d]; if(!co) return;
-    const [dx,dy]=proj(co[0],co[1]);
-    const mx=(ax+dx)/2, my=((ay+dy)/2)-Math.abs(dx-ax)*0.13;
-    lines+=`<path fill="none" stroke="${stroke}" stroke-width="0.9" stroke-linecap="round" opacity="0.78" d="M${ax.toFixed(1)},${ay.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${dx.toFixed(1)},${dy.toFixed(1)}"/>`;
-    dots+=`<circle class="map-dest" cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="3.2" fill="${dotFill}" stroke="#000" stroke-width="0.4"><title>${rt.d}, ${rt.c} · ${rt.f} · ${rt.a}</title></circle>`;
-  };
-
-  QR24.forEach(r=>drawRoute(r,'var(--qr-bright)','var(--qr-bright)'));
-  QR25.forEach(r=>drawRoute(r,'var(--gold)','var(--gold)'));
-
-  document.getElementById('qr-route-lines').innerHTML=lines;
-  document.getElementById('qr-route-dots').innerHTML=dots+
-    `<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="6" fill="var(--teal)" style="filter:drop-shadow(0 0 5px rgba(79,184,168,0.7))">
-      <animate attributeName="r" values="6;10;6" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite"/>
-    </circle>
-    <circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="5" fill="var(--teal)" pointer-events="none"/>
-    <text font-family="JetBrains Mono,monospace" font-size="9" fill="var(--teal)" x="${(ax+8).toFixed(1)}" y="${(ay+3).toFixed(1)}" font-weight="700">DOH</text>`;
-}
-
-// ══════════════════════════════════════════════════════
-// QR ROUTE TIMELINE
-// ══════════════════════════════════════════════════════
-function buildQRTimeline(){
-  const card=r=>`
-    <div class="route-card rc-${r.r}">
-      <div class="rc-dest">${r.d}</div>
-      <div class="rc-country">${r.c}</div>
-      <div class="rc-meta">
-        <span class="rc-date">${r.dt}</span>
-        <span class="rc-freq">${r.f}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span class="rc-ac">${r.a}</span>
-        <span class="rc-region-tag" style="color:${RC[r.r]}">${RL[r.r]}</span>
-      </div>
-    </div>`;
-
-  document.getElementById('qr-route-timeline').innerHTML=`
-    <div style="margin-bottom:36px">
-      <div class="tl-year-head">
-        <span class="tl-badge" style="color:var(--qr-bright)">2024</span>
-        <span class="tl-count">${QR24.length} new destinations</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em">Africa expansion + Caucasus entry + SE Asia widening</span>
-      </div>
-      <div class="route-grid">${QR24.map(card).join('')}</div>
-    </div>
-    <div>
-      <div class="tl-year-head">
-        <span class="tl-badge" style="color:var(--gold)">2025</span>
-        <span class="tl-count">${QR25.length} new / A321XLR launch routes</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.08em">A321XLR enters service · Caucasus blitz · new Africa thin routes</span>
-      </div>
-      <div class="route-grid">${QR25.map(card).join('')}</div>
-    </div>`;
-}
 
 // ══════════════════════════════════════════════════════
 // BOOT

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethiopian Airlines · Cirium Q4 2025 vs Q4 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
+  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
+  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;
+  --ac:#3db858;--ac-dim:rgba(61,184,88,0.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.shell{max-width:1480px;margin:0 auto;padding:0 32px}
+.back-nav{padding:14px 0;border-bottom:1px solid var(--line);background:var(--bg-panel)}
+.back-nav a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);text-decoration:none}
+.back-nav a:hover{color:var(--ink)}
+.back-nav .sep{margin:0 12px;color:var(--line)}
+.hero{background:radial-gradient(ellipse at 15% 0%,rgba(61,184,88,0.09) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(217,127,74,0.08) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(38px,5vw,72px);line-height:0.93;letter-spacing:-0.038em}
+.hero h1 em{font-style:italic;color:var(--ac);font-weight:400}
+.hero-sub{font-size:15px;color:var(--ink-dim);max-width:560px;margin-top:22px;line-height:1.7}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.version-tag{display:inline-block;padding:3px 10px;background:var(--ac);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;font-weight:700;margin-bottom:14px}
+.hero-stamps{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.stamp{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-dim)}
+.stamp .dot{width:6px;height:6px;border-radius:50%}
+.ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
+.ticker .st{padding:20px 22px;border-right:1px solid var(--line)}
+.ticker .st:last-child{border-right:none}
+.ticker .num{font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
+.ticker .lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute)}
+.delta{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;letter-spacing:0.06em}
+.delta.up{background:rgba(79,184,168,0.12);color:var(--teal)}
+.delta.dn{background:rgba(229,78,78,0.12);color:var(--crimson)}
+.delta.flat{background:rgba(90,100,120,0.12);color:var(--ink-mute)}
+.delta.ac{background:var(--ac-dim);color:var(--ac)}
+section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
+.section-head h2{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
+.section-head .desc{max-width:480px;font-size:14px;color:var(--ink-dim);line-height:1.65}
+.tl-head{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tl-badge{font-family:'Fraunces',serif;font-size:26px;font-weight:600;font-style:italic}
+.tl-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--ink-mute);text-transform:uppercase;padding:3px 10px;border:1px solid var(--line);background:var(--bg-elev)}
+.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:32px}
+.rc{background:var(--bg-card);border:1px solid var(--line);padding:13px 13px 13px 17px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;transition:border-color 0.15s}
+.rc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.rc-up::before{background:var(--teal)}
+.rc-dn::before{background:var(--crimson)}
+.rc-new::before{background:var(--gold)}
+.rc-exit::before{background:var(--ink-mute)}
+.rc-dest{font-family:'Fraunces',serif;font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.rc-sub{font-size:12px;color:var(--ink-dim)}
+.rc-row{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.07em}
+.rc-seats{color:var(--ink-mute)}
+.rc-ac{color:var(--gold)}
+.pct{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px}
+.pct.up{background:rgba(79,184,168,0.14);color:var(--teal)}
+.pct.dn{background:rgba(229,78,78,0.14);color:var(--crimson)}
+.pct.new{background:rgba(232,185,74,0.12);color:var(--gold)}
+.rmap-wrap{background:#06090e;border:1px solid var(--line);overflow:hidden;box-shadow:inset 0 0 80px rgba(0,0,0,0.5)}
+.rmap-wrap svg{display:block;width:100%;height:auto}
+.map-country{fill:#192031;stroke:#21304a;stroke-width:0.3}
+.map-dest{stroke:#000;stroke-width:0.4;cursor:pointer}
+.map-dest:hover{stroke:rgba(255,255,255,0.8);stroke-width:1.5}
+.rmap-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-dim)}
+.rmap-legend .li{display:flex;align-items:center;gap:7px}
+.fleet-cmp{background:var(--bg-card);border:1px solid var(--line);overflow:hidden}
+.fleet-hdr{display:grid;grid-template-columns:190px 1fr 1fr 64px;gap:12px;padding:9px 16px;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);background:var(--bg-panel)}
+.fleet-row{display:grid;grid-template-columns:190px 1fr 1fr 64px;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line-soft);align-items:center}
+.fleet-row:last-child{border-bottom:none}
+.fleet-type{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim)}
+.fleet-bar-wrap{display:flex;align-items:center}
+.fleet-bar{height:15px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;min-width:20px}
+.fb25{background:rgba(255,255,255,0.06);color:var(--ink-mute)}
+.fleet-delta{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;text-align:right}
+.fleet-delta.up{color:var(--teal)}
+.fleet-delta.dn{color:var(--crimson)}
+.fleet-delta.flat{color:var(--ink-mute)}
+.strategy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sc{background:var(--bg-card);border:1px solid var(--line);padding:26px;position:relative}
+.sc-num{font-family:'Fraunces',serif;font-size:52px;font-weight:700;font-style:italic;position:absolute;top:14px;right:18px;line-height:1;opacity:0.1;color:var(--ac)}
+.sc-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.25}
+.sc-body{font-size:13px;color:var(--ink-dim);line-height:1.65}
+.sc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ac);letter-spacing:0.06em}
+footer{padding:40px 0 52px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-align:center;border-top:1px solid var(--line);line-height:2}
+footer a{color:var(--ink-mute);text-decoration:none}
+footer a:hover{color:var(--teal)}
+footer em{font-style:italic;color:var(--copper);font-family:'Fraunces',serif}
+@media(max-width:960px){.hero-inner{grid-template-columns:1fr}.hero-stamps{align-items:flex-start}.ticker{grid-template-columns:repeat(2,1fr)}.ticker .st{border-bottom:1px solid var(--line)}.strategy-grid{grid-template-columns:1fr}.section-head{flex-direction:column;align-items:flex-start}.fleet-hdr,.fleet-row{grid-template-columns:150px 1fr 50px}}
+@media(max-width:580px){.shell{padding:0 18px}.ticker{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <div class="shell">
+    <a href="network-analysis.html">← Network Matrix</a>
+    <span class="sep">|</span>
+    <a href="qr-analysis.html">Qatar ←</a>
+    <span class="sep">|</span>
+    <a href="ek-analysis.html">Emirates ←</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="shell">
+    <div class="hero-inner">
+      <div>
+        <span class="version-tag">CIRIUM SCHEDULE ANALYSIS · Q4 2025 vs Q4 2026</span>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:16px">Ethiopian Airlines · ET · ADD Hub</div>
+        <h1>Seven new <em>cities</em>.<br>Luanda 5× growth.<br>DHC-8 spreading roots.</h1>
+        <p class="hero-sub">The strongest headline numbers of the three: seats +4.2%, ASK +6.2%, flights +8.7%. <strong>Seven genuinely new destinations in Q4 2026</strong> — four domestic Ethiopian DHC-8 routes and three international ones. Luanda NBJ leaps +398% as Angola's new airport comes fully online with ET doubling down on the market. The B777-200LR is rapidly exiting the fleet.</p>
+      </div>
+      <div class="hero-stamps">
+        <div class="stamp"><span class="dot" style="background:var(--ac);box-shadow:0 0 8px var(--ac)"></span>CIRIUM · Q4 2025 vs Q4 2026 · PAX ONLY</div>
+        <div class="stamp"><span class="dot" style="background:var(--teal)"></span>41,234 SCHEDULED FLIGHTS Q4 2026</div>
+        <div class="stamp"><span class="dot" style="background:var(--gold)"></span>126 ROUTES · NET +5 VS Q4 2025</div>
+        <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);text-align:right">
+          Source: Cirium Schedule Analytics<br>All statistics per quarter · Pax flights only
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="st">
+    <div class="num"><em style="color:var(--ac)">7.39M</em></div>
+    <div class="lbl">Total seats Q4 2026</div>
+    <div class="delta up">↑ +4.2% vs Q4 2025</div>
+  </div>
+  <div class="st">
+    <div class="num"><em style="color:var(--gold)">23.0B</em></div>
+    <div class="lbl">ASK Q4 2026</div>
+    <div class="delta up">↑ +6.2% · longer haul mix</div>
+  </div>
+  <div class="st">
+    <div class="num"><em style="color:var(--teal)">41,234</em></div>
+    <div class="lbl">Scheduled flights Q4 2026</div>
+    <div class="delta up">↑ +8.7% · highest growth rate</div>
+  </div>
+  <div class="st">
+    <div class="num"><em style="color:var(--ac)">+398%</em></div>
+    <div class="lbl">Luanda NBJ · biggest mover</div>
+    <div class="delta ac">5,296 → 26,394 seats/Q</div>
+  </div>
+  <div class="st">
+    <div class="num"><em style="color:var(--gold)">126</em></div>
+    <div class="lbl">Hub routes Q4 2026</div>
+    <div class="delta up">↑ from 121 · net +5</div>
+  </div>
+</div>
+
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Capacity <em>gainers</em>.<br>Where seats are flowing.</h2>
+      <p class="desc">Routes with the largest Q4 seat increases from ADD. Luanda's NBJ emergence dominates the headline numbers. East Africa — Lusaka, Kilimanjaro, Zanzibar — consolidates ET's dominance in its home region. Europe gains modestly; Hong Kong is the standout Asia surprise.</p>
+    </div>
+
+    <div class="tl-head">
+      <span class="tl-badge" style="color:var(--teal)">Growth</span>
+      <span class="tl-count">Biggest seat increases · ADD outbound · Q4 2025 → Q4 2026</span>
+    </div>
+    <div class="route-grid">
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Luanda (NBJ)</span><span class="pct up">+398.4%</span></div>
+        <div class="rc-sub">Angola · NBJ · new airport</div>
+        <div class="rc-row"><span class="rc-seats">5,296 → 26,394 seats</span><span class="rc-ac">B787-9 / B777-200LR</span></div>
+        <div style="font-size:11px;color:var(--ink-mute);margin-top:2px">João Paulo II Intl — ET commits to full-frequency operation</div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Humera</span><span class="pct up">+300.0%</span></div>
+        <div class="rc-sub">Ethiopia · HUE · domestic</div>
+        <div class="rc-row"><span class="rc-seats">1,014 → 4,056 seats</span><span class="rc-ac">DHC-8</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Dembidollo</span><span class="pct up">+103.1%</span></div>
+        <div class="rc-sub">Ethiopia · DEM · domestic</div>
+        <div class="rc-row"><span class="rc-seats">2,151 → 4,368 seats</span><span class="rc-ac">DHC-8</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Hong Kong</span><span class="pct up">+73.6%</span></div>
+        <div class="rc-sub">Hong Kong · HKG</div>
+        <div class="rc-row"><span class="rc-seats">14,310 → 24,840 seats</span><span class="rc-ac">B787-8</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Lusaka</span><span class="pct up">+54.0%</span></div>
+        <div class="rc-sub">Zambia · LUN</div>
+        <div class="rc-row"><span class="rc-seats">28,896 → 44,490 seats</span><span class="rc-ac">A350-900 / B737-800</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Yaoundé</span><span class="pct up">+50.4%</span></div>
+        <div class="rc-sub">Cameroon · NSI</div>
+        <div class="rc-row"><span class="rc-seats">13,377 → 20,120 seats</span><span class="rc-ac">A350-900 / B737MAX</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Athens</span><span class="pct up">+44.3%</span></div>
+        <div class="rc-sub">Greece · ATH</div>
+        <div class="rc-row"><span class="rc-seats">7,318 → 10,560 seats</span><span class="rc-ac">B737MAX</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Kilimanjaro</span><span class="pct up">+42.0%</span></div>
+        <div class="rc-sub">Tanzania · JRO</div>
+        <div class="rc-row"><span class="rc-seats">48,688 → 69,118 seats</span><span class="rc-ac">A350-900 / B737-800</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Arba Minch</span><span class="pct up">+41.3%</span></div>
+        <div class="rc-sub">Ethiopia · AMH · domestic</div>
+        <div class="rc-row"><span class="rc-seats">15,239 → 21,528 seats</span><span class="rc-ac">DHC-8</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Zanzibar</span><span class="pct up">+35.5%</span></div>
+        <div class="rc-sub">Tanzania · ZNZ</div>
+        <div class="rc-row"><span class="rc-seats">48,063 → 65,114 seats</span><span class="rc-ac">A350-900 / B737-800</span></div>
+      </div>
+      <div class="rc rc-up">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Geneva</span><span class="pct up">+34.8%</span></div>
+        <div class="rc-sub">Switzerland · GVA</div>
+        <div class="rc-row"><span class="rc-seats">23,407 → 31,556 seats</span><span class="rc-ac">A350-900</span></div>
+      </div>
+    </div>
+
+    <div class="tl-head" style="margin-top:8px">
+      <span class="tl-badge" style="color:var(--crimson)">Pullbacks</span>
+      <span class="tl-count">Biggest seat reductions · ADD outbound · Q4 2025 → Q4 2026</span>
+    </div>
+    <div class="route-grid">
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Moroni</span><span class="pct dn">−41.3%</span></div>
+        <div class="rc-sub">Comoros · HAH</div>
+        <div class="rc-row"><span class="rc-seats">25,060 → 14,720 seats</span><span class="rc-ac">B737MAX</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Riyadh</span><span class="pct dn">−36.0%</span></div>
+        <div class="rc-sub">Saudi Arabia · RUH</div>
+        <div class="rc-row"><span class="rc-seats">29,562 → 18,932 seats</span><span class="rc-ac">B787-8 / B737MAX</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Makele</span><span class="pct dn">−30.1%</span></div>
+        <div class="rc-sub">Ethiopia · MQX · domestic</div>
+        <div class="rc-row"><span class="rc-seats">71,862 → 50,232 seats</span><span class="rc-ac">DHC-8</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Marseille</span><span class="pct dn">−23.1%</span></div>
+        <div class="rc-sub">France · MRS</div>
+        <div class="rc-row"><span class="rc-seats">17,848 → 13,720 seats</span><span class="rc-ac">A350-900</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Dhaka</span><span class="pct dn">−23.3%</span></div>
+        <div class="rc-sub">Bangladesh · DAC</div>
+        <div class="rc-row"><span class="rc-seats">14,083 → 10,800 seats</span><span class="rc-ac">B787-8</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Dire Dawa</span><span class="pct dn">−21.7%</span></div>
+        <div class="rc-sub">Ethiopia · DIR · domestic</div>
+        <div class="rc-row"><span class="rc-seats">63,200 → 49,484 seats</span><span class="rc-ac">DHC-8</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Delhi</span><span class="pct dn">−20.5%</span></div>
+        <div class="rc-sub">India · DEL</div>
+        <div class="rc-row"><span class="rc-seats">51,442 → 40,906 seats</span><span class="rc-ac">B777-200LR / B777-300ER</span></div>
+      </div>
+      <div class="rc rc-dn">
+        <div style="display:flex;justify-content:space-between"><span class="rc-dest">Ouagadougou</span><span class="pct dn">−20.7%</span></div>
+        <div class="rc-sub">Burkina Faso · OUA</div>
+        <div class="rc-row"><span class="rc-seats">13,976 → 11,089 seats</span><span class="rc-ac">B787-9 / B787-8</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Capacity <em>flow map</em>.<br>ADD hub shifts visualised.</h2>
+      <p class="desc">Teal arcs — biggest seat gains from ADD. Red arcs — biggest reductions. East Africa remains core; the Luanda NBJ leap and Hong Kong surge are the headline cross-continental moves. Domestic coverage deepens even as the map expands.</p>
+    </div>
+    <div class="rmap-wrap">
+      <svg id="et-map" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
+        <path class="map-country" id="et-world" d=""/>
+        <g id="et-arcs"></g>
+        <g id="et-dots"></g>
+      </svg>
+    </div>
+    <div class="rmap-legend">
+      <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--teal)" stroke-width="1.5" fill="none"/></svg>Seat gains</div>
+      <div class="li"><svg width="28" height="8"><path d="M0,4 Q14,0 28,4" stroke="var(--crimson)" stroke-width="1.5" fill="none"/></svg>Seat reductions</div>
+      <div class="li"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ac)"></span>ADD hub</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Seven <em>new routes</em>.<br>Domestic + international expansion.</h2>
+      <p class="desc">Ethiopian added 7 genuinely new destinations in Q4 2026 — the most of the three carriers studied. Four are domestic Ethiopian DHC-8 routes deepening regional connectivity. Three are international: Goma (DRC), Jizan (Saudi Arabia), and Salalah (Oman).</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div>
+        <div class="tl-head"><span class="tl-badge" style="color:var(--gold)">New routes</span><span class="tl-count">In Q4 2026, not in Q4 2025</span></div>
+        <div class="route-grid" style="grid-template-columns:1fr">
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Yabelo Oromia</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Ethiopia · BYY · domestic</div>
+            <div class="rc-row"><span class="rc-seats">53 flt · 4,134 seats Q4-26</span><span class="rc-ac">DHC-8</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Debra Marcos</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Ethiopia · DBM · domestic</div>
+            <div class="rc-row"><span class="rc-seats">40 flt · 3,120 seats Q4-26</span><span class="rc-ac">DHC-8</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Gore</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Ethiopia · GOR · domestic</div>
+            <div class="rc-row"><span class="rc-seats">39 flt · 3,042 seats Q4-26</span><span class="rc-ac">DHC-8</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Mizan Teferi</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Ethiopia · MTF · domestic</div>
+            <div class="rc-row"><span class="rc-seats">40 flt · 3,120 seats Q4-26</span><span class="rc-ac">DHC-8</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Goma</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">DR Congo · GOM · international</div>
+            <div class="rc-row"><span class="rc-seats">55 flt · 7,336 seats Q4-26</span><span class="rc-ac">B737 / B737MAX</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Jizan</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Saudi Arabia · GIZ · international</div>
+            <div class="rc-row"><span class="rc-seats">66 flt · 10,900 seats Q4-26</span><span class="rc-ac">B737MAX / B737-800</span></div>
+          </div>
+          <div class="rc rc-new">
+            <div style="display:flex;justify-content:space-between"><span class="rc-dest">Salalah</span><span class="pct new">NEW</span></div>
+            <div class="rc-sub">Oman · SLL · international</div>
+            <div class="rc-row"><span class="rc-seats">40 flt · 6,400 seats Q4-26</span><span class="rc-ac">B737MAX</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tl-head"><span class="tl-badge" style="color:var(--crimson)">Exits</span><span class="tl-count">Routes in Q4 2025, absent Q4 2026</span></div>
+        <div class="route-grid" style="grid-template-columns:1fr">
+          <div class="rc rc-exit">
+            <div class="rc-dest">Luanda (LAD)</div>
+            <div class="rc-sub">Angola · old airport · Africa</div>
+            <div class="rc-row"><span class="rc-seats">Was: 76 flt · 22,597 seats Q4-25</span></div>
+            <div style="font-size:11px;color:var(--ink-mute);margin-top:2px">Airport migration — closed LAD, full transfer to new NBJ</div>
+          </div>
+          <div class="rc rc-exit">
+            <div class="rc-dest">Wuhan</div>
+            <div class="rc-sub">China · WUH · Asia</div>
+            <div class="rc-row"><span class="rc-seats">Was: 3 flt · 1,029 seats Q4-25</span></div>
+            <div style="font-size:11px;color:var(--ink-mute);margin-top:2px">Minimal service — market exited</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;background:var(--bg-card);border:1px solid var(--line);padding:18px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px">Luanda airport context</div>
+          <p style="font-size:12px;color:var(--ink-dim);line-height:1.65">LAD (Quatro de Fevereiro) closed in 2023; Angola's new <strong style="color:var(--ink)">João Paulo II International (NBJ)</strong> is now the operating airport. ET's LAD "exit" and NBJ +398% growth is the same Luanda market — ET significantly increased capacity at the new airport, from 5,296 to 26,394 seats per quarter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Fleet <em>mix shift</em>.<br>Equipment tells the strategy.</h2>
+      <p class="desc">Share of total scheduled seats by aircraft type, Q4 2025 vs Q4 2026. The DHC-8 grows its share as domestic expansion accelerates. B777-200LR is in rapid withdrawal — down 4pp. B787-9 and B737MAX both gaining share as the modern widebody and narrowbody platforms respectively.</p>
+    </div>
+    <div class="fleet-cmp">
+      <div class="fleet-hdr"><div>Aircraft</div><div>Q4 2025</div><div>Q4 2026</div><div>Shift</div></div>
+      <div class="fleet-row"><div class="fleet-type">DHC-8 ▲</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:100%">27.4%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:107.7%;background:var(--teal);color:var(--bg-deep)">29.6%</div></div><div class="fleet-delta up">+2.2pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B737-800</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:76.6%">21.0%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:75.5%;background:var(--ac);color:#fff">20.7%</div></div><div class="fleet-delta flat">−0.3pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B787-8</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:63.9%">17.5%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:62.0%;background:var(--ac);color:#fff">17.0%</div></div><div class="fleet-delta flat">−0.5pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B787-9 ▲</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:55.8%">15.3%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:62.4%;background:var(--teal);color:var(--bg-deep)">17.1%</div></div><div class="fleet-delta up">+1.8pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B737MAX ▲</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:23.4%">6.4%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:28.8%;background:var(--teal);color:var(--bg-deep)">7.9%</div></div><div class="fleet-delta up">+1.5pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">A350-900</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:21.5%">5.9%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:20.4%;background:var(--ac);color:#fff">5.6%</div></div><div class="fleet-delta flat">−0.3pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B777-200LR ▼▼</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:23.4%">6.4%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:8.8%;background:var(--crimson);color:#fff">2.4%</div></div><div class="fleet-delta dn">−4.0pp</div></div>
+      <div class="fleet-row"><div class="fleet-type">B777-300ER ▼</div><div class="fleet-bar-wrap"><div class="fleet-bar fb25" style="width:22.3%">6.1%</div></div><div class="fleet-bar-wrap"><div class="fleet-bar" style="width:17.2%;background:var(--ac);color:#fff">4.7%</div></div><div class="fleet-delta dn">−1.4pp</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Three <em>strategic reads</em>.<br>What the Cirium data means.</h2>
+      <p class="desc">Ethiopian is the fastest-growing of the three carriers in this dataset — and uniquely, it's expanding the route map itself, not just reallocating capacity within existing cities.</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="sc"><div class="sc-num">I</div>
+        <div class="sc-title">Africa's hub deepening domestic reach</div>
+        <div class="sc-body">Four new domestic Ethiopian routes using DHC-8 — Yabelo, Debra Marcos, Gore, Mizan Teferi — plus significant growth at Arba Minch, Goba, Jinka, and Asosa. ET is systematically expanding coverage of Ethiopia's secondary cities, building the domestic feed that makes ADD's international network commercially viable. No other African carrier matches this domestic depth.</div>
+        <div class="sc-stat">DHC-8 seat share: +2.2pp · 4 new domestic cities · domestic routes dominate volume</div>
+      </div>
+      <div class="sc"><div class="sc-num">II</div>
+        <div class="sc-title">Luanda NBJ: a commitment, not migration</div>
+        <div class="sc-body">LAD "exit" + NBJ +398% = same city, but ET dramatically scaled up. Where QR left the Luanda market entirely and EK transferred capacity roughly flat, ET went from 22,597 seats at LAD to 26,394 seats at NBJ — a net increase on top of the airport migration. Angola's economic recovery and ET's pan-African network strategy align on this route.</div>
+        <div class="sc-stat">LAD (closed): 76 flt / 22,597 seats → NBJ: 26,394 seats · net growth +17%</div>
+      </div>
+      <div class="sc"><div class="sc-num">III</div>
+        <div class="sc-title">B777-200LR phase-out accelerating</div>
+        <div class="sc-body">The B777-200LR is rapidly exiting ET's fleet — from 6.4% to 2.4% of seat production, a 4pp drop in a single quarter comparison. Delhi, which had been a 777-200LR route, shows a −20.5% reduction. The type is being replaced by B787-9 and B737MAX where ranges overlap. B777-300ER also declining 1.4pp, suggesting ET's B777 era is winding down in favour of the Dreamliner family.</div>
+        <div class="sc-stat">B777-200LR: 6.4% → 2.4% seat share · −4.0pp · fastest decline in ET fleet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">
+    Source: <em>Cirium</em> Schedule Analytics · Q4 2025 vs Q4 2026 · Ethiopian Airlines (ET) · Pax flights only ·
+    <a href="network-analysis.html">← Matrix</a> · <a href="qr-analysis.html">Qatar ←</a> · <a href="ek-analysis.html">Emirates ←</a><br>
+    <span style="color:var(--ink-mute)">All statistics per quarter · Directional outbound from ADD for route-level analysis</span>
+  </div>
+</footer>
+
+<script>
+const MW=1000,MH=460,LLo=-60,LHi=85,LR=145;
+function proj(lon,lat){return[(lon+180)/360*MW,(LHi-Math.max(LLo,Math.min(LHi,lat)))/LR*MH];}
+const HUB=[38.80,8.98];
+const GAIN=[{l:'Luanda NBJ'   ,co:[13.4,-8.9]},{l:'Hong Kong'   ,co:[113.9,22.3]},
+            {l:'Lusaka'       ,co:[28.3,-15.4]},{l:'Kilimanjaro' ,co:[37.1,-3.4]},
+            {l:'Zanzibar'     ,co:[39.2,-6.2]},{l:'Geneva'      ,co:[6.1,46.2]},
+            {l:'Athens'       ,co:[23.9,37.9]},{l:'Yaoundé'     ,co:[11.5,3.8]},
+            {l:'Goma'         ,co:[29.2,-1.7]},{l:'Jizan'       ,co:[42.6,16.9]}];
+const LOSE=[{l:'Riyadh'       ,co:[46.7,24.7]},{l:'Delhi'       ,co:[77.1,28.6]},
+            {l:'Dhaka'        ,co:[90.4,23.7]},{l:'Moroni'      ,co:[43.3,-11.7]},
+            {l:'Ouagadougou'  ,co:[-1.5,12.4]}];
+window.addEventListener('DOMContentLoaded',()=>{
+  fetch('./data/world_path.txt').then(r=>r.text()).then(p=>document.getElementById('et-world').setAttribute('d',p.trim())).catch(()=>{});
+  const[ax,ay]=proj(HUB[0],HUB[1]);
+  const arc=(co,col)=>{const[dx,dy]=proj(co[0],co[1]);const mx=(ax+dx)/2,my=((ay+dy)/2)-Math.abs(dx-ax)*0.13;return`<path fill="none" stroke="${col}" stroke-width="0.9" stroke-linecap="round" opacity="0.72" d="M${ax.toFixed(1)},${ay.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${dx.toFixed(1)},${dy.toFixed(1)}"/>`;};
+  const dot=(co,col,lbl)=>{const[dx,dy]=proj(co[0],co[1]);return`<circle class="map-dest" cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="3.5" fill="${col}" stroke="#000" stroke-width="0.4"><title>${lbl}</title></circle>`;};
+  let arcs='',dots='';
+  GAIN.forEach(r=>{arcs+=arc(r.co,'var(--teal)');dots+=dot(r.co,'var(--teal)',r.l);});
+  LOSE.forEach(r=>{arcs+=arc(r.co,'var(--crimson)');dots+=dot(r.co,'var(--crimson)',r.l);});
+  document.getElementById('et-arcs').innerHTML=arcs;
+  document.getElementById('et-dots').innerHTML=dots+`<circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="6" fill="var(--ac)" style="filter:drop-shadow(0 0 6px var(--ac))"><animate attributeName="r" values="6;10;6" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.5;1" dur="3s" repeatCount="indefinite"/></circle><circle cx="${ax.toFixed(1)}" cy="${ay.toFixed(1)}" r="5" fill="var(--ac)" pointer-events="none"/><text font-family="JetBrains Mono,monospace" font-size="9" fill="var(--ac)" font-weight="700" x="${(ax+8).toFixed(1)}" y="${(ay+3).toFixed(1)}">ADD</text>`;
+});
+</script>
+</body>
+</html>
