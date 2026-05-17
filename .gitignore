@@ -10,3 +10,21 @@ desktop.ini
 
 # Local dev server
 *.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Large data files
+*.xlsx
+*.csv
+ey_fr24_live.json
+
+# Browser profiles
+chrome_profiles/
+
+# OTP output — keep only the linkable latest report
+output/otp_report_*
+output/otp_latest.json
+output/scraper_status.json
