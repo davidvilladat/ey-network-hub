@@ -2612,6 +2612,40 @@ footer a:hover{color:var(--teal)}
   .section-head{flex-direction:column;align-items:flex-start}
 }
 @media(max-width:580px){.shell{padding:0 18px}.ticker{grid-template-columns:1fr}}
+/* INSIGHT CARDS */
+.insight-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.insight-card{background:var(--bg-panel);border:1px solid var(--line);padding:20px 22px;border-radius:2px;position:relative;overflow:hidden}
+.insight-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+.insight-card.ok::before{background:var(--teal)}
+.insight-card.warn::before{background:var(--gold)}
+.insight-card.bad::before{background:var(--crimson)}
+.insight-card.info::before{background:var(--copper)}
+.insight-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px}
+.insight-headline{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-.015em;line-height:1.2;margin-bottom:6px}
+.insight-sub{font-size:12px;color:var(--ink-dim);line-height:1.55}
+@media(max-width:960px){.insight-strip{grid-template-columns:1fr}}
+/* OTP BAR */
+.otp-bar{height:3px;background:var(--line);border-radius:2px;margin-top:5px;overflow:hidden}
+.otp-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+/* COLLAPSE TOGGLE */
+.collapse-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--bg-elev);border:1px solid var(--line);color:var(--ink-dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:border-color .15s,color .15s;margin-bottom:20px}
+.collapse-btn:hover{border-color:var(--teal);color:var(--teal)}
+.collapse-btn .arr{transition:transform .2s}
+.collapse-btn.open .arr{transform:rotate(180deg)}
+/* HINT BANNER */
+.hint-banner{display:flex;align-items:flex-start;gap:14px;background:rgba(217,127,74,.07);border:1px solid rgba(217,127,74,.25);padding:16px 20px;margin-bottom:20px;border-radius:2px}
+.hint-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.hint-body{font-size:13px;color:var(--ink-dim);line-height:1.6}
+.hint-body strong{color:var(--ink)}
+/* NEXT STEPS */
+.next-steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.ns-card{background:var(--bg-card);border:1px solid var(--line);padding:24px}
+.ns-phase{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:10px}
+.ns-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;letter-spacing:-.015em;margin-bottom:12px;line-height:1.2}
+.ns-items{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ns-items li{font-size:12px;color:var(--ink-dim);line-height:1.5;padding-left:14px;position:relative}
+.ns-items li::before{content:"→";position:absolute;left:0;color:var(--copper);font-size:11px}
+@media(max-width:960px){.next-steps-grid{grid-template-columns:1fr}}
 """
 
     # ── ticker helper ──────────────────────────────────────────────────────────
@@ -2639,8 +2673,19 @@ footer a:hover{color:var(--teal)}
         rows_h = ""
         for lbl, key in metrics:
             v = ov.get(key)
-            rows_h += (f'<div class="otp-row"><span class="otp-metric">{esc(lbl)}</span>'
-                       f'<span class="otp-val {pclass(v)}">{fp(v)}</span></div>')
+            cls = pclass(v)
+            bar_color = "var(--teal)" if cls == "c-teal" else ("var(--gold)" if cls == "c-gold" else "var(--crimson)")
+            try:
+                bar_w = min(100, max(0, float(v)))
+            except (TypeError, ValueError):
+                bar_w = 0
+            rows_h += (
+                f'<div class="otp-row"><span class="otp-metric">{esc(lbl)}</span>'
+                f'<div style="text-align:right">'
+                f'<span class="otp-val {cls}">{fp(v)}</span>'
+                f'<div class="otp-bar"><div class="otp-bar-fill" style="width:{bar_w:.1f}%;background:{bar_color}"></div></div>'
+                f'</div></div>'
+            )
         for stat_lbl, stat_key in [("Avg delay", avg_key), ("Median", med_key), ("P90", p90_key)]:
             sv = ov.get(stat_key)
             rows_h += (f'<div class="otp-row stat-row">'
@@ -2764,26 +2809,171 @@ footer a:hover{color:var(--teal)}
                     f'padding:12px 20px;font-family:\'JetBrains Mono\',monospace;font-size:11px;'
                     f'letter-spacing:.06em;color:var(--teal)">'
                     f'&#10003; All {n_ok} flights matched — 0 unmatched</div>')
+
+        # Detect likely codeshare patterns: Gulf short-haul (MCT, KWI, BAH, SHJ)
+        # and flights where FR24 may record under the operating carrier's number
+        routes_str = " ".join(str(rows_df.get("route", pd.Series())).upper())
+        cs_hints = []
+        if any(x in routes_str for x in ["KWI", "BAH", "SHJ", "MCT", "ELQ"]):
+            cs_hints.append("Gulf short-haul routes (KWI, MCT, BAH) are often operated under "
+                            "Air Arabia Abu Dhabi or other partner IATA codes — FR24 logs the "
+                            "<em>operating</em> flight number, not EY.")
+        if any(x in routes_str for x in ["CCU", "TRV", "COK", "MAA", "HYD", "BOM"]):
+            cs_hints.append("Indian subcontinent routes may be codeshares operated by IndiGo, "
+                            "SpiceJet, or Air India under their own flight numbers.")
+        if not cs_hints:
+            cs_hints.append("Some flights may be same-day cancellations or operate under a "
+                            "partner carrier&rsquo;s IATA code — FR24 records the operating "
+                            "flight, not the EY codeshare number.")
+
+        hint_html = ""
+        for hint in cs_hints:
+            hint_html += (
+                f'<div class="hint-banner">'
+                f'<div class="hint-icon">&#128161;</div>'
+                f'<div class="hint-body"><strong>Possible codeshare / charter gap:</strong> {hint} '
+                f'Next step: cross-reference the <em>Op_Al</em> and <em>Op_Flight</em> columns '
+                f'in the Cirium schedule and retry FR24 with the operating carrier code.</div>'
+                f'</div>'
+            )
+
         cols = [c for c in ["Date", "flight_fa", "route", "scrape_status"] if c in rows_df.columns]
-        th_parts = [f'<th{"" if i > 0 else ""}>{esc(c)}</th>' for i, c in enumerate(cols)]
+        th_parts = [f'<th>{esc(c)}</th>' for c in cols]
         thead = "<tr>" + "".join(th_parts) + "</tr>"
         tbody = ""
         for _, row in rows_df.iterrows():
-            cells = [f'<td>{esc(str(row.get(c,"—")))}</td>' for c in cols]
+            cells = [f'<td style="color:var(--ink-mute)">{esc(str(row.get(c,"—")))}</td>' for c in cols]
             tbody += "<tr>" + "".join(cells) + "</tr>"
-        return f'<div class="tbl-wrap"><table class="route-table"><thead>{thead}</thead><tbody>{tbody}</tbody></table></div>'
+        table = f'<div class="tbl-wrap"><table class="route-table"><thead>{thead}</thead><tbody>{tbody}</tbody></table></div>'
+        return hint_html + table
 
     # ── hero sub text ──────────────────────────────────────────────────────────
-    canc_pct = ov.get("cancelled_%", 0) or 0
+    coverage_pct = round(n_ok / n_total * 100, 1) if n_total else 0
     hero_sub = (
-        f'<strong>{n_ok} of {n_total} flights</strong> matched and analysed for {esc(dates_str)}. '
-        f'D+15 OTP: <strong class="{pclass(d15)}">{fp(d15)}</strong> departure, '
-        f'<strong class="{pclass(a15)}">{fp(a15)}</strong> arrival. '
-        f'Cancellation rate {fp(canc_pct)}. '
+        f'<strong>{n_ok} of {n_total} flights</strong> matched ({coverage_pct}% coverage) '
+        f'for {esc(dates_str)}. '
+        f'Departure D+15: <strong class="{pclass(d15)}">{fp(d15)}</strong> — '
+        f'Arrival A+15: <strong class="{pclass(a15)}">{fp(a15)}</strong>. '
         f'Source: {esc(run_stats.get("engine","—"))}.'
     )
     fail_color = "var(--crimson)" if n_fail > 0 else "var(--teal)"
-    failed_label = f"Failed / Not Matched ({n_fail})" if n_fail else "Coverage"
+    failed_label = f"Not Matched in FR24 ({n_fail})" if n_fail else "Coverage"
+
+    # ── insight cards ──────────────────────────────────────────────────────────
+    # Signal card: overall OTP health
+    try:
+        d15_v = float(d15) if d15 is not None else 0
+        a15_v = float(a15) if a15 is not None else 0
+    except (TypeError, ValueError):
+        d15_v = a15_v = 0
+
+    if a15_v >= 85 and d15_v >= 70:
+        sig_cls, sig_head, sig_body = "ok", "Strong overall performance", (
+            f"A+15 at {fp(a15)} and D+15 at {fp(d15)} — both above benchmark thresholds. "
+            f"Avg arrival delay of {fd(adel)} min indicates good schedule padding.")
+    elif a15_v >= 70:
+        sig_cls, sig_head, sig_body = "warn", "Arrival solid, departures lagging", (
+            f"A+15 {fp(a15)} is acceptable but D+15 {fp(d15)} is below the 70% benchmark. "
+            f"Ground-time or gate-allocation pressure likely. Avg dep delay: {fd(ddel)} min.")
+    else:
+        sig_cls, sig_head, sig_body = "bad", "Performance below benchmark", (
+            f"Both D+15 ({fp(d15)}) and A+15 ({fp(a15)}) are below the 70% threshold. "
+            f"Significant departure delays (avg {fd(ddel)} min) are propagating to arrivals.")
+
+    # Best and worst route cards
+    best_card_html = worst_card_html = ""
+    if not route_rows.empty:
+        all_routes = summary[summary["scope_type"] == "ROUTE"].copy()
+        if not all_routes.empty:
+            # best = highest A15 with at least 1 flight
+            best_r = all_routes.sort_values("A15_%", ascending=False).iloc[0]
+            worst_r = all_routes.sort_values("A15_%", ascending=True).iloc[0]
+            br_name = esc(str(best_r.get("scope_value", "—")))
+            wr_name = esc(str(worst_r.get("scope_value", "—")))
+            best_card_html = (
+                f'<div class="insight-card ok">'
+                f'<div class="insight-label">Top route · A+15</div>'
+                f'<div class="insight-headline">{br_name}</div>'
+                f'<div class="insight-sub">'
+                f'A+15 <strong class="c-teal">{fp(best_r.get("A15_%"))}</strong> &nbsp;·&nbsp; '
+                f'D+15 <strong>{fp(best_r.get("D15_%"))}</strong> &nbsp;·&nbsp; '
+                f'Avg arr {fd(best_r.get("avg_arr_delay_min"))} min'
+                f'</div></div>'
+            )
+            wrd15 = worst_r.get("D15_%")
+            wra15 = worst_r.get("A15_%")
+            worst_cls = "bad" if (wra15 or 100) < 60 else "warn"
+            worst_card_html = (
+                f'<div class="insight-card {worst_cls}">'
+                f'<div class="insight-label">Needs attention · A+15</div>'
+                f'<div class="insight-headline">{wr_name}</div>'
+                f'<div class="insight-sub">'
+                f'A+15 <strong class="c-crimson">{fp(wra15)}</strong> &nbsp;·&nbsp; '
+                f'D+15 <strong>{fp(wrd15)}</strong> &nbsp;·&nbsp; '
+                f'Avg arr {fd(worst_r.get("avg_arr_delay_min"))} min'
+                f'</div></div>'
+            )
+
+    insight_cards_html = (
+        f'<div class="insight-strip">'
+        f'<div class="insight-card {sig_cls}">'
+        f'<div class="insight-label">OTP Signal</div>'
+        f'<div class="insight-headline">{sig_head}</div>'
+        f'<div class="insight-sub">{sig_body}</div>'
+        f'</div>'
+        + best_card_html
+        + worst_card_html
+        + '</div>'
+    )
+
+    # ── next steps panel ───────────────────────────────────────────────────────
+    next_steps_html = """
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Roadmap</div>
+        <h2>Proposed <em>Next Steps</em></h2>
+      </div>
+      <p class="desc">Data quality and coverage improvements in priority order.
+        Each phase unlocks the analytical depth of the next.</p>
+    </div>
+    <div class="next-steps-grid">
+      <div class="ns-card">
+        <div class="ns-phase">Phase 2 · Temporal coverage</div>
+        <div class="ns-title">Multi-day rolling window</div>
+        <ul class="ns-items">
+          <li>Run <code>python _run_fr24_test.py 7</code> for a 7-day window — single command, all EY flights</li>
+          <li>Append each day's results to a master dataset so the report shows trends, not snapshots</li>
+          <li>Wire a daily scheduled job (Windows Task Scheduler / GitHub Actions) to keep <em>otp_latest.html</em> current automatically</li>
+          <li>FR24 holds ~30 days of history — a 30-day backfill would give a statistically meaningful baseline</li>
+        </ul>
+      </div>
+      <div class="ns-card">
+        <div class="ns-phase">Phase 3 · Deeper analysis</div>
+        <div class="ns-title">Route trends &amp; delay attribution</div>
+        <ul class="ns-items">
+          <li>Add sparkline charts to the route table — D+15 over the last 30 days per route</li>
+          <li>Tag delays as <em>primary</em> (originating at this station) vs <em>reactionary</em> (propagated from inbound late arrival) using tail-number matching across legs</li>
+          <li>Block-time buffer consumed: actual/scheduled ratio per route, identifying chronically under-padded schedules</li>
+          <li>Peer comparison: pull QR and EK OTP on shared routes from the same Cirium schedule</li>
+        </ul>
+      </div>
+      <div class="ns-card">
+        <div class="ns-phase">Phase 4 · Coverage completion</div>
+        <div class="ns-title">Codeshares, cancellations &amp; diversions</div>
+        <ul class="ns-items">
+          <li>Resolve the NOT_IN_FR24 flights: read <em>Op_Al</em> + <em>Op_Flight</em> from Cirium and retry FR24 with the operating carrier code when the EY number fails</li>
+          <li>Classify NOT_IN_FR24 as CANCELLED vs CODESHARE_GAP — a flight absent 48h after departure is almost certainly cancelled</li>
+          <li>Diversion tracking: FR24 already returns <em>dest_icao_actual</em> — surface diversions in the route table and the detail view</li>
+          <li>Sub-fleet OTP: break D+15/A+15 by aircraft type (787, A320, A321neo) to identify type-specific issues</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    detail_html_content = detail_table_html(ok_df)
 
     # ── assemble HTML ──────────────────────────────────────────────────────────
     html_content = f"""<!DOCTYPE html>
@@ -2813,11 +3003,11 @@ footer a:hover{color:var(--teal)}
         <p class="hero-sub">{hero_sub}</p>
       </div>
       <div class="hero-stamps">
-        <div class="stamp"><span class="dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></span>{n_ok} FLIGHTS MATCHED</div>
-        <div class="stamp"><span class="dot" style="background:{fail_color}"></span>{n_fail} NOT FOUND</div>
-        <div class="stamp"><span class="dot" style="background:var(--copper)"></span>RUN TIME {esc(run_stats.get("elapsed_human","—"))}</div>
+        <div class="stamp"><span class="dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></span>{n_ok} / {n_total} FLIGHTS MATCHED</div>
+        <div class="stamp"><span class="dot" style="background:{fail_color}"></span>{n_fail} NOT IN FR24</div>
+        <div class="stamp"><span class="dot" style="background:var(--copper)"></span>{esc(run_stats.get("elapsed_human","—"))} RUN TIME</div>
         <div style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-mute);text-align:right">
-          Generated {esc(generated_at)}<br>Cirium schedule matched
+          Generated {esc(generated_at)}<br>Cirium Summer Schedule
         </div>
       </div>
     </div>
@@ -2830,10 +3020,19 @@ footer a:hover{color:var(--teal)}
   <div class="shell">
     <div class="section-head">
       <div>
+        <div class="eyebrow">Key Insights</div>
+        <h2>What the data <em>says</em></h2>
+      </div>
+      <p class="desc">Auto-generated from this run. Best and worst routes by A+15 arrival OTP.</p>
+    </div>
+    {insight_cards_html}
+
+    <div class="section-head" style="margin-top:40px">
+      <div>
         <div class="eyebrow">OTP Thresholds</div>
         <h2>Departure &amp; Arrival <em>Performance</em></h2>
       </div>
-      <p class="desc">Computed against scheduled gate times from the Cirium schedule. Actual times from FR24 wheel-off / wheel-on converted to UTC epoch.</p>
+      <p class="desc">Computed against scheduled gate times from the Cirium schedule. Actual times from FR24 wheel-off / wheel-on timestamps converted to UTC.</p>
     </div>
     {otp_panels_html}
   </div>
@@ -2846,7 +3045,7 @@ footer a:hover{color:var(--teal)}
         <div class="eyebrow">Route Analysis</div>
         <h2>Routes by Arrival <em>Delay</em></h2>
       </div>
-      <p class="desc">Worst routes first. Top 25 shown.</p>
+      <p class="desc">Sorted worst-first by average arrival delay. Top 25 routes shown.</p>
     </div>
     {route_table_html(route_rows)}
   </div>
@@ -2867,14 +3066,17 @@ footer a:hover{color:var(--teal)}
 
 <section>
   <div class="shell">
-    <div class="section-head">
+    <div class="section-head" style="margin-bottom:16px">
       <div>
         <div class="eyebrow">Raw Data</div>
         <h2>Flight <em>Detail</em></h2>
       </div>
-      <p class="desc">{n_ok} flights with actual departure and arrival times.</p>
+      <p class="desc">{n_ok} individual legs — actual departure and arrival times against schedule.</p>
     </div>
-    {detail_table_html(ok_df)}
+    <button class="collapse-btn" id="detail-btn" onclick="(function(){{var w=document.getElementById('detail-wrap');var b=document.getElementById('detail-btn');var open=w.style.display!=='none';w.style.display=open?'none':'block';b.classList.toggle('open',!open);b.childNodes[0].nodeValue=open?'Show {n_ok} flights ▼':'Hide flight list ▲';}})()">Show {n_ok} flights &#9660;</button>
+    <div id="detail-wrap" style="display:none">
+      {detail_html_content}
+    </div>
   </div>
 </section>
 
@@ -2885,11 +3087,13 @@ footer a:hover{color:var(--teal)}
         <div class="eyebrow">{esc(failed_label)}</div>
         <h2>Schedule <em>Coverage</em></h2>
       </div>
-      <p class="desc">Flights in the Cirium schedule not matched in the FR24 data window.</p>
+      <p class="desc">Flights in the Cirium schedule with no matching FR24 record in the search window. May be cancellations, codeshares, or charter series.</p>
     </div>
     {coverage_html(fail_df)}
   </div>
 </section>
+
+{next_steps_html}
 
 <footer>
   <div class="shell">
