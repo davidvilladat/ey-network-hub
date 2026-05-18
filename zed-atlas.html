@@ -101,7 +101,7 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .region-card .legend-row{display:flex;justify-content:space-between;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);letter-spacing:0.08em}
 
 /* PICKS */
-.picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.picks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .pick-card{background:var(--bg-card);border:1px solid var(--line);padding:28px;position:relative}
 .pick-card .pick-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
 .pick-card .pick-header h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;letter-spacing:-0.01em}
@@ -333,74 +333,9 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
   .modal-head{padding:20px}
   .modal-body{padding:0 20px 20px}
 }
-/* ── ACCESS GATE ── */
-#zed-gate{position:fixed;inset:0;z-index:9999;background:var(--bg-deep);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Inter Tight',sans-serif}
-#zed-gate.hidden{display:none}
-.gate-box{width:100%;max-width:360px;padding:0 24px;text-align:center}
-.gate-logo{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;
-  text-transform:uppercase;color:var(--ink-mute);margin-bottom:40px}
-.gate-logo span{color:var(--copper)}
-.gate-title{font-family:'Fraunces',serif;font-size:32px;font-weight:600;
-  letter-spacing:-0.03em;line-height:1;margin-bottom:8px}
-.gate-title em{font-style:italic;color:var(--teal);font-weight:300}
-.gate-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;
-  text-transform:uppercase;color:var(--ink-mute);margin-bottom:32px}
-.gate-input{width:100%;background:var(--bg-card);border:1px solid var(--line);
-  color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:18px;
-  letter-spacing:0.25em;text-align:center;padding:16px;outline:none;
-  transition:border-color 0.15s;-webkit-text-security:disc}
-.gate-input:focus{border-color:var(--copper)}
-.gate-input.shake{animation:gate-shake 0.35s ease}
-.gate-btn{width:100%;margin-top:10px;padding:14px;background:var(--copper);
-  color:#0a0d12;font-family:'JetBrains Mono',monospace;font-size:11px;
-  letter-spacing:0.2em;text-transform:uppercase;font-weight:700;
-  border:none;cursor:pointer;transition:opacity 0.15s}
-.gate-btn:hover{opacity:0.88}
-.gate-err{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:0.1em;color:var(--crimson);min-height:16px}
-@keyframes gate-shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}
-  40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
 </style>
 </head>
 <body>
-
-<!-- ACCESS GATE -->
-<div id="zed-gate">
-  <div class="gate-box">
-    <div class="gate-logo"><span>ZED</span> ATLAS · ETIHAD CREW</div>
-    <div class="gate-title">Crew <em>access.</em></div>
-    <div class="gate-sub">Enter passphrase to continue</div>
-    <input id="gate-input" class="gate-input" type="password"
-      placeholder="· · · ·" autocomplete="off" inputmode="numeric"
-      onkeydown="if(event.key==='Enter')gateSubmit()">
-    <button class="gate-btn" onclick="gateSubmit()">Enter</button>
-    <div id="gate-err" class="gate-err"></div>
-  </div>
-</div>
-<script>
-(function(){
-  var KEY='zed_crew_ok', PASS='1224';
-  if(localStorage.getItem(KEY)===PASS){
-    document.getElementById('zed-gate').classList.add('hidden');
-  }
-  window.gateSubmit=function(){
-    var val=document.getElementById('gate-input').value.trim();
-    if(val===PASS){
-      localStorage.setItem(KEY,PASS);
-      document.getElementById('zed-gate').classList.add('hidden');
-    } else {
-      var inp=document.getElementById('gate-input');
-      document.getElementById('gate-err').textContent='Incorrect passphrase.';
-      inp.classList.remove('shake');
-      void inp.offsetWidth;
-      inp.classList.add('shake');
-      inp.value='';
-    }
-  };
-})();
-</script>
 
 
 <div id="loader" style="position:fixed;inset:0;background:#0a0d12;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:24px">
@@ -415,7 +350,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 <header class="hero">
   <div class="shell hero-inner">
     <div>
-      <span class="version-tag">V4 · 38 CARRIERS · FR24 DATA</span>
+      <span class="version-tag">V4 · 58 CARRIERS · FR24 DATA</span>
       <div class="eyebrow" style="margin-bottom:18px">ETIHAD CREW · ZED travel intelligence</div>
       <h1>The <em>ZED</em> Atlas.<br>Where they fly. <em>Live</em> data.</h1>
       <p class="hero-sub">All <strong>218 ZED agreements</strong> with <strong>FR24 network coverage</strong> for <span id="stat-network-count">38</span> priority carriers — the routes they flew last week, fleet breakdown, and live schedule. Click any carrier to drill down.</p>
@@ -454,7 +389,6 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
             <span class="map-chip" data-v="sub_biz">$ Sub Biz</span>
             <span class="map-chip" data-v="duty">Duty</span>
             <span class="map-chip" data-v="family">Family</span>
-            <span class="map-chip" data-v="tc">TC</span>
           </div>
         </div>
         <div class="left">
@@ -508,7 +442,6 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       <div class="pick-card"><div class="pick-header"><h3>Cheapest Subload Business</h3><div class="icon">J</div></div><p class="pick-desc">Subload business at $ for SSC.</p><ul class="rank-list" id="pick-biz"></ul></div>
       <div class="pick-card"><div class="pick-header"><h3>Best for Family Travel</h3><div class="icon">F</div></div><p class="pick-desc">Parents and siblings covered at low fare.</p><ul class="rank-list" id="pick-family"></ul></div>
       <div class="pick-card"><div class="pick-header"><h3>Best for Duty Travel</h3><div class="icon">D</div></div><p class="pick-desc">Duty travel eligible in both cabins at $.</p><ul class="rank-list" id="pick-duty"></ul></div>
-      <div class="pick-card"><div class="pick-header"><h3>Best for Travel Companion</h3><div class="icon">T</div></div><p class="pick-desc">TC fare available — widest cabin coverage at lowest tier.</p><ul class="rank-list" id="pick-tc"></ul></div>
     </div>
   </div>
 </section>
@@ -650,7 +583,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       <div style="margin-top:8px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.08em;line-height:1.6">
         ZED &amp; LT data: 30 Apr 2026<br>
         FR24 network sample: 1–3 May 2026<br>
-        38 carriers w/ route data<br>
+        58 carriers w/ route data<br>
         Always verify in OSS / IDTGR before travel
       </div>
     </div>
@@ -907,13 +840,6 @@ function getDotColor(r, mode){
     if(z || s) return 'var(--copper)';
     return 'var(--ink-mute)';
   }
-  if(mode === 'tc'){
-    const best = Math.min(...[r.f[3], r.f[7], r.f[11], r.f[15]].filter(v=>v>0).concat([99]));
-    if(best === 1) return 'var(--tier-1)';
-    if(best === 2) return 'var(--tier-2)';
-    if(best === 3) return 'var(--tier-3)';
-    return 'var(--ink-mute)';
-  }
   return 'var(--ink-mute)';
 }
 function dotIsHighlight(r, mode){
@@ -923,7 +849,6 @@ function dotIsHighlight(r, mode){
   if(mode === 'sub_biz') return r.f[4] === 1;
   if(mode === 'duty') return tierFromStr(r.d.eco) === 1 && tierFromStr(r.d.biz) === 1;
   if(mode === 'family') return r.f[1] === 1 && r.f[2] === 1;
-  if(mode === 'tc') return [r.f[3], r.f[7], r.f[11], r.f[15]].some(v => v === 1);
   return false;
 }
 function dotIsRelevant(r, mode){
@@ -933,7 +858,6 @@ function dotIsRelevant(r, mode){
   if(mode === 'sub_biz') return r.f[4] > 0;
   if(mode === 'duty') return tierFromStr(r.d.eco) > 0 || tierFromStr(r.d.biz) > 0;
   if(mode === 'family') return r.f[1] > 0 || r.f[2] > 0;
-  if(mode === 'tc') return [r.f[3], r.f[7], r.f[11], r.f[15]].some(v => v > 0);
   return true;
 }
 const LEGENDS = {
@@ -943,7 +867,6 @@ const LEGENDS = {
   sub_biz: [['var(--tier-1)','$ low'],['var(--tier-2)','$$ med'],['var(--tier-3)','$$$ high'],['var(--ink-mute)','n/a']],
   duty: [['var(--tier-1)','$/$ both'],['var(--gold)','$ in one'],['var(--copper)','available'],['var(--ink-mute)','none']],
   family: [['var(--tier-1)','$ for both'],['var(--gold)','both avail'],['var(--copper)','one of'],['var(--ink-mute)','neither']],
-  tc: [['var(--tier-1)','$ TC available'],['var(--tier-2)','$$ TC'],['var(--tier-3)','$$$ TC'],['var(--ink-mute)','no TC fare']],
 };
 function renderMap(){
   const layer = document.getElementById('hub-layer');
@@ -1043,17 +966,6 @@ function renderPicks(){
   renderPick('pick-family', family, r=>`${TIER_LABEL[r.f[1]]}/${TIER_LABEL[r.f[2]]}`);
   const duty = DATA.filter(r=>r.d.eco==='$'&&r.d.biz==='$').sort((a,b)=>b.m.coverage-a.m.coverage);
   renderPick('pick-duty', duty, r=>`${r.d.eco}/${r.d.biz}`);
-  const tc = DATA
-    .filter(r => [r.f[3], r.f[7], r.f[11], r.f[15]].some(v => v > 0))
-    .map(r => {
-      const tcFares = [r.f[3], r.f[7], r.f[11], r.f[15]];
-      const tcActive = tcFares.filter(v => v > 0);
-      const _tcBest = Math.min(...tcActive);
-      const _tcCount = tcActive.length;
-      return {...r, _tcBest, _tcCount};
-    })
-    .sort((a, b) => a._tcBest - b._tcBest || b._tcCount - a._tcCount || b.m.coverage - a.m.coverage);
-  renderPick('pick-tc', tc, r => `${TIER_LABEL[r._tcBest]} · ${r._tcCount}/4`);
 }
 
 // ====== REGIONS ======
@@ -1611,7 +1523,7 @@ function renderDestResults(icao, ap){
     html += `<div class="no-data" style="margin-bottom:24px">
       <div class="strong">No FR24-confirmed direct routes to ${iata}</div>
       <div style="margin-top:10px;text-transform:none;letter-spacing:0;line-height:1.6">
-        None of the 38 network carriers show direct flights here in the May 2026 FR24 sample.
+        None of the 58 network carriers show direct flights here in the FR24 sample.
         This may be a secondary airport. Check the carriers based here below, or search a nearby hub.
       </div>
     </div>`;
