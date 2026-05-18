@@ -1608,7 +1608,7 @@ def _format_duration(seconds: float) -> str:
 
 FR24_API_BASE     = "https://fr24api.flightradar24.com/api"
 FR24_PAGE_SIZE    = 100   # requested page size (API caps at 20 regardless)
-FR24_SLEEP_SEC    = 1.2   # pause between paginated requests (keeps burst under rate limit)
+FR24_SLEEP_SEC    = 6.5   # pause between batch calls — keeps burst under 10 req/min quota
 FR24_RATELIMIT_WAIT = 65  # seconds to wait after a 429 before retrying
 FR24_MAX_PAGES    = 30    # hard cap — prevents runaway fetches
 
@@ -1661,9 +1661,8 @@ def fetch_fr24_flights_by_numbers(iata_numbers: list, date_str: str, api_key: st
     and Cirium Travel Date = the UTC date = 2026-05-16).
 
     BATCHING:
-    FR24_BATCH_SIZE flights per API call. For 249 EY flights: ~5 calls.
-    With FR24_SLEEP_SEC between calls: fetch completes in ~6 seconds, well
-    under the 10-request burst quota that triggers rate limiting.
+    FR24_BATCH_SIZE=10 flights per API call.  For 260 EY flights: ~26 calls.
+    FR24_SLEEP_SEC=6.5 s between calls stays under the 10 req/min burst quota.
 
     Args:
         iata_numbers: list of IATA flight strings e.g. ["EY247", "EY728"]
@@ -1743,9 +1742,12 @@ def _local_hhmm_to_epoch(date_str: str, hhmm, utc_offset_hours: int) -> Optional
     """
     Convert a Cirium local-time HHMM integer + UTC offset to a Unix epoch.
 
-    date_str: "YYYYMMDD" — the operating date in the origin's local calendar
+    date_str: "YYYYMMDD" — Cirium Travel Date, which is the UTC departure date
+              (not the local calendar date).  A westbound evening departure like
+              ATL 21:40 UTC-4 has UTC date = next calendar day → Cirium records
+              that next-day UTC date, not the local May-16 date.
     hhmm:     int/float e.g. 2130  →  21:30 local
-    utc_offset_hours: integer e.g. +4 for AUH
+    utc_offset_hours: integer e.g. +4 for AUH, -4 for ATL
     """
     try:
         import calendar as _cal
@@ -1753,7 +1755,19 @@ def _local_hhmm_to_epoch(date_str: str, hhmm, utc_offset_hours: int) -> Optional
         hh, mm = t // 100, t % 100
         if not (0 <= hh <= 23 and 0 <= mm <= 59):
             return None
-        dt_local = datetime.strptime(date_str, "%Y%m%d").replace(hour=hh, minute=mm)
+        # Determine which local calendar date corresponds to this UTC date.
+        # UTC minutes into the day = local_mins − offset_mins.
+        # If that's < 0:    local date is UTC date + 1 (local is "ahead", e.g. AUH early AM)
+        # If that's ≥ 1440: local date is UTC date − 1 (local is "behind", e.g. ATL late PM)
+        utc_mins  = hh * 60 + mm - utc_offset_hours * 60
+        utc_base  = datetime.strptime(date_str, "%Y%m%d")
+        if utc_mins < 0:
+            local_date = utc_base + timedelta(days=1)
+        elif utc_mins >= 1440:
+            local_date = utc_base - timedelta(days=1)
+        else:
+            local_date = utc_base
+        dt_local = local_date.replace(hour=hh, minute=mm)
         dt_utc   = dt_local - timedelta(hours=utc_offset_hours)
         return int(_cal.timegm(dt_utc.timetuple()))
     except Exception:
@@ -1876,8 +1890,8 @@ def run_fr24_otp(tasks: list, config: Config, api_key: str,
             match = candidates[0]
 
         if match is None:
-            row["scrape_status"] = "NOT_FOUND"
-            row["flight_status"] = "CANCELLED"
+            row["scrape_status"] = "NOT_IN_FR24"
+            row["flight_status"] = "UNKNOWN"  # could be cancelled, charter, or codeshare gap
             fail_count += 1
         else:
             dep_actual_epoch = _iso_to_epoch(match.get("datetime_takeoff"))
@@ -1953,9 +1967,15 @@ def run_fr24_otp(tasks: list, config: Config, api_key: str,
     }
 
     log.info(
-        f"FR24 OTP complete: {ok_count} matched / {fail_count} not found "
+        f"FR24 OTP complete: {ok_count} matched / {fail_count} not in FR24 "
         f"in {_format_duration(elapsed)}"
     )
+    if fail_count:
+        missed = [
+            f"{r.get('flight_fa','?')} {r.get('orig','?')}-{r.get('dest','?')}"
+            for r in results if r.get("scrape_status") == "NOT_IN_FR24"
+        ]
+        log.info(f"NOT_IN_FR24 flights ({fail_count}): {', '.join(missed)}")
     return results, run_stats
 
 
