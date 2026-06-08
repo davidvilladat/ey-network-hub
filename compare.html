@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrier Comparison · EY · QR · EK · ET — Cristian Villada</title>
+<meta name="description" content="Side-by-side Cirium Q4 2025 vs Q4 2026 comparison of Etihad, Qatar Airways, Emirates and Ethiopian — capacity, routes, fleet and signature network moves.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
+  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
+  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;
+  --ey:#4fb8a8;--qr:#c4305a;--ek:#e84040;--et:#3db858;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+.shell{max-width:1200px;margin:0 auto;padding:0 32px}
+nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;max-width:1200px;margin:0 auto}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;text-decoration:none}
+.nav-logo span{color:var(--copper)}
+.nav-links{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase}
+.nav-links a{color:var(--ink-mute);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover,.nav-links a.active{color:var(--copper)}
+
+.hero{padding:72px 0 56px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 0% 0%,rgba(79,184,168,0.08) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(196,48,90,0.08) 0%,transparent 50%);pointer-events:none}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:16px;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(44px,6vw,80px);line-height:0.92;letter-spacing:-0.04em;position:relative}
+.hero h1 em{font-style:italic;color:var(--teal);font-weight:400}
+.hero-sub{font-size:16px;color:var(--ink-dim);max-width:600px;margin-top:22px;line-height:1.7;position:relative}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.carrier-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;position:relative}
+.cpill{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-dim)}
+.cpill .d{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cpill b{color:var(--ink);font-weight:600}
+
+.cmp{padding:56px 0}
+.cmp-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:18px}
+.table-wrap{border:1px solid var(--line);overflow-x:auto;background:var(--bg-card)}
+table.cmp-table{width:100%;border-collapse:collapse;min-width:760px}
+.cmp-table th,.cmp-table td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.cmp-table thead th{position:sticky;top:56px;background:var(--bg-panel);border-bottom:1px solid var(--line)}
+.cmp-table thead .car{font-family:'Fraunces',serif;font-size:24px;font-style:italic;font-weight:700;line-height:1}
+.cmp-table thead .carname{font-family:'Inter Tight',sans-serif;font-size:11px;font-style:normal;font-weight:500;color:var(--ink-dim);letter-spacing:0;display:block;margin-top:4px}
+.cmp-table thead .carhub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;display:block;margin-top:3px}
+.cmp-table tbody th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;width:180px;white-space:nowrap}
+.cmp-table td{font-size:14px;color:var(--ink-dim)}
+.cmp-table td .big{font-family:'Fraunces',serif;font-size:22px;font-style:italic;font-weight:600;line-height:1;color:var(--ink)}
+.pos{color:var(--teal)} .neg{color:var(--crimson)} .mut{color:var(--ink-mute)}
+.cmp-table tbody tr:hover td,.cmp-table tbody tr:hover th{background:rgba(255,255,255,0.015)}
+
+.dd-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.dd-card{background:var(--bg-card);border:1px solid var(--line);border-top:3px solid;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform 0.18s,border-color 0.18s}
+.dd-card:hover{transform:translateY(-3px)}
+.dd-body{padding:20px 20px 16px;flex:1}
+.dd-code{font-family:'Fraunces',serif;font-size:30px;font-style:italic;font-weight:700;line-height:1;margin-bottom:6px}
+.dd-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.dd-note{font-size:12px;color:var(--ink-dim);line-height:1.6}
+.dd-cta{padding:11px 20px;border-top:1px solid var(--line-soft);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;background:var(--bg-panel)}
+
+.about{padding:40px 0 64px;border-top:1px solid var(--line-soft)}
+.disclaimer{background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--crimson);padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink-mute);line-height:1.7;max-width:820px}
+.disclaimer strong{color:var(--crimson);letter-spacing:0.1em}
+footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-align:center;line-height:2}
+footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);font-size:12px}
+
+@media(max-width:760px){
+  .dd-row{grid-template-columns:repeat(2,1fr)}
+  .cmp-table thead th{position:static}
+}
+@media(max-width:580px){
+  .shell{padding:0 18px}.nav-inner{padding:0 18px}.hero{padding:48px 0 40px}.dd-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">C<span>.</span>Villada</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/zed-atlas.html">ZED Atlas</a>
+      <a href="/network-analysis.html">Network Analysis</a>
+      <a href="/compare.html" class="active">Compare</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="shell">
+    <div class="eyebrow">Cirium Q4 2025 vs Q4 2026 · Gulf + Ethiopian</div>
+    <h1>Four carriers.<br><em>Side by side</em>.</h1>
+    <p class="hero-sub">The three Gulf super-connectors and Africa's largest network, compared on one screen — <strong>capacity, route moves, fleet shifts</strong> and the signature strategy behind each carrier's Q4 2026 schedule. Tap any column to open its full deep-dive.</p>
+    <div class="carrier-pills">
+      <span class="cpill"><span class="d" style="background:var(--ey)"></span><b>EY</b> Etihad · AUH</span>
+      <span class="cpill"><span class="d" style="background:var(--qr)"></span><b>QR</b> Qatar · DOH</span>
+      <span class="cpill"><span class="d" style="background:var(--ek)"></span><b>EK</b> Emirates · DXB</span>
+      <span class="cpill"><span class="d" style="background:var(--et)"></span><b>ET</b> Ethiopian · ADD</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="shell">
+    <section class="cmp">
+      <div class="cmp-label">The matrix · Q4 2025 → Q4 2026</div>
+      <div class="table-wrap">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th><a href="/ey-analysis.html" style="text-decoration:none"><span class="car" style="color:var(--ey)">EY</span><span class="carname">Etihad Airways</span><span class="carhub">AUH · Abu Dhabi</span></a></th>
+              <th><a href="/qr-analysis.html" style="text-decoration:none"><span class="car" style="color:var(--qr)">QR</span><span class="carname">Qatar Airways</span><span class="carhub">DOH · Hamad Intl</span></a></th>
+              <th><a href="/ek-analysis.html" style="text-decoration:none"><span class="car" style="color:var(--ek)">EK</span><span class="carname">Emirates</span><span class="carhub">DXB · Dubai Intl</span></a></th>
+              <th><a href="/et-analysis.html" style="text-decoration:none"><span class="car" style="color:var(--et)">ET</span><span class="carname">Ethiopian Airlines</span><span class="carhub">ADD · Addis Ababa</span></a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Capacity (seats)</th>
+              <td><span class="big pos">+21%</span></td>
+              <td><span class="big neg">−1.4%</span></td>
+              <td><span class="big pos">+0.9%</span></td>
+              <td><span class="big pos">+4.2%</span></td>
+            </tr>
+            <tr>
+              <th>ASK growth</th>
+              <td><span class="mut">seat-led*</span></td>
+              <td><span class="pos">+0.4%</span></td>
+              <td><span class="pos">+1.9%</span></td>
+              <td><span class="pos">+6.2%</span></td>
+            </tr>
+            <tr>
+              <th>Network change</th>
+              <td><span class="pos">+16 net routes</span><br>30 new destinations</td>
+              <td>Rebalanced east<br>HIA slot-constrained</td>
+              <td>Frequency-led<br>few net new points</td>
+              <td><span class="pos">7 new cities</span><br>Africa + Asia push</td>
+            </tr>
+            <tr>
+              <th>Signature move</th>
+              <td>A321LR thin long-haul<br>premium-leisure build</td>
+              <td>Shanghai <span class="pos">+97.8%</span><br>SFO <span class="neg">−42.4%</span></td>
+              <td>Tehran exit (70k seats)<br>Helsinki new</td>
+              <td>Luanda NBJ <span class="pos">+398%</span><br>frequency surge</td>
+            </tr>
+            <tr>
+              <th>Fleet shift</th>
+              <td>A321LR inducting<br>widebody backbone</td>
+              <td>777X awaited<br>A350 core</td>
+              <td>A350 share doubles<br>777 retrofit</td>
+              <td>B777-200LR phase-out<br>A350 / 787 growth</td>
+            </tr>
+            <tr>
+              <th>Headline result</th>
+              <td><span class="big">$698M</span><br>net profit FY25 · 22.4M pax</td>
+              <td>Capacity discipline<br>premium yield focus</td>
+              <td>Record profits<br>scale leader</td>
+              <td>Pan-African hub<br>fastest seat growth here</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dd-row">
+        <a class="dd-card" href="/ey-analysis.html" style="border-top-color:var(--ey)">
+          <div class="dd-body"><div class="dd-code" style="color:var(--ey)">EY</div><div class="dd-name">Etihad Airways</div><div class="dd-note">+21% capacity, 30 new routes, A321LR strategy and the FY25 return to profit — plus a live FR24 snapshot.</div></div>
+          <div class="dd-cta" style="color:var(--ey)">Open EY deep-dive →</div>
+        </a>
+        <a class="dd-card" href="/qr-analysis.html" style="border-top-color:var(--qr)">
+          <div class="dd-body"><div class="dd-code" style="color:var(--qr)">QR</div><div class="dd-name">Qatar Airways</div><div class="dd-note">A −1.4% seat trim that hides a sharp eastward rebalance — Shanghai doubled, SFO halved, HIA at capacity.</div></div>
+          <div class="dd-cta" style="color:var(--qr)">Open QR deep-dive →</div>
+        </a>
+        <a class="dd-card" href="/ek-analysis.html" style="border-top-color:var(--ek)">
+          <div class="dd-body"><div class="dd-code" style="color:var(--ek)">EK</div><div class="dd-name">Emirates</div><div class="dd-note">Frequency-led +0.9%: Tehran exit, Helsinki launch, an Africa surge and a doubling A350 fleet share.</div></div>
+          <div class="dd-cta" style="color:var(--ek)">Open EK deep-dive →</div>
+        </a>
+        <a class="dd-card" href="/et-analysis.html" style="border-top-color:var(--et)">
+          <div class="dd-body"><div class="dd-code" style="color:var(--et)">ET</div><div class="dd-name">Ethiopian Airlines</div><div class="dd-note">Africa's growth engine: +4.2% seats, +6.2% ASK, 7 new cities, Luanda +398% and a 777-200LR phase-out.</div></div>
+          <div class="dd-cta" style="color:var(--et)">Open ET deep-dive →</div>
+        </a>
+      </div>
+    </section>
+
+    <div class="about">
+      <div class="disclaimer">
+        <strong>NOTE</strong> — Comparison built from the same Cirium Q4 2025 vs Q4 2026 schedule analysis behind each carrier's deep-dive page, plus the EY FY 2025 Annual Report. Figures are seat/ASK deltas and signature route moves, not a full revenue model.<br>
+        *EY capacity growth is seat-led; an ASK figure is not separately published on the deep-dive. For crew reference only — verify ZED travel in OSS / IDTGR.
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <em>Carrier Comparison</em> · Cristian Villada · Etihad Airways<br>
+  Cirium Q4 2025 vs Q4 2026 · EY Annual Report FY 2025<br>
+  <span style="color:var(--ink-mute)">For crew use only · Verify all travel in OSS / IDTGR before purchasing</span>
+</footer>
+
+</body>
+</html>

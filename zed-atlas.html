@@ -639,6 +639,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       <button onclick="exportCSV()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download CSV (all 218)</button>
       <button onclick="exportFilteredCSV()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download CSV (current filter)</button>
       <button onclick="exportNetworkJSON()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download Network JSON</button>
+      <button onclick="exportGapsCSV()" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">↓ Download FR24 gap list (data-blind)</button>
       <button onclick="copyShareLink()" id="copy-link-btn" style="background:var(--bg-elev);border:1px solid var(--line);color:var(--ink);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;cursor:pointer;text-align:left;text-transform:uppercase">⎘ Copy page URL</button>
       <div style="margin-top:8px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.08em;line-height:1.6">
         ZED &amp; LT data: 30 Apr 2026<br>
@@ -713,6 +714,18 @@ function exportNetworkJSON(){
     };
   });
   download('zed_atlas_network_data.json', JSON.stringify(out, null, 2), 'application/json');
+}
+
+// Data-blind agreements (no FR24 network yet), ranked by attractiveness.
+// Doubles as the target input for the FR24 Batch 2 builder.
+function exportGapsCSV(){
+  const gaps = DATA.filter(function(r){ return !hasNetwork(r.c); })
+    .sort(function(a,b){ return b.m.attractiveness - a.m.attractiveness; });
+  const header = '#,Code,Airline,Region,Hub IATA,Attractiveness,Coverage,FR24 Target';
+  const rows = gaps.map(function(r,i){
+    return [i+1, r.c, '"'+(r.n||'').replace(/"/g,'""')+'"', r.r, (r.h&&r.h.iata)||'', r.m.attractiveness, r.m.coverage, 'YES'].join(',');
+  });
+  download('zed_atlas_fr24_gaps_'+gaps.length+'.csv', [header].concat(rows).join('\n'), 'text/csv');
 }
 
 function copyShareLink(){
