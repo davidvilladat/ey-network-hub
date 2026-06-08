@@ -535,6 +535,57 @@ const PARTNERS = [
       </div>
       <p class="desc">D0 / D15 / A15 metrics scraped daily from Cirium + Flightradar24. Covers all EY mainline departures — filtered by date, route, and operator.</p>
     </div>
+
+    <style>
+    #otp-rel .otp-strip{display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--bg-panel);margin-bottom:18px}
+    #otp-rel .otp-kpi{flex:1;min-width:140px;padding:16px 20px;border-right:1px solid var(--line)}
+    #otp-rel .otp-kpi:last-child{border-right:none}
+    #otp-rel .otp-kpi .n{font-family:'Fraunces',serif;font-size:26px;font-style:italic;font-weight:600;color:var(--teal);line-height:1}
+    #otp-rel .otp-kpi .l{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute)}
+    #otp-rel .otp-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px}
+    #otp-rel .otp-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px}
+    #otp-rel .otp-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg-card);border:1px solid var(--line);margin-bottom:6px}
+    #otp-rel .otp-row .rt{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.04em;color:var(--ink)}
+    #otp-rel .otp-row .v{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute)}
+    #otp-rel .otp-row .v b{font-size:13px}
+    #otp-rel .otp-cap{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.05em;color:var(--ink-mute);margin-bottom:20px;line-height:1.6}
+    @media(max-width:760px){#otp-rel .otp-cols{grid-template-columns:1fr}}
+    </style>
+    <div id="otp-rel"></div>
+    <script>
+    (function(){
+      var box = document.getElementById('otp-rel');
+      if(!box) return;
+      function rc(v){ return v>=90?'var(--teal)':v>=80?'var(--gold)':'var(--crimson)'; }
+      fetch('data/ey_otp.json').then(function(r){ return r.json(); }).then(function(d){
+        var o = d.overall || {};
+        var kpis = [['D0',o.d0,'on-time dep'],['D15',o.d15,'dep ≤15m'],['A15',o.a15,'arr ≤15m'],
+                    ['Block',o.within_block,'within block'],[o.avg_dep,o.avg_dep,'avg dep delay (min)']];
+        var strip = '<div class="otp-strip">' + [
+          '<div class="otp-kpi"><div class="n">'+(o.d0==null?'—':o.d0+'%')+'</div><div class="l">D0 · on-time dep</div></div>',
+          '<div class="otp-kpi"><div class="n">'+(o.d15==null?'—':o.d15+'%')+'</div><div class="l">D15 · dep ≤15m</div></div>',
+          '<div class="otp-kpi"><div class="n">'+(o.a15==null?'—':o.a15+'%')+'</div><div class="l">A15 · arr ≤15m</div></div>',
+          '<div class="otp-kpi"><div class="n">'+(o.within_block==null?'—':o.within_block+'%')+'</div><div class="l">Within block</div></div>',
+          '<div class="otp-kpi"><div class="n">'+(o.avg_dep==null?'—':o.avg_dep)+'</div><div class="l">Avg dep delay (min)</div></div>'
+        ].join('') + '</div>';
+        var rr = (d.routes||[]).filter(function(x){ return x.a15!=null && x.n>=2; });
+        var best  = rr.slice().sort(function(a,b){ return b.a15-a.a15 || (b.d0||0)-(a.d0||0) || (a.dep||0)-(b.dep||0) || b.n-a.n; }).slice(0,8);
+        var worst = rr.slice().sort(function(a,b){ return a.a15-b.a15 || (a.d0||0)-(b.d0||0) || (b.dep||0)-(a.dep||0) || b.n-a.n; }).slice(0,8);
+        function rows(list){ return list.map(function(x){
+          return '<div class="otp-row"><span class="rt">'+x.r.replace('-','→')+'</span>'
+               + '<span class="v">n'+x.n+' · A15 <b style="color:'+rc(x.a15)+'">'+x.a15+'%</b></span></div>';
+        }).join(''); }
+        var cols = '<div class="otp-cols">'
+          + '<div><div class="otp-h">Most reliable routes · A15</div>'+rows(best)+'</div>'
+          + '<div><div class="otp-h">Least reliable routes · A15</div>'+rows(worst)+'</div></div>';
+        var cap = '<div class="otp-cap">Sample: '+(d.sample_flights||'?')+' EY flights · '+(d.sample_date||'')
+          +' · latest scraper run '+(d.run_date||'')+'. Snapshot, not a long-run average; routes shown have ≥2 sampled flights. '
+          +'Full per-flight dashboard below.</div>';
+        box.innerHTML = strip + cols + cap;
+      }).catch(function(){ /* data not deployed — leave the section as just the report link */ });
+    })();
+    </script>
+
     <a href="output/otp_latest.html" target="_blank" style="text-decoration:none">
       <div style="display:inline-flex;align-items:center;gap:20px;background:var(--bg-card);border:1px solid var(--line);border-radius:12px;padding:24px 32px;cursor:pointer;transition:border-color .2s,background .2s" onmouseover="this.style.borderColor='var(--copper)';this.style.background='var(--bg-elev)'" onmouseout="this.style.borderColor='var(--line)';this.style.background='var(--bg-card)'">
         <div style="width:48px;height:48px;border-radius:50%;background:var(--bg-elev);border:1px solid var(--copper);display:flex;align-items:center;justify-content:center;flex-shrink:0">
