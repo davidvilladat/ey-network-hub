@@ -16,6 +16,12 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Secrets — never commit API keys or credentials
+.env
+.env.*
+*.key
+secrets*.json
+
 # Large data files
 *.xlsx
 *.csv

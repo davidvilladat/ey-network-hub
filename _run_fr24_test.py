@@ -27,10 +27,10 @@ days_arg = str(days_back - 1)
 inputs = f"{ref_date}\n{days_arg}\n1\n{limit}\n2\n".encode()
 
 env = os.environ.copy()
-env["FR24_API_KEY"] = (
-    "019d23e6-8df3-72f5-9114-8010e73a32fe"
-    "|OlAU6CrTT9A8UDJcHbhs8JKYCW2bQLLqEegvEewJbf109a85"
-)
+# The FR24 key is read from the FR24_API_KEY environment variable — never hard-coded.
+# Set it once so it persists:  setx FR24_API_KEY "your-key"   (then open a new shell)
+if not env.get("FR24_API_KEY"):
+    sys.exit('FR24_API_KEY is not set. Run:  $env:FR24_API_KEY="your-key"  (PowerShell), then retry.')
 
 subprocess.run(
     [sys.executable, "-X", "utf8", "Master Webscrapping CQ.py"],
