@@ -166,7 +166,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
     <div class="stat-l">ZED agreements mapped</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-n">38</div>
+    <div class="stat-n"><span class="js-carriers">58</span></div>
     <div class="stat-l">Carriers with live FR24 data</div>
   </div>
   <div class="stat-cell">
@@ -187,10 +187,10 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
 
       <div class="freshness">
-        <div class="fr-item"><div class="fr-dot" style="background:var(--teal)"></div>ZED fares: <span class="fr-val" style="margin-left:4px">30 Apr 2026</span></div>
-        <div class="fr-item"><div class="fr-dot" style="background:var(--copper)"></div>FR24 network sample: <span class="fr-val" style="margin-left:4px">1–3 May 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--teal)"></div>ZED fares: <span class="fr-val js-zed-date" style="margin-left:4px">30 Apr 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--copper)"></div>FR24 network sample: <span class="fr-val js-fr24-window" style="margin-left:4px">1–3 May 2026</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:var(--gold)"></div>EY financials: <span class="fr-val" style="margin-left:4px">FY 2025 Annual Report</span></div>
-        <div class="fr-item"><div class="fr-dot" style="background:var(--ink-mute)"></div>Airports reference: <span class="fr-val" style="margin-left:4px">345 airports · ICAO/IATA</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--ink-mute)"></div>Airports reference: <span class="fr-val" style="margin-left:4px"><span class="js-airports">506</span> airports · ICAO/IATA</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:#c4305a"></div>Cirium schedule data: <span class="fr-val" style="margin-left:4px">Q4 2025 vs Q4 2026 · QR · EK · ET</span></div>
       </div>
 
@@ -202,7 +202,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
           <div class="card-body">
             <div class="card-tag" style="color:var(--copper)">Tool 01 · ZED Travel Intelligence</div>
             <h2 class="card-title">The <em>ZED</em> Atlas.<br>Where they fly.</h2>
-            <p class="card-desc">All 218 ZED & LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for 38 priority carriers, live schedules, and fleet breakdown.</p>
+            <p class="card-desc">All 218 ZED & LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for <span class="js-carriers">58</span> priority carriers, live schedules, and fleet breakdown.</p>
             <div class="card-features">
               <div class="card-feature">Interactive world map with 6 view modes — attractiveness, fare tiers, duty, family</div>
               <div class="card-feature">Scenario builder — filter by traveler, cabin, booking class, and region</div>
@@ -212,8 +212,8 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
             </div>
             <div class="card-chips">
               <span class="chip">218 carriers</span>
-              <span class="chip">38 FR24 networks</span>
-              <span class="chip">345 airports</span>
+              <span class="chip"><span class="js-carriers">58</span> FR24 networks</span>
+              <span class="chip"><span class="js-airports">506</span> airports</span>
               <span class="chip">Interactive map</span>
             </div>
           </div>
@@ -331,9 +331,9 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
         </div>
         <div>
           <h2>Data <em>sources</em>.</h2>
-          <p>ZED & LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of 30 April 2026. FR24 network data sampled 1–3 May 2026 across 38 priority carriers.</p>
+          <p>ZED & LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of 30 April 2026. FR24 network data sampled 1–3 May 2026 across <span class="js-carriers">58</span> priority carriers.</p>
           <p>Etihad financial and operational statistics from the FY 2025 Annual Report (published February 2026). New route information from official Etihad press releases and verified by Aviation A2Z, The Expat Flyer, and Engine Cowl analysis.</p>
-          <p>Airport reference database covers 345 airports with ICAO/IATA codes, coordinates, and country data. World map geometry from Natural Earth public domain data.</p>
+          <p>Airport reference database covers <span class="js-airports">506</span> airports with ICAO/IATA codes, coordinates, and country data. World map geometry from Natural Earth public domain data.</p>
           <p>IATA Network Strategy matrix adapted from industry publications — carrier positions estimated from published capacity data and new-route seat deployment ratios.</p>
         </div>
       </div>
@@ -344,9 +344,32 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
 <footer>
   <em>Network Analysis</em> · Cristian Villada · Etihad Airways<br>
-  ZED data 30 Apr 2026 · FR24 sample 1 May 2026 · EY Annual Report FY 2025<br>
+  ZED data 30 Apr 2026 · FR24 sample 1–3 May 2026 · EY Annual Report FY 2025<br>
   <span style="color:var(--ink-mute)">Verify all travel in OSS / IDTGR before purchasing · For crew use only</span>
 </footer>
+
+<script>
+/* Keep homepage counts in sync with the data files — single source of truth.
+   Hardcoded values above are SSR fallbacks; these override them at runtime. */
+(function(){
+  function setAll(cls, val){
+    document.querySelectorAll('.' + cls).forEach(function(el){ el.textContent = val; });
+  }
+  Promise.all([
+    fetch('data/networks.json').then(function(r){ return r.json(); }).catch(function(){ return null; }),
+    fetch('data/airports.json').then(function(r){ return r.json(); }).catch(function(){ return null; }),
+    fetch('data/manifest.json').then(function(r){ return r.json(); }).catch(function(){ return null; })
+  ]).then(function(res){
+    var nets = res[0], aps = res[1], man = res[2];
+    if(nets){ setAll('js-carriers', Object.keys(nets).length); }
+    if(aps){ setAll('js-airports', Object.keys(aps).length); }
+    if(man){
+      if(man.zed_agreements_updated){ setAll('js-zed-date', man.zed_agreements_updated); }
+      if(man.fr24_sample_window){ setAll('js-fr24-window', man.fr24_sample_window); }
+    }
+  });
+})();
+</script>
 
 </body>
 </html>

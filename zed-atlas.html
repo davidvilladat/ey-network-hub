@@ -353,10 +353,10 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       <span class="version-tag">V4 · 58 CARRIERS · FR24 DATA</span>
       <div class="eyebrow" style="margin-bottom:18px">ETIHAD CREW · ZED travel intelligence</div>
       <h1>The <em>ZED</em> Atlas.<br>Where they fly. <em>Live</em> data.</h1>
-      <p class="hero-sub">All <strong>218 ZED agreements</strong> with <strong>FR24 network coverage</strong> for <span id="stat-network-count">38</span> priority carriers — the routes they flew last week, fleet breakdown, and live schedule. Click any carrier to drill down.</p>
+      <p class="hero-sub">All <strong>218 ZED agreements</strong> with <strong>FR24 network coverage</strong> for <span id="stat-network-count">58</span> priority carriers — the routes they flew last week, fleet breakdown, and live schedule. Click any carrier to drill down.</p>
     </div>
     <div class="hero-meta">
-      <span class="stamp"><span class="dot"></span>FR24 DATA · 1 MAY 2026</span>
+      <span class="stamp"><span class="dot"></span>FR24 DATA · 1–3 MAY 2026</span>
       <span class="stamp">218 CARRIERS · 99 COUNTRIES</span>
       <span class="stamp">ZED &amp; LT · 30 APR 2026</span>
     </div>
@@ -424,7 +424,67 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
       <div class="map-foot">
         <div class="map-legend" id="map-legend"></div>
-        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(79,184,168,0.5)"></span>Equator</span><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(232,185,74,0.5);border-top:1px dashed rgba(232,185,74,0.5)"></span>Tropics</span><span>FR24 sample: 1 May 2026</span></div>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(79,184,168,0.5)"></span>Equator</span><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(232,185,74,0.5);border-top:1px dashed rgba(232,185,74,0.5)"></span>Tropics</span><span>FR24 sample: 1–3 May 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FR24 COVERAGE / GAP ANALYSIS -->
+<style>
+#coverage .cov-wrap{background:var(--bg-panel);border:1px solid var(--line);padding:28px 32px}
+.cov-headline{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line-soft)}
+.cov-big{font-family:'Fraunces',serif;font-size:48px;font-weight:600;font-style:italic;line-height:1;color:var(--tier-1)}
+.cov-headline .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--ink-dim);line-height:1.8}
+.cov-headline .sub b{color:var(--ink);font-weight:600}
+.cov-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:26px}
+.cov-block-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cov-row{margin-bottom:12px}
+.cov-row-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:5px}
+.cov-row-top .lbl{color:var(--ink-dim)}
+.cov-row-top .val{color:var(--ink-mute)}
+.cov-bar{height:7px;background:var(--bg-elev);border:1px solid var(--line);position:relative;overflow:hidden}
+.cov-bar-fill{position:absolute;left:0;top:0;bottom:0;transition:width 0.4s ease}
+.cov-gaps{border-top:1px solid var(--line-soft);padding-top:24px}
+.cov-gap-actions{display:flex;gap:16px;text-transform:none}
+.cov-toggle,.cov-mapbtn{cursor:pointer;color:var(--copper);letter-spacing:0.06em}
+.cov-toggle:hover,.cov-mapbtn:hover{color:var(--gold)}
+.cov-gap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.cov-gap-item{display:flex;align-items:center;gap:11px;background:var(--bg-card);border:1px solid var(--line);padding:9px 12px;cursor:pointer;transition:border-color 0.15s,transform 0.15s}
+.cov-gap-item:hover{border-color:var(--copper);transform:translateY(-1px)}
+.cov-gap-code{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:32px}
+.cov-gap-meta{display:flex;flex-direction:column;gap:1px;min-width:0}
+.cov-gap-name{font-size:12px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cov-gap-attr{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:var(--ink-mute)}
+@media(max-width:760px){.cov-grid{grid-template-columns:1fr;gap:24px}}
+</style>
+<section id="coverage">
+  <div class="shell">
+    <div class="section-head">
+      <h2>The <em>coverage</em> gap.<br>Where the data runs out.</h2>
+      <p class="desc">A ZED agreement is only as useful as the route data behind it. Here's how many of the 218 agreements have real FR24 network depth — and which high-value carriers are still flying blind.</p>
+    </div>
+    <div class="cov-wrap">
+      <div class="cov-headline" id="cov-headline"></div>
+      <div class="cov-grid">
+        <div>
+          <div class="cov-block-h">FR24 coverage by region</div>
+          <div id="cov-regions"></div>
+        </div>
+        <div>
+          <div class="cov-block-h">FR24 coverage by attractiveness</div>
+          <div id="cov-tiers"></div>
+        </div>
+      </div>
+      <div class="cov-gaps">
+        <div class="cov-block-h">
+          <span>Priority gaps · most attractive agreements without FR24 data</span>
+          <span class="cov-gap-actions">
+            <span class="cov-toggle" id="cov-toggle">Show all</span>
+            <span class="cov-mapbtn" id="cov-mapbtn">▶ View on map</span>
+          </span>
+        </div>
+        <div id="cov-gap-list"></div>
       </div>
     </div>
   </div>
@@ -564,7 +624,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
 <footer>
   <div class="shell">
-    <em>ZED &amp; LT</em> agreements 30 Apr 2026 · FR24 sample 1 May 2026 · Built for Etihad crew use · Verify in OSS / IDTGR before travel
+    <em>ZED &amp; LT</em> agreements 30 Apr 2026 · FR24 sample 1–3 May 2026 · Built for Etihad crew use · Verify in OSS / IDTGR before travel
   </div>
 </footer>
 
@@ -715,6 +775,7 @@ function loadAll() {
     renderStats();
     buildAirportIndex();
     renderMap();
+    renderCoverage();
     renderPicks();
     renderRegions();
     renderScenario();
@@ -791,6 +852,73 @@ function renderStats(){
   document.getElementById('stat-routes').textContent = allRoutes;
   document.getElementById('stat-airports').textContent = allAirports.size;
   document.getElementById('stat-low').textContent = DATA.filter(r=>r.m.avg_fare>0 && r.m.avg_fare<=1.0).length;
+}
+
+// ====== COVERAGE / GAP ANALYSIS ======
+// How many of the 218 ZED agreements actually have FR24 route depth (hasNetwork),
+// broken down by region and attractiveness tier, plus the priority gap list.
+const COV_TIERS = [
+  {label:'Elite · 36+',     color:'var(--tier-1)', test:a=>a>=36},
+  {label:'Strong · 24–35',  color:'var(--gold)',   test:a=>a>=24 && a<36},
+  {label:'Moderate · 12–23',color:'var(--copper)', test:a=>a>=12 && a<24},
+  {label:'Low · <12',       color:'var(--tier-3)', test:a=>a<12},
+];
+let covShowAll = false;
+function covBarRow(label, cov, tot, color){
+  const pct = tot ? Math.round(cov/tot*100) : 0;
+  return `<div class="cov-row">
+    <div class="cov-row-top"><span class="lbl">${label}</span><span class="val">${cov}/${tot} · ${pct}%</span></div>
+    <div class="cov-bar"><div class="cov-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+  </div>`;
+}
+function renderCovGaps(){
+  const gaps = DATA.filter(r=>!hasNetwork(r.c)).sort((a,b)=>b.m.attractiveness-a.m.attractiveness);
+  const shown = covShowAll ? gaps : gaps.slice(0,12);
+  document.getElementById('cov-gap-list').innerHTML = `<div class="cov-gap-grid">` + shown.map(r=>`
+    <div class="cov-gap-item" onclick="openModal('${r.c}')" title="${r.n} — open fare detail">
+      <span class="cov-gap-code">${r.c}</span>
+      <span class="cov-gap-meta">
+        <span class="cov-gap-name">${r.n}</span>
+        <span class="cov-gap-attr">${r.r} · attract ${r.m.attractiveness}</span>
+      </span>
+    </div>`).join('') + `</div>`;
+  const tog = document.getElementById('cov-toggle');
+  if(tog) tog.textContent = covShowAll ? 'Show top 12' : `Show all ${gaps.length}`;
+}
+function renderCoverage(){
+  const total = DATA.length;
+  const nCov = DATA.filter(r=>hasNetwork(r.c)).length;
+  const nGap = total - nCov;
+  const pct = Math.round(nCov/total*100);
+
+  document.getElementById('cov-headline').innerHTML =
+    `<span class="cov-big">${nCov}<span style="color:var(--ink-mute);font-size:24px">/${total}</span></span>
+     <span class="sub">agreements have <b>FR24 route data</b> · <b>${pct}%</b> coverage<br>
+     <b style="color:var(--copper)">${nGap}</b> are still data-blind — no route depth behind the fare matrix yet.</span>`;
+
+  // By region
+  const reg = {};
+  DATA.forEach(r=>{ const k=r.r||'Other'; if(!reg[k]) reg[k]={cov:0,tot:0}; reg[k].tot++; if(hasNetwork(r.c)) reg[k].cov++; });
+  document.getElementById('cov-regions').innerHTML = Object.entries(reg)
+    .sort((a,b)=>b[1].tot-a[1].tot)
+    .map(([k,v])=>covBarRow(k, v.cov, v.tot, 'var(--teal)')).join('');
+
+  // By attractiveness tier — are the high-value agreements the ones with data?
+  document.getElementById('cov-tiers').innerHTML = COV_TIERS.map(t=>{
+    const rows = DATA.filter(r=>t.test(r.m.attractiveness));
+    const cov = rows.filter(r=>hasNetwork(r.c)).length;
+    return covBarRow(t.label, cov, rows.length, t.color);
+  }).join('');
+
+  renderCovGaps();
+
+  const tog = document.getElementById('cov-toggle');
+  if(tog) tog.onclick = () => { covShowAll = !covShowAll; renderCovGaps(); };
+  const mb = document.getElementById('cov-mapbtn');
+  if(mb) mb.onclick = () => {
+    setMapMode('network');
+    document.getElementById('map-svg-wrap').scrollIntoView({behavior:'smooth', block:'center'});
+  };
 }
 
 // ====== MAP ======
@@ -895,11 +1023,16 @@ function renderMap(){
   layer.innerHTML = dots;
   const relevantCount = DATA.filter(r => dotIsRelevant(r, mapMode)).length;
   const topCount = DATA.filter(r => dotIsHighlight(r, mapMode)).length;
-  if(mapMode === 'network') document.getElementById('map-count').textContent = `${topCount} carriers w/ FR24 data`;
+  const netCov = DATA.filter(r => hasNetwork(r.c)).length;
+  const netGap = DATA.length - netCov;
+  if(mapMode === 'network') document.getElementById('map-count').textContent = `${netCov} w/ FR24 · ${netGap} without`;
   else if(mapMode === 'overall') document.getElementById('map-count').textContent = `218 carriers · ${topCount} top tier`;
   else document.getElementById('map-count').textContent = `${relevantCount} match · ${topCount} at $`;
   const leg = document.getElementById('map-legend');
-  leg.innerHTML = LEGENDS[mapMode].map(([c, t]) => `<div class="item"><div class="swatch" style="background:${c}"></div>${t}</div>`).join('');
+  const legendItems = mapMode === 'network'
+    ? [['var(--tier-1)', `FR24 network captured · ${netCov}`], ['var(--ink-mute)', `No network data yet · ${netGap}`]]
+    : LEGENDS[mapMode];
+  leg.innerHTML = legendItems.map(([c, t]) => `<div class="item"><div class="swatch" style="background:${c}"></div>${t}</div>`).join('');
   bindMapInteractions();
 }
 const tt = document.getElementById('tooltip');
@@ -938,11 +1071,13 @@ function bindMapInteractions(){
     dot.addEventListener('click', e => openModal(e.target.dataset.code));
   });
 }
+function setMapMode(v){
+  mapMode = v;
+  document.querySelectorAll('#map-mode .map-chip').forEach(x => x.classList.toggle('active', x.dataset.v === v));
+  renderMap();
+}
 document.querySelectorAll('#map-mode .map-chip').forEach(c => {
-  c.onclick = () => {
-    document.querySelectorAll('#map-mode .map-chip').forEach(x => x.classList.remove('active'));
-    c.classList.add('active'); mapMode = c.dataset.v; renderMap();
-  };
+  c.onclick = () => setMapMode(c.dataset.v);
 });
 
 // ====== PICKS ======
