@@ -379,6 +379,119 @@ footer a:hover{color:var(--teal)}
   </div>
 </section>
 
+<!-- PARTNERSHIP NETWORK -->
+<style>
+#partners .pn-band{display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--bg-panel);margin-bottom:24px}
+#partners .pn-stat{flex:1;min-width:170px;padding:18px 22px;border-right:1px solid var(--line)}
+#partners .pn-stat:last-child{border-right:none}
+#partners .pn-stat .n{font-family:'Fraunces',serif;font-size:30px;font-style:italic;font-weight:600;color:var(--teal);line-height:1}
+#partners .pn-stat .l{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute)}
+#partners .pn-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;align-items:start}
+#partners .pn-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px}
+#partners .pn-cards{display:flex;flex-direction:column;gap:10px}
+#partners .pn-card{background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--copper);padding:14px 16px}
+#partners .pn-card.jv{border-left-color:var(--gold)}
+#partners .pn-card .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px}
+#partners .pn-card .nm{font-family:'Fraunces',serif;font-size:17px;font-weight:600}
+#partners .pn-card .dt{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--ink-mute);white-space:nowrap}
+#partners .pn-card .ds{font-size:13px;color:var(--ink-dim);line-height:1.55}
+#partners .pn-card .im{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.04em;color:var(--teal)}
+#partners .pn-flag{background:var(--bg-card);border:1px solid var(--teal);padding:24px}
+#partners .pn-flag .route{font-family:'Fraunces',serif;font-size:24px;font-weight:700;font-style:italic;margin-bottom:4px}
+#partners .pn-flag .sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);margin-bottom:16px}
+#partners .pn-flag ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+#partners .pn-flag li{font-size:13px;color:var(--ink-dim);line-height:1.5;padding-left:16px;position:relative}
+#partners .pn-flag li::before{content:"\203A";position:absolute;left:0;color:var(--teal)}
+#partners .pn-flag li b{color:var(--ink);font-weight:600}
+#partners .pn-impact{margin-top:18px;background:var(--bg-panel);border:1px solid var(--line);border-top:2px solid var(--teal);padding:20px 24px}
+#partners .pn-impact .h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+#partners .pn-impact p{font-size:14px;color:var(--ink-dim);line-height:1.7;max-width:940px}
+#partners .pn-impact p b{color:var(--ink);font-weight:600}
+#partners .pn-foot{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:var(--ink-mute)}
+@media(max-width:900px){#partners .pn-grid{grid-template-columns:1fr}}
+</style>
+<section id="partners">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px">Codeshares · Interlines · Joint Ventures</div>
+        <h2>Partnership <em>network</em>.<br>Reach beyond the metal.</h2>
+      </div>
+      <p class="desc">Etihad competes with Emirates and Qatar's fleet scale through partnerships, not just aircraft. Codeshare feed turns a thin new route — like Tashkent — into a viable network node.</p>
+    </div>
+
+    <div class="pn-band">
+      <div class="pn-stat"><div class="n">46</div><div class="l">Codeshare partners</div></div>
+      <div class="pn-stat"><div class="n">130+</div><div class="l">Interline partners</div></div>
+      <div class="pn-stat"><div class="n">350+</div><div class="l">Destinations on one ticket</div></div>
+      <div class="pn-stat"><div class="n">#1</div><div class="l">Network of any non-alliance carrier</div></div>
+    </div>
+
+    <div class="pn-grid">
+      <div>
+        <div class="pn-h">2026 partnership moves</div>
+        <div class="pn-cards" id="pn-cards"></div>
+      </div>
+      <div>
+        <div class="pn-h">Flagship · Silk Road corridor</div>
+        <div class="pn-flag">
+          <div class="route">AUH ⇄ TAS</div>
+          <div class="sub">Etihad + Uzbekistan Airways · codeshare</div>
+          <ul>
+            <li><b>EY830 / EY831</b> — new daily Abu Dhabi ⇄ Tashkent on the A320 (dep AUH 21:10 / dep TAS 03:50)</li>
+            <li>Codeshare from <b>9 Aug 2026</b> opens <b>8 onward Uzbek cities</b> — Samarkand, Bukhara, Urgench, Fergana and more — on a single ticket</li>
+            <li><b>Etihad Guest ⇄ UzAirPlus</b> loyalty tie-up in the works</li>
+            <li>Beyond-Tashkent reach <b>without EY metal</b> — partner feed de-risks the route from day one</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pn-impact">
+      <div class="h">Impact on network strategy</div>
+      <p>Partnerships are Etihad's scaling lever. Its own metal reaches roughly 100 destinations; codeshare and interline feed extend that to <b>350+ on a single ticket</b> — the widest reach of any non-alliance carrier. The <b>Uzbekistan Airways</b> deal is the template: one daily A320 to Tashkent becomes a gateway to eight Uzbek cities, opening the underconnected <b>Central Asia / Silk Road corridor</b> (Pillar II above) before Emirates entrenches. Deeper still are the <b>joint ventures</b> — <b>China Eastern</b> (five new China cities from Shanghai in October) and <b>Ethiopian</b> (Africa) — which integrate schedules and yield, not just flight codes. Net effect: AUH gains long-haul-feeding density without buying a wide-body for every thin market.</p>
+      <div class="pn-foot">Partnerships as of June 2026 · Sources: Etihad press releases, Zawya, FlightGlobal · ZED travel on partner metal — verify eligibility in OSS / IDTGR</div>
+    </div>
+  </div>
+</section>
+<script>
+// Partnership network — 2026 codeshare / JV moves. Maintainable: edit this array.
+const PARTNERS = [
+  {nm:'Uzbekistan Airways', dt:'15 May 2026', type:'codeshare',
+   ds:'Codeshare to Tashkent plus 8 onward Uzbek cities; travel from 9 Aug. New daily AUH–TAS A320.',
+   im:'Opens Central Asia / Silk Road corridor'},
+  {nm:'Condor', dt:'May–Jun 2026', type:'codeshare',
+   ds:'Strategic partnership + codeshare. Condor flies Frankfurt–AUH daily (A330, 1 May) and Berlin–AUH daily (A320, 15 Jun).',
+   im:'European feed into AUH long-haul'},
+  {nm:'Air Cambodia', dt:'2026', type:'codeshare',
+   ds:'Single-ticket access to Siem Reap via Phnom Penh.',
+   im:'Deepens Southeast Asia reach'},
+  {nm:'Tunisair', dt:'16 Jan 2026', type:'codeshare',
+   ds:'Codeshare on Abu Dhabi ⇄ Tunis, easing North Africa connections.',
+   im:'North Africa corridor'},
+  {nm:'Saudia', dt:'2026', type:'codeshare',
+   ds:'Expanded existing codeshare across the Gulf–Saudi market.',
+   im:'Regional density'},
+  {nm:'China Eastern', dt:'2026', type:'jv',
+   ds:'Joint venture powering five new China cities — Shanghai (Oct), then Guangzhou, Hangzhou, Jinan and Chengdu (Mar).',
+   im:'JV · integrated China expansion'},
+  {nm:'Ethiopian Airlines', dt:'ongoing', type:'jv',
+   ds:'Joint venture feeding the growing Etihad Africa network.',
+   im:'JV · Africa corridor'}
+];
+(function(){
+  var el = document.getElementById('pn-cards');
+  if(!el) return;
+  el.innerHTML = PARTNERS.map(function(p){
+    return '<div class="pn-card'+(p.type==='jv'?' jv':'')+'">'
+      + '<div class="top"><span class="nm">'+p.nm+'</span><span class="dt">'+p.dt+'</span></div>'
+      + '<div class="ds">'+p.ds+'</div>'
+      + '<div class="im">'+(p.type==='jv'?'◆ ':'▸ ')+p.im+'</div>'
+      + '</div>';
+  }).join('');
+})();
+</script>
+
 <!-- CIRIUM DEEP DIVE -->
 <section>
   <div class="shell">
@@ -441,6 +554,7 @@ footer a:hover{color:var(--teal)}
   <div class="shell">
     Sources: <em>Etihad</em> Annual Report FY2025 ·
     <a href="https://www.etihad.com/en-us/news/ten-new-routes-in-one-day-historic-moment-for-etihad" target="_blank">Etihad Press Releases 2025–2026</a> ·
+    <a href="https://www.etihad.com/en/news/etihad-airways-and-condor-announce-strategic-partnership-and-new-abu-dhabi-routes" target="_blank">Etihad Partnership Announcements 2026</a> ·
     <a href="https://theexpatflyer.com/etihad-new-destinations-2025/" target="_blank">The Expat Flyer Route Tracker</a> ·
     <a href="https://www.enginecowl.com/etihad-airways-2025-results/" target="_blank">Engine Cowl 2025 Analysis</a> ·
     FR24 sample 1 May 2026 · IATA Network Strategy matrix (adapted)<br>
@@ -1027,7 +1141,7 @@ const FR24 = {
     {dest:'BAH', city:'Bahrain',          country:'BH', flt:['EY642'],             ac:['A320'],               tags:[],                                 note:'A320 · short-haul GCC connector · 30-min sector'},
   ],
   cirium_unconfirmed: [
-    {dest:'TAS', city:'Tashkent',   country:'UZ', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
+    {dest:'TAS', city:'Tashkent',   country:'UZ', note:'New Q4 2026 · daily A320 (EY830/831) · backed by the new Uzbekistan Airways codeshare → 8 onward Uzbek cities'},
     {dest:'KBL', city:'Kabul',      country:'AF', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
     {dest:'YYC', city:'Calgary',    country:'CA', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
     {dest:'OTP', city:'Bucharest',  country:'RO', note:'New Q4 2026 per Cirium · no FR24 flight in today\'s snapshot'},
