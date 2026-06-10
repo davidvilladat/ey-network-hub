@@ -1,17 +1,17 @@
 {
-  "generated": "2026-06-08",
+  "generated": "2026-06-10",
   "note": "Single source of truth for the 'as-of' date labels shown on the site. Counts are derived live from the data files by build_manifest.py — do not hand-edit.",
   "zed_agreements_updated": "30 Apr 2026",
   "fr24_sample_window": "1–3 May 2026",
-  "fr24_data_window": "2026-05-03",
+  "fr24_data_window": "2026-06-10",
   "ey_financials": "FY 2025 Annual Report",
   "cirium_window": "Q4 2025 vs Q4 2026",
   "counts": {
-    "carriers_with_fr24": 58,
-    "airports": 506,
+    "carriers_with_fr24": 194,
+    "airports": 1103,
     "zed_agreements": 218,
-    "agreements_covered": 58,
-    "agreements_data_blind": 160,
-    "coverage_pct": 27
+    "agreements_covered": 195,
+    "agreements_data_blind": 23,
+    "coverage_pct": 89
   }
 }
