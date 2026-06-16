@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etihad's Biggest Summer Ever · Summer 2026 Schedule Intelligence</title>
+<meta name="description" content="Etihad's summer 2026 schedule, read from FR24 data and Etihad's own numbers — 300+ daily flights, the A321LR leisure pivot, record North America buildout, and the new-route wave to Tashkent, Charlotte, Kraków and beyond.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
+  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
+  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;--violet:#a78bfa;--mint:#34d399;--pink:#f472b6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.shell{max-width:1480px;margin:0 auto;padding:0 32px}
+a{color:inherit}
+.label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
+
+/* NAV */
+nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;max-width:1480px;margin:0 auto}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;text-decoration:none}
+.nav-logo span{color:var(--copper)}
+.nav-links{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase}
+.nav-links a{color:var(--ink-mute);text-decoration:none;transition:color 0.15s}
+.nav-links a:hover{color:var(--copper)}
+.nav-links a.active{color:var(--copper)}
+
+/* HERO */
+.hero{background:radial-gradient(ellipse at 15% 0%,rgba(232,185,74,0.12) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(217,127,74,0.12) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;position:relative}
+.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(40px,5.2vw,80px);line-height:0.93;letter-spacing:-0.038em}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.hero-sub{font-size:15px;color:var(--ink-dim);max-width:580px;margin-top:22px;line-height:1.7}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.version-tag{display:inline-block;padding:3px 10px;background:var(--gold);color:var(--bg-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;font-weight:700;margin-bottom:14px}
+.hero-stamps{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.stamp{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-dim)}
+.stamp .dot{width:6px;height:6px;border-radius:50%}
+.src-note{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);text-align:right;line-height:1.7}
+
+/* TICKER */
+.ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
+.ticker .st{padding:20px 22px;border-right:1px solid var(--line)}
+.ticker .st:last-child{border-right:none}
+.ticker .num{font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
+.ticker .num em{font-style:italic;color:var(--gold)}
+.ticker .lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute)}
+.delta{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;letter-spacing:0.06em}
+.delta.up{background:rgba(79,184,168,0.12);color:var(--teal)}
+
+/* SECTIONS */
+section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
+.section-head h2{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
+.section-head .desc{max-width:500px;font-size:14px;color:var(--ink-dim);line-height:1.65}
+
+/* KEY NUMBERS GRID */
+.kn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kn{background:var(--bg-card);border:1px solid var(--line);padding:22px;position:relative;overflow:hidden}
+.kn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.kn.c::before{background:var(--copper)}.kn.t::before{background:var(--teal)}.kn.v::before{background:var(--violet)}
+.kn-num{font-family:'Fraunces',serif;font-size:38px;font-weight:600;letter-spacing:-0.02em;line-height:1}
+.kn-num em{font-style:italic;color:var(--gold)}
+.kn-lbl{margin-top:8px;font-size:13px;color:var(--ink-dim);line-height:1.5}
+.kn-sub{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--ink-mute);text-transform:uppercase}
+
+/* ROUTE CARDS */
+.tl-year-head{display:flex;align-items:center;gap:16px;margin:6px 0 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.tl-badge{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic}
+.tl-note{font-size:13px;color:var(--ink-dim);max-width:560px}
+.tl-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;padding:3px 10px;border:1px solid var(--line);background:var(--bg-elev);white-space:nowrap}
+.route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:8px;margin-bottom:36px}
+.route-card{background:var(--bg-card);border:1px solid var(--line);padding:14px 14px 14px 18px;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;transition:border-color 0.15s}
+.route-card:hover{border-color:var(--copper)}
+.route-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.rc-europe::before{background:var(--teal)}
+.rc-asia::before{background:var(--gold)}
+.rc-africa::before{background:var(--copper)}
+.rc-namerica::before{background:var(--violet)}
+.rc-mideast::before{background:var(--mint)}
+.rc-caucasus::before{background:var(--pink)}
+.rc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.rc-dest{font-family:'Fraunces',serif;font-size:16px;font-weight:600;letter-spacing:-0.01em}
+.rc-iata{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute)}
+.rc-country{font-size:12px;color:var(--ink-dim)}
+.rc-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;flex-wrap:wrap;gap:4px;margin-top:2px}
+.rc-date{color:var(--ink-mute)}
+.rc-freq{color:var(--teal);font-weight:600}
+.rc-ac{color:var(--gold);font-weight:600}
+.rc-tag{position:absolute;top:10px;right:10px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 5px;border-radius:2px;background:rgba(232,185,74,0.14);color:var(--gold)}
+
+/* FLEET CARDS */
+.fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fc{background:var(--bg-card);border:1px solid var(--line);padding:24px;position:relative}
+.fc-type{font-family:'Fraunces',serif;font-size:22px;font-weight:600;letter-spacing:-0.01em;margin-bottom:3px}
+.fc-type em{font-style:italic;color:var(--teal)}
+.fc-role{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--copper);margin-bottom:12px}
+.fc-body{font-size:13px;color:var(--ink-dim);line-height:1.62}
+.fc-body b{color:var(--ink);font-weight:600}
+.fc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:0.05em}
+
+/* LIVE FLEET BAR */
+.flive{background:var(--bg-panel);border:1px solid var(--line);padding:20px 24px;margin-top:16px}
+.flive-h{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px}
+.flive-h b{color:var(--gold)}
+.fbar{display:flex;height:30px;border-radius:3px;overflow:hidden;border:1px solid var(--line)}
+.fbar div{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;color:var(--bg-deep);white-space:nowrap;overflow:hidden}
+.fleg{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.05em;color:var(--ink-dim)}
+.fleg .li{display:flex;align-items:center;gap:6px}
+.fleg .sw{width:9px;height:9px;border-radius:2px}
+
+/* FR24 PANEL */
+.fr-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--bg-panel);border:1px solid var(--line);padding:24px}
+.panel-h{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:4px}
+.panel-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:18px}
+.rrow{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.rrow .rk{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);width:128px;flex-shrink:0}
+.rrow .rt{flex:1;height:14px;background:var(--bg-elev);border-radius:2px;overflow:hidden}
+.rrow .rf{height:100%;background:linear-gradient(90deg,var(--copper),var(--gold))}
+.rrow .rv{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);width:46px;text-align:right;flex-shrink:0}
+.otp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.otp{padding:14px;background:var(--bg-card);border:1px solid var(--line)}
+.otp-n{font-family:'Fraunces',serif;font-size:30px;font-weight:600;line-height:1}
+.otp-n em{font-style:italic;color:var(--teal)}
+.otp-l{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mute);line-height:1.4}
+
+/* STRATEGY */
+.strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sc{background:var(--bg-card);border:1px solid var(--line);padding:26px;position:relative}
+.sc-num{font-family:'Fraunces',serif;font-size:48px;font-weight:600;font-style:italic;color:rgba(217,127,74,0.15);position:absolute;top:14px;right:20px;line-height:1}
+.sc-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.2;max-width:88%}
+.sc-body{font-size:13.5px;color:var(--ink-dim);line-height:1.66}
+.sc-body b{color:var(--ink);font-weight:600}
+.sc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:0.05em}
+
+/* INSIGHT / CAVEAT */
+.insight-bar{background:var(--bg-panel);border:1px solid var(--line);border-left:3px solid var(--crimson);padding:22px 26px}
+.insight-bar .ih{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--crimson);margin-bottom:10px}
+.insight-bar p{font-size:13.5px;color:var(--ink-dim);line-height:1.68;max-width:1000px}
+.insight-bar p b{color:var(--ink);font-weight:600}
+
+footer{padding:40px 0 52px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-align:center;border-top:1px solid var(--line);line-height:2}
+footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper)}
+footer a{color:var(--ink-mute);text-decoration:none}
+footer a:hover{color:var(--teal)}
+.foot-links{margin-bottom:14px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:980px){
+  .hero-inner{grid-template-columns:1fr;gap:28px}
+  .hero-stamps{align-items:flex-start}.src-note{text-align:left}
+  .ticker{grid-template-columns:repeat(2,1fr)}
+  .ticker .st{border-bottom:1px solid var(--line)}
+  .kn-grid{grid-template-columns:repeat(2,1fr)}
+  .fleet-grid{grid-template-columns:1fr}
+  .fr-split{grid-template-columns:1fr}
+  .strategy-grid{grid-template-columns:1fr}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:580px){
+  .shell{padding:0 18px}.nav-inner{padding:0 18px}.nav-links{gap:14px}
+  .ticker{grid-template-columns:1fr}.kn-grid{grid-template-columns:1fr}
+  .otp-grid{grid-template-columns:1fr}
+  .hero{padding:36px 0 40px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">C<span>.</span>Villada</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/zed-atlas.html">ZED Atlas</a>
+      <a href="/network-analysis.html">Network Analysis</a>
+      <a href="/ey-analysis.html">Etihad</a>
+      <a href="/summer.html" class="active">Biggest Summer</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="shell">
+    <div class="hero-inner">
+      <div>
+        <span class="version-tag">SUMMER 2026 · SCHEDULE INTELLIGENCE</span>
+        <div class="eyebrow" style="margin-bottom:16px">Etihad Airways · Biggest Summer Ever</div>
+        <h1>The biggest<br><em>summer</em> ever.</h1>
+        <p class="hero-sub">On <strong>16 June 2026</strong> Etihad opened its most ambitious summer programme yet — <strong>300+ flights a day</strong>, <strong>+10% capacity</strong> year-on-year, a fleet <strong>23 aircraft larger</strong> than last summer, and load factors near <strong>90%</strong>. This is what that schedule actually looks like — read from live FR24 data and Etihad's own numbers, not the press release alone.</p>
+      </div>
+      <div class="hero-stamps">
+        <div class="stamp"><span class="dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold)"></span>ETIHAD NEWSROOM · 16 JUN 2026</div>
+        <div class="stamp"><span class="dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal)"></span>FR24 LIVE · CAPTURED THIS WEEK</div>
+        <div class="stamp"><span class="dot" style="background:var(--copper);box-shadow:0 0 8px var(--copper)"></span>FY 2025 · RECORD RESULTS</div>
+        <div class="src-note">Sources: Etihad newsroom &amp; AeroRoutes schedules<br>FR24 flight-summary · ey_otp.json reliability sample</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="st">
+    <div class="num"><em>300+</em></div>
+    <div class="lbl">Flights per day · summer peak</div>
+    <div class="delta up">↑ most ever operated</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>+10%</em></div>
+    <div class="lbl">Capacity vs summer 2025</div>
+    <div class="delta up">↑ seats year-on-year</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>128</em></div>
+    <div class="lbl">Aircraft operating</div>
+    <div class="delta up">↑ +23 vs last summer</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>~90%</em></div>
+    <div class="lbl">Load factor · near-record</div>
+    <div class="delta up">↑ FY25 88.3%</div>
+  </div>
+  <div class="st">
+    <div class="num"><em>22.4M</em></div>
+    <div class="lbl">Passengers · record 2025</div>
+    <div class="delta up">↑ +21% YoY</div>
+  </div>
+</div>
+
+<!-- SECTION 1 — IN NUMBERS -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>A record year <em>under</em> the summer.</h2>
+      <p class="desc">The summer schedule sits on top of Etihad's strongest-ever results. FY 2025 reset every headline number — and the 2030 plan keeps the curve steep.</p>
+    </div>
+    <div class="kn-grid">
+      <div class="kn"><div class="kn-num"><em>$698M</em></div><div class="kn-lbl">Net profit 2025 — strongest in the airline's history</div><div class="kn-sub">+47% YoY · 8.4% margin</div></div>
+      <div class="kn c"><div class="kn-num">127</div><div class="kn-lbl">Aircraft at year-end 2025, up from ~100</div><div class="kn-sub">+29 in one year · single-year record</div></div>
+      <div class="kn t"><div class="kn-num">110</div><div class="kn-lbl">Destinations reached in 2025, from 94</div><div class="kn-sub">target 125+ by 2030</div></div>
+      <div class="kn v"><div class="kn-num">32.5M</div><div class="kn-lbl">Passengers through AUH / Zayed Intl in 2025</div><div class="kn-sub">+12.8% · airport record</div></div>
+    </div>
+    <div class="insight-bar" style="border-left-color:var(--gold);margin-top:18px">
+      <div class="ih" style="color:var(--gold)">The 2030 line</div>
+      <p><b>38 million passengers, 125+ destinations, ~170 aircraft by 2030.</b> Etihad revised its passenger target <em>up</em> from 33M to 38M in mid-2025. The "biggest summer ever" isn't a one-off marketing beat — it's the visible edge of a sustained, sovereign-funded (ADQ) growth program that has already added more metal in two years than most carriers add in a decade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — NEW ROUTES -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>The new-route <em>wave</em>.</h2>
+      <p class="desc">Two seasons of launches built this summer. The 2025 wave opened the markets; summer 2026 thickens them and adds the headline new dots — Tashkent, Charlotte, Kraków, Palma, Zanzibar and the Caucasus trio.</p>
+    </div>
+
+    <div class="tl-year-head">
+      <span class="tl-badge">New for summer 2026</span>
+      <span class="tl-note">Launches landing in or just before the peak season — the routes Etihad is selling as "this summer."</span>
+      <span class="tl-count" id="cnt-2026">—</span>
+    </div>
+    <div class="route-grid" id="grid-2026"></div>
+
+    <div class="tl-year-head">
+      <span class="tl-badge">The 2025 wave</span>
+      <span class="tl-note">The launch surge that set the stage — including the unprecedented week of openings and the A321LR's debut markets.</span>
+      <span class="tl-count" id="cnt-2025">—</span>
+    </div>
+    <div class="route-grid" id="grid-2025"></div>
+    <div class="src-note" style="text-align:left">Schedules per Etihad newsroom &amp; AeroRoutes (as of 16 Jun 2026). Central-Asia / Caucasus start dates were repeatedly rescheduled — verify the live date before travel. Cancelled/dropped from earlier plans: Tbilisi.</div>
+  </div>
+</section>
+
+<!-- SECTION 3 — FLEET -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Three aircraft <em>rewriting</em> the map.</h2>
+      <p class="desc">The summer network is a fleet story. A single-aisle with First Suites unlocks thin long-haul; the A350-1000 carries the flagship routes; and the superjumbo is coming back.</p>
+    </div>
+    <div class="fleet-grid">
+      <div class="fc">
+        <div class="fc-type">Airbus <em>A321LR</em></div>
+        <div class="fc-role">The structural shift</div>
+        <div class="fc-body">The region's first narrowbody with <b>First Suites and lie-flat Business</b> (3-class, ~160 seats). In service since <b>August 2025</b>, it makes thin, leisure-heavy long-haul <b>profitable</b> — and it is behind almost every new dot this year: Krabi, Phnom Penh, Medan, Chiang Mai, Tunis, Algiers, Kraków, Palma, plus the Central Asia push.</div>
+        <div class="fc-stat">~10 in fleet now → up to 30 by 2030</div>
+      </div>
+      <div class="fc">
+        <div class="fc-type">Airbus <em>A350-1000</em></div>
+        <div class="fc-role">The flagship</div>
+        <div class="fc-body">Etihad's long-haul flagship, carrying the premium transcontinental routes — <b>New York JFK, Chicago, Toronto, Atlanta</b> and, since October 2025, <b>Sydney</b>. A <b>November 2025 order added 7 more</b>, lifting the commitment to <b>27 aircraft</b>, with deliveries resuming in 2027.</div>
+        <div class="fc-stat">~9 flying · 27 on order</div>
+      </div>
+      <div class="fc">
+        <div class="fc-type">Airbus <em>A380</em></div>
+        <div class="fc-role">The comeback</div>
+        <div class="fc-body">The superjumbo is being reactivated against a global jet shortage — <b>seven flying by late 2025, the eighth returning 15 June 2026</b>. Summer 2026 deploys it on <b>London Heathrow, Paris CDG, Singapore, Toronto</b> and, newly, <b>Tokyo Narita</b>. It left JFK in 2025 as the A350 took over.</div>
+        <div class="fc-stat">8 of 10 superjumbos back in service</div>
+      </div>
+    </div>
+
+    <div class="flive">
+      <div class="flive-h">What we caught on FR24 this week — <b>live Etihad (ETD) fleet mix</b>, 20-flight sample</div>
+      <div class="fbar" id="fbar"></div>
+      <div class="fleg" id="fleg"></div>
+      <div class="src-note" style="text-align:left;margin-top:12px">Illustrative 20-flight FR24 sample of carrier <b>ETD</b> over the past 3 days — both the <b>A350-1000</b> and the new <b>A321neo/LR</b> already show up alongside the 787 backbone and the Gulf narrowbody shuttle.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — FR24 PROOF -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>What the <em>data</em> shows.</h2>
+      <p class="desc">Beyond the press release: a real sample of Etihad's operated schedule from FR24, and the on-time-performance behind it. AUH is the spine — Bangkok, Mumbai and Delhi are the heaviest spokes.</p>
+    </div>
+    <div class="fr-split">
+      <div class="panel">
+        <div class="panel-h">Busiest spokes from Abu Dhabi</div>
+        <div class="panel-sub">Daily frequency · FR24 sample</div>
+        <div id="busy"></div>
+        <div class="src-note" style="text-align:left;margin-top:14px">From a 140 route-leg FR24 sample covering <b>74 destinations</b> off the AUH hub.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-h">On-time performance</div>
+        <div class="panel-sub">ey_otp.json · 140-route reliability sample</div>
+        <div class="otp-grid">
+          <div class="otp"><div class="otp-n"><em>89.2%</em></div><div class="otp-l">Arrivals within 15 min (A15)</div></div>
+          <div class="otp"><div class="otp-n"><em>100%</em></div><div class="otp-l">Flights completed · 0% cancelled</div></div>
+          <div class="otp"><div class="otp-n"><em>24 min</em></div><div class="otp-l">Average arrival <b>early</b> vs schedule</div></div>
+          <div class="otp"><div class="otp-n">92.4%</div><div class="otp-l">Within scheduled block time</div></div>
+        </div>
+        <div class="src-note" style="text-align:left;margin-top:14px">Punctual where it counts: pushbacks slip (+8 min avg departure), but padded block times land flights <b>early</b> — the schedule absorbs the summer congestion.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — STRATEGY -->
+<section>
+  <div class="shell">
+    <div class="section-head">
+      <h2>Why it <em>works</em>.</h2>
+      <p class="desc">Four moves turn raw growth into a defensible summer network — and explain why Etihad can run the biggest schedule in its history without overreaching on metal.</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="sc"><div class="sc-num">1</div>
+        <div class="sc-title">Densification over sprawl</div>
+        <div class="sc-body">Roughly <b>two-thirds of new capacity goes into more frequency on routes Etihad already flies</b>, not new dots — thickening the AUH connecting banks. Chicago goes double-daily; China gains +28 weekly frequencies. New cities make headlines; frequency makes the hub.</div>
+        <div class="sc-stat">~⅔ of added seats → existing routes</div>
+      </div>
+      <div class="sc"><div class="sc-num">2</div>
+        <div class="sc-title">A premium-leisure pivot, single-aisle powered</div>
+        <div class="sc-body">First Suites on an <b>A321LR</b> let Etihad profitably open Thai beaches, secondary Europe and Central Asia — and sell Abu Dhabi as a <b>destination</b>, not just a transfer point. The city drew a record <b>26.6M visitors in 2025</b>, feeding point-to-point demand the old widebody-only model couldn't serve.</div>
+        <div class="sc-stat">AUH as destination · 26.6M visitors 2025</div>
+      </div>
+      <div class="sc"><div class="sc-num">3</div>
+        <div class="sc-title">Partnerships as the scaling lever</div>
+        <div class="sc-body">Etihad's own metal reaches ~100 cities; <b>codeshare and JV feed extend that past 350 on one ticket</b>. The <b>Uzbekistan Airways</b> codeshare turns one daily Tashkent flight into eight Uzbek cities; the non-equity <b>China Eastern</b> and <b>Ethiopian</b> JVs integrate schedules and yield, not just flight codes.</div>
+        <div class="sc-stat">~100 EY dots → 350+ via partners</div>
+      </div>
+      <div class="sc"><div class="sc-num">4</div>
+        <div class="sc-title">A record North America buildout</div>
+        <div class="sc-body">With <b>Charlotte</b> (Mar 2026) and <b>Calgary</b> (Nov 2026) joining Atlanta, Etihad will serve <b>eight US &amp; Canada airports in 2026</b> — an unusually deep Gulf-carrier footprint that makes transatlantic-via-AUH a core growth vector, fed by the A350-1000 flagship.</div>
+        <div class="sc-stat">8 US/Canada airports in 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAVEAT -->
+<section style="border-bottom:none">
+  <div class="shell">
+    <div class="insight-bar">
+      <div class="ih">Analyst's note · the backdrop</div>
+      <p>Read the record-summer ambition against real headwinds. A <b>regional conflict in late February 2026</b> briefly grounded the fleet and forced the CEO to walk a ~$1B profit goal back toward break-even; IATA expects Middle East carriers to lose billions collectively in 2026, and Etihad's long-discussed IPO remains fluid. What's notable is that the expansion is being <b>held, not paused</b> — the biggest summer schedule in the airline's history is being flown straight into a turbulent year. <b>For ZED travel</b>, more frequency and more A321LR leisure routes mean more loads to read carefully — verify every fare, eligibility and seat in OSS / IDTGR before you travel.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-links">
+    <a href="/">Home</a>
+    <a href="/ey-analysis.html">Etihad Network Analysis</a>
+    <a href="/network-analysis.html">Network Matrix</a>
+    <a href="/zed-atlas.html">ZED Atlas</a>
+  </div>
+  <em>Biggest Summer Ever</em> · Etihad summer 2026 schedule intelligence<br>
+  Sources: Etihad newsroom (16 Jun 2026) · AeroRoutes · FR24 flight-summary · ey_otp.json · FY 2025 results<br>
+  Built for Etihad crew · Figures are analyst estimates from public reporting — verify ZED fares &amp; eligibility in OSS / IDTGR before travel
+</footer>
+
+<script>
+// ── New-route data (verified against Etihad newsroom + AeroRoutes, 16 Jun 2026) ──
+const R2026 = [
+  {d:'Tashkent', i:'TAS', c:'Uzbekistan', r:'asia', dt:'9 Aug 2026', f:'Daily', a:'A321', tag:'flagship'},
+  {d:'Charlotte', i:'CLT', c:'USA', r:'namerica', dt:'20 Mar → daily 15 Jun', f:'Daily', a:'787-9', tag:'flagship'},
+  {d:'Kraków', i:'KRK', c:'Poland', r:'europe', dt:'16 Jun 2026', f:'3×/wk', a:'A321LR'},
+  {d:'Palma', i:'PMI', c:'Spain', r:'europe', dt:'12 Jun 2026', f:'3×/wk', a:'A321LR'},
+  {d:'Zanzibar', i:'ZNZ', c:'Tanzania', r:'africa', dt:'14 Jun 2026', f:'4×/wk', a:'A320neo'},
+  {d:'Almaty', i:'ALA', c:'Kazakhstan', r:'asia', dt:'15 Jun 2026', f:'6×/wk', a:'A321'},
+  {d:'Baku', i:'GYD', c:'Azerbaijan', r:'caucasus', dt:'15 Jun 2026', f:'6→10×/wk', a:'A321'},
+  {d:'Yerevan', i:'EVN', c:'Armenia', r:'caucasus', dt:'15 Jun 2026', f:'6×/wk', a:'A321'},
+  {d:'Salalah', i:'SLL', c:'Oman', r:'mideast', dt:'21 May 2026', f:'Seasonal', a:'Narrowbody'},
+  {d:'Al Qassim', i:'ELQ', c:'Saudi Arabia', r:'mideast', dt:'2026', f:'4×/wk', a:'Narrowbody'},
+  {d:'Damascus', i:'DAM', c:'Syria', r:'mideast', dt:'Jun 2026', f:'New', a:'Narrowbody'},
+  {d:'Calgary', i:'YYC', c:'Canada', r:'namerica', dt:'Nov 2026', f:'4×/wk', a:'787-9'},
+  {d:'Bucharest', i:'OTP', c:'Romania', r:'europe', dt:'Dec 2026', f:'4×/wk', a:'A321'}
+];
+const R2025 = [
+  {d:'Atlanta', i:'ATL', c:'USA', r:'namerica', dt:'2 Jul 2025', f:'Daily', a:'A350-1000', tag:'A350'},
+  {d:'Hong Kong', i:'HKG', c:'Hong Kong', r:'asia', dt:'3 Nov 2025', f:'5×/wk', a:'787-9'},
+  {d:'Taipei', i:'TPE', c:'Taiwan', r:'asia', dt:'7 Sep 2025', f:'Daily', a:'787'},
+  {d:'Krabi', i:'KBV', c:'Thailand', r:'asia', dt:'9 Oct 2025', f:'Daily', a:'A321LR'},
+  {d:'Phnom Penh', i:'PNH', c:'Cambodia', r:'asia', dt:'3 Oct 2025', f:'5×/wk', a:'A321LR'},
+  {d:'Medan', i:'KNO', c:'Indonesia', r:'asia', dt:'2 Oct 2025', f:'3×/wk', a:'A321LR'},
+  {d:'Chiang Mai', i:'CNX', c:'Thailand', r:'asia', dt:'3 Nov 2025', f:'4×/wk', a:'A321LR'},
+  {d:'Hanoi', i:'HAN', c:'Vietnam', r:'asia', dt:'3 Nov 2025', f:'Daily', a:'A321LR'},
+  {d:'Tunis', i:'TUN', c:'Tunisia', r:'africa', dt:'1 Nov 2025', f:'3×/wk', a:'A321LR'},
+  {d:'Algiers', i:'ALG', c:'Algeria', r:'africa', dt:'7 Nov 2025', f:'4×/wk', a:'A321LR'},
+  {d:'Addis Ababa', i:'ADD', c:'Ethiopia', r:'africa', dt:'8 Oct 2025', f:'Daily', a:'A320'},
+  {d:'Kazan', i:'KZN', c:'Russia', r:'europe', dt:'4 Dec 2025', f:'3×/wk', a:'A320'}
+];
+
+function rcard(x){
+  return '<div class="route-card rc-'+x.r+'">'
+    + (x.tag?'<span class="rc-tag">'+x.tag+'</span>':'')
+    + '<div class="rc-top"><span class="rc-dest">'+x.d+'</span><span class="rc-iata">'+x.i+'</span></div>'
+    + '<div class="rc-country">'+x.c+'</div>'
+    + '<div class="rc-meta"><span class="rc-date">'+x.dt+'</span><span class="rc-freq">'+x.f+'</span></div>'
+    + '<div class="rc-meta"><span class="rc-ac">'+x.a+'</span></div>'
+    + '</div>';
+}
+document.getElementById('grid-2026').innerHTML = R2026.map(rcard).join('');
+document.getElementById('grid-2025').innerHTML = R2025.map(rcard).join('');
+document.getElementById('cnt-2026').textContent = R2026.length + ' routes';
+document.getElementById('cnt-2025').textContent = R2025.length + ' routes';
+
+// ── Live FR24 fleet mix (ETD sample, captured 16 Jun 2026) ──
+const FLEET = [
+  {t:'A320', n:6, full:'A320', col:'#4fb8a8'},
+  {t:'787-9', n:5, full:'Boeing 787-9', col:'#e8b94a'},
+  {t:'A321', n:3, full:'A321', col:'#34d399'},
+  {t:'777-200LR', n:2, full:'Boeing 777-200LR', col:'#a78bfa'},
+  {t:'A321neo', n:2, full:'A321neo / LR', col:'#f472b6'},
+  {t:'787-10', n:1, full:'Boeing 787-10', col:'#d97f4a'},
+  {t:'A350-1000', n:1, full:'Airbus A350-1000', col:'#e54e4e'}
+];
+const ftot = FLEET.reduce((s,f)=>s+f.n,0);
+document.getElementById('fbar').innerHTML = FLEET.map(f=>
+  '<div style="width:'+(f.n/ftot*100)+'%;background:'+f.col+'">'+(f.n>=2?f.t:'')+'</div>').join('');
+document.getElementById('fleg').innerHTML = FLEET.map(f=>
+  '<span class="li"><span class="sw" style="background:'+f.col+'"></span>'+f.full+' · '+f.n+'</span>').join('');
+
+// ── Busiest spokes (FR24 sample, one-way daily frequency) ──
+const BUSY = [
+  {k:'Bangkok', i:'BKK', n:6},
+  {k:'Mumbai', i:'BOM', n:4},
+  {k:'Delhi', i:'DEL', n:4},
+  {k:'Dammam', i:'DMM', n:4},
+  {k:'Phuket', i:'HKT', n:4},
+  {k:'Jeddah', i:'JED', n:4},
+  {k:'London LHR', i:'LHR', n:4},
+  {k:'Bahrain', i:'BAH', n:3}
+];
+const bmax = 6;
+document.getElementById('busy').innerHTML = BUSY.map(b=>
+  '<div class="rrow"><span class="rk">'+b.k+' <span style="color:var(--ink-mute)">'+b.i+'</span></span>'
+  + '<span class="rt"><span class="rf" style="width:'+(b.n/bmax*100)+'%"></span></span>'
+  + '<span class="rv">'+b.n+'×/day</span></div>').join('');
+</script>
+
+</body>
+</html>
