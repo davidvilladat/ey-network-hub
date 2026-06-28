@@ -7,22 +7,22 @@
 <meta name="description" content="Etihad's summer 2026 schedule, read from FR24 data and Etihad's own numbers — 300+ daily flights, the A321LR leisure pivot, record North America buildout, and the new-route wave to Tashkent, Charlotte, Kraków and beyond.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
-  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
-  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;--violet:#a78bfa;--mint:#34d399;--pink:#f472b6;
+  --bg-deep:#061826;--bg-panel:#0B2335;--bg-card:#0E2436;--bg-elev:#123248;
+  --line:#1E2C3C;--line-soft:#16222F;--ink:#FFFCF6;--ink-dim:#A9B6C2;--ink-mute:#6B7886;
+  --copper:#B88A45;--gold:#E8D2A2;--teal:#48AFC4;--crimson:#C8483A;--violet:#A89BC7;--mint:#4C9286;--pink:#D4A373;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
 .shell{max-width:1480px;margin:0 auto;padding:0 32px}
 a{color:inherit}
 .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
 
 /* NAV */
-nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+nav{border-bottom:1px solid var(--line);background:rgba(6,24,38,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
 .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;max-width:1480px;margin:0 auto}
 .nav-logo{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;text-decoration:none}
 .nav-logo span{color:var(--copper)}
@@ -32,10 +32,10 @@ nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-f
 .nav-links a.active{color:var(--copper)}
 
 /* HERO */
-.hero{background:radial-gradient(ellipse at 15% 0%,rgba(232,185,74,0.12) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(217,127,74,0.12) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
+.hero{background:radial-gradient(ellipse at 15% 0%,rgba(232,210,162,0.12) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(184,138,69,0.12) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);pointer-events:none}
 .hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;position:relative}
-.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(40px,5.2vw,80px);line-height:0.93;letter-spacing:-0.038em}
+.hero h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(40px,5.2vw,80px);line-height:0.93;letter-spacing:-0.038em}
 .hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
 .hero-sub{font-size:15px;color:var(--ink-dim);max-width:580px;margin-top:22px;line-height:1.7}
 .hero-sub strong{color:var(--ink);font-weight:500}
@@ -49,16 +49,16 @@ nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-f
 .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
 .ticker .st{padding:20px 22px;border-right:1px solid var(--line)}
 .ticker .st:last-child{border-right:none}
-.ticker .num{font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
+.ticker .num{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
 .ticker .num em{font-style:italic;color:var(--gold)}
 .ticker .lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute)}
 .delta{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;letter-spacing:0.06em}
-.delta.up{background:rgba(79,184,168,0.12);color:var(--teal)}
+.delta.up{background:rgba(72,175,196,0.12);color:var(--teal)}
 
 /* SECTIONS */
 section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
-.section-head h2{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
 .section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
 .section-head .desc{max-width:500px;font-size:14px;color:var(--ink-dim);line-height:1.65}
 
@@ -67,14 +67,14 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .kn{background:var(--bg-card);border:1px solid var(--line);padding:22px;position:relative;overflow:hidden}
 .kn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
 .kn.c::before{background:var(--copper)}.kn.t::before{background:var(--teal)}.kn.v::before{background:var(--violet)}
-.kn-num{font-family:'Fraunces',serif;font-size:38px;font-weight:600;letter-spacing:-0.02em;line-height:1}
+.kn-num{font-family:'Lora',Georgia,serif;font-size:38px;font-weight:600;letter-spacing:-0.02em;line-height:1}
 .kn-num em{font-style:italic;color:var(--gold)}
 .kn-lbl{margin-top:8px;font-size:13px;color:var(--ink-dim);line-height:1.5}
 .kn-sub{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;color:var(--ink-mute);text-transform:uppercase}
 
 /* ROUTE CARDS */
 .tl-year-head{display:flex;align-items:center;gap:16px;margin:6px 0 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.tl-badge{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic}
+.tl-badge{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic}
 .tl-note{font-size:13px;color:var(--ink-dim);max-width:560px}
 .tl-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;padding:3px 10px;border:1px solid var(--line);background:var(--bg-elev);white-space:nowrap}
 .route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:8px;margin-bottom:36px}
@@ -88,19 +88,19 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .rc-mideast::before{background:var(--mint)}
 .rc-caucasus::before{background:var(--pink)}
 .rc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.rc-dest{font-family:'Fraunces',serif;font-size:16px;font-weight:600;letter-spacing:-0.01em}
+.rc-dest{font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;letter-spacing:-0.01em}
 .rc-iata{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute)}
 .rc-country{font-size:12px;color:var(--ink-dim)}
 .rc-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;flex-wrap:wrap;gap:4px;margin-top:2px}
 .rc-date{color:var(--ink-mute)}
 .rc-freq{color:var(--teal);font-weight:600}
 .rc-ac{color:var(--gold);font-weight:600}
-.rc-tag{position:absolute;top:10px;right:10px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 5px;border-radius:2px;background:rgba(232,185,74,0.14);color:var(--gold)}
+.rc-tag{position:absolute;top:10px;right:10px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 5px;border-radius:2px;background:rgba(232,210,162,0.14);color:var(--gold)}
 
 /* FLEET CARDS */
 .fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .fc{background:var(--bg-card);border:1px solid var(--line);padding:24px;position:relative}
-.fc-type{font-family:'Fraunces',serif;font-size:22px;font-weight:600;letter-spacing:-0.01em;margin-bottom:3px}
+.fc-type{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600;letter-spacing:-0.01em;margin-bottom:3px}
 .fc-type em{font-style:italic;color:var(--teal)}
 .fc-role{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--copper);margin-bottom:12px}
 .fc-body{font-size:13px;color:var(--ink-dim);line-height:1.62}
@@ -120,7 +120,7 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 /* FR24 PANEL */
 .fr-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .panel{background:var(--bg-panel);border:1px solid var(--line);padding:24px}
-.panel-h{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:4px}
+.panel-h{font-family:'Lora',Georgia,serif;font-size:18px;font-weight:600;margin-bottom:4px}
 .panel-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:18px}
 .rrow{display:flex;align-items:center;gap:12px;margin-bottom:9px}
 .rrow .rk{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);width:128px;flex-shrink:0}
@@ -129,15 +129,15 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .rrow .rv{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);width:46px;text-align:right;flex-shrink:0}
 .otp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .otp{padding:14px;background:var(--bg-card);border:1px solid var(--line)}
-.otp-n{font-family:'Fraunces',serif;font-size:30px;font-weight:600;line-height:1}
+.otp-n{font-family:'Lora',Georgia,serif;font-size:30px;font-weight:600;line-height:1}
 .otp-n em{font-style:italic;color:var(--teal)}
 .otp-l{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mute);line-height:1.4}
 
 /* STRATEGY */
 .strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .sc{background:var(--bg-card);border:1px solid var(--line);padding:26px;position:relative}
-.sc-num{font-family:'Fraunces',serif;font-size:48px;font-weight:600;font-style:italic;color:rgba(217,127,74,0.15);position:absolute;top:14px;right:20px;line-height:1}
-.sc-title{font-family:'Fraunces',serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.2;max-width:88%}
+.sc-num{font-family:'Lora',Georgia,serif;font-size:48px;font-weight:600;font-style:italic;color:rgba(184,138,69,0.15);position:absolute;top:14px;right:20px;line-height:1}
+.sc-title{font-family:'Lora',Georgia,serif;font-size:19px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.2;max-width:88%}
 .sc-body{font-size:13.5px;color:var(--ink-dim);line-height:1.66}
 .sc-body b{color:var(--ink);font-weight:600}
 .sc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:0.05em}
@@ -149,7 +149,7 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .insight-bar p b{color:var(--ink);font-weight:600}
 
 footer{padding:40px 0 52px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-align:center;border-top:1px solid var(--line);line-height:2}
-footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper)}
+footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--copper)}
 footer a{color:var(--ink-mute);text-decoration:none}
 footer a:hover{color:var(--teal)}
 .foot-links{margin-bottom:14px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
@@ -450,13 +450,13 @@ document.getElementById('cnt-2025').textContent = R2025.length + ' routes';
 
 // ── Live FR24 fleet mix (ETD sample, captured 16 Jun 2026) ──
 const FLEET = [
-  {t:'A320', n:6, full:'A320', col:'#4fb8a8'},
-  {t:'787-9', n:5, full:'Boeing 787-9', col:'#e8b94a'},
-  {t:'A321', n:3, full:'A321', col:'#34d399'},
-  {t:'777-200LR', n:2, full:'Boeing 777-200LR', col:'#a78bfa'},
-  {t:'A321neo', n:2, full:'A321neo / LR', col:'#f472b6'},
-  {t:'787-10', n:1, full:'Boeing 787-10', col:'#d97f4a'},
-  {t:'A350-1000', n:1, full:'Airbus A350-1000', col:'#e54e4e'}
+  {t:'A320', n:6, full:'A320', col:'#48AFC4'},
+  {t:'787-9', n:5, full:'Boeing 787-9', col:'#E8D2A2'},
+  {t:'A321', n:3, full:'A321', col:'#4C9286'},
+  {t:'777-200LR', n:2, full:'Boeing 777-200LR', col:'#A89BC7'},
+  {t:'A321neo', n:2, full:'A321neo / LR', col:'#D4A373'},
+  {t:'787-10', n:1, full:'Boeing 787-10', col:'#B88A45'},
+  {t:'A350-1000', n:1, full:'Airbus A350-1000', col:'#C8483A'}
 ];
 const ftot = FLEET.reduce((s,f)=>s+f.n,0);
 document.getElementById('fbar').innerHTML = FLEET.map(f=>

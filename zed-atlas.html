@@ -6,19 +6,19 @@
 <title>ZED Travel Atlas — Etihad Crew · v3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-deep:#0a0d12; --bg-panel:#11151c; --bg-card:#161b24; --bg-elev:#1d2330;
-  --line:#232a39; --line-soft:#1a2030; --ink:#e8ecf2; --ink-dim:#8a93a6; --ink-mute:#5a6478;
-  --copper:#d97f4a; --copper-deep:#b86432; --gold:#e8b94a; --teal:#4fb8a8; --crimson:#e54e4e;
-  --aubergine:#6d3a5d;
-  --tier-1:#4fb8a8; --tier-2:#e8b94a; --tier-3:#e54e4e; --tier-0:#2a3142;
-  --grad-hero:radial-gradient(ellipse at 20% 0%, rgba(217,127,74,0.12) 0%, transparent 60%),radial-gradient(ellipse at 80% 100%, rgba(109,58,93,0.18) 0%, transparent 50%);
+  --bg-deep:#061826; --bg-panel:#0B2335; --bg-card:#0E2436; --bg-elev:#123248;
+  --line:#1E2C3C; --line-soft:#16222F; --ink:#FFFCF6; --ink-dim:#A9B6C2; --ink-mute:#6B7886;
+  --copper:#B88A45; --copper-deep:#9E7134; --gold:#E8D2A2; --teal:#48AFC4; --crimson:#C8483A;
+  --aubergine:#574881;
+  --tier-1:#48AFC4; --tier-2:#E8D2A2; --tier-3:#C8483A; --tier-0:#13283A;
+  --grad-hero:radial-gradient(ellipse at 20% 0%, rgba(184,138,69,0.12) 0%, transparent 60%),radial-gradient(ellipse at 80% 100%, rgba(168,155,199,0.18) 0%, transparent 50%);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
-.serif{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.02em}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.serif{font-family:'Lora',Georgia,serif;font-weight:600;letter-spacing:-0.02em}
 .mono{font-family:'JetBrains Mono',monospace;font-feature-settings:"ss01","ss02"}
 .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
@@ -27,7 +27,7 @@ html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',s
 .hero{background:var(--grad-hero);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.015) 39px,rgba(255,255,255,0.015) 40px);pointer-events:none}
 .hero-inner{padding:48px 0 56px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end;position:relative}
-.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(48px,6vw,84px);line-height:0.95;letter-spacing:-0.035em;color:var(--ink)}
+.hero h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(48px,6vw,84px);line-height:0.95;letter-spacing:-0.035em;color:var(--ink)}
 .hero h1 em{font-style:italic;color:var(--copper);font-weight:400}
 .hero-meta{display:flex;flex-direction:column;gap:14px;align-items:flex-end;text-align:right}
 .hero-meta .stamp{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);background:var(--bg-panel);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--ink-dim)}
@@ -39,13 +39,13 @@ html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',s
 .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
 .ticker .stat{padding:22px 24px;border-right:1px solid var(--line)}
 .ticker .stat:last-child{border-right:none}
-.ticker .stat .num{font-family:'Fraunces',serif;font-size:38px;font-weight:600;line-height:1;letter-spacing:-0.02em;color:var(--ink)}
+.ticker .stat .num{font-family:'Lora',Georgia,serif;font-size:38px;font-weight:600;line-height:1;letter-spacing:-0.02em;color:var(--ink)}
 .ticker .stat .num em{font-style:italic;color:var(--copper);font-weight:500}
 .ticker .stat .lbl{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute)}
 
 section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
-.section-head h2{font-family:'Fraunces',serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
 .section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
 .section-head .desc{max-width:480px;font-size:14px;color:var(--ink-dim);line-height:1.6}
 
@@ -65,22 +65,22 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .hub-dot:hover{stroke:rgba(255,255,255,0.85);stroke-width:1.5;filter:brightness(1.25)}
 .hub-dot.has-network{filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 2px currentColor)}
 .hub-grat{stroke:rgba(255,255,255,0.022);fill:none;stroke-width:0.3}
-.hub-grat-eq{stroke:rgba(79,184,168,0.22);fill:none;stroke-width:0.65}
-.hub-grat-tr{stroke:rgba(232,185,74,0.16);fill:none;stroke-width:0.5;stroke-dasharray:4 9}
+.hub-grat-eq{stroke:rgba(72,175,196,0.22);fill:none;stroke-width:0.65}
+.hub-grat-tr{stroke:rgba(232,210,162,0.16);fill:none;stroke-width:0.5;stroke-dasharray:4 9}
 .hub-grat-pm{stroke:rgba(255,255,255,0.07);fill:none;stroke-width:0.5}
 
-.map-tooltip{position:absolute;background:var(--bg-card);border:1px solid var(--copper);padding:14px 16px;font-family:'Inter Tight',sans-serif;pointer-events:none;z-index:50;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity 0.1s}
+.map-tooltip{position:absolute;background:var(--bg-card);border:1px solid var(--copper);padding:14px 16px;font-family:'Montserrat',sans-serif;pointer-events:none;z-index:50;min-width:240px;box-shadow:0 8px 32px rgba(0,0,0,0.6);opacity:0;transition:opacity 0.1s}
 .map-tooltip.show{opacity:1}
 .tt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
 .tt-code{font-family:'JetBrains Mono',monospace;color:var(--copper);font-size:13px;font-weight:700;letter-spacing:0.05em}
-.tt-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;line-height:1.15;letter-spacing:-0.01em;flex:1}
+.tt-name{font-family:'Lora',Georgia,serif;font-size:15px;font-weight:600;line-height:1.15;letter-spacing:-0.01em;flex:1}
 .tt-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
 .tt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
 .tt-stat{padding:6px 8px;background:var(--bg-panel);border:1px solid var(--line)}
 .tt-stat .l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.1em;color:var(--ink-mute);text-transform:uppercase}
 .tt-stat .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);margin-top:2px}
 .tt-cta{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--copper);text-transform:uppercase;text-align:center}
-.tt-network-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 6px;background:rgba(79,184,168,0.15);color:var(--tier-1);text-transform:uppercase;margin-top:4px}
+.tt-network-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 6px;background:rgba(72,175,196,0.15);color:var(--tier-1);text-transform:uppercase;margin-top:4px}
 
 .map-foot{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.1em}
 .map-legend{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
@@ -91,8 +91,8 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .region-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .region-card{background:var(--bg-card);border:1px solid var(--line);padding:22px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
 .region-card:hover{border-color:var(--copper);transform:translateY(-2px)}
-.region-card.active{border-color:var(--copper);background:linear-gradient(180deg,rgba(217,127,74,0.06),transparent)}
-.region-card h3{font-family:'Fraunces',serif;font-size:22px;font-weight:600;margin-bottom:6px}
+.region-card.active{border-color:var(--copper);background:linear-gradient(180deg,rgba(184,138,69,0.06),transparent)}
+.region-card h3{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600;margin-bottom:6px}
 .region-card .count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-mute);letter-spacing:0.1em}
 .region-card .bars{display:flex;height:6px;margin-top:18px;border-radius:1px;overflow:hidden;background:var(--tier-0)}
 .region-card .bars .b1{background:var(--tier-1)}
@@ -104,14 +104,14 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .picks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .pick-card{background:var(--bg-card);border:1px solid var(--line);padding:28px;position:relative}
 .pick-card .pick-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
-.pick-card .pick-header h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;letter-spacing:-0.01em}
-.pick-card .pick-header .icon{width:36px;height:36px;border:1px solid var(--copper);display:flex;align-items:center;justify-content:center;color:var(--copper);font-family:'Fraunces',serif;font-style:italic;font-size:18px}
+.pick-card .pick-header h3{font-family:'Lora',Georgia,serif;font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.pick-card .pick-header .icon{width:36px;height:36px;border:1px solid var(--copper);display:flex;align-items:center;justify-content:center;color:var(--copper);font-family:'Lora',Georgia,serif;font-style:italic;font-size:18px}
 .pick-card .pick-desc{font-size:13px;color:var(--ink-dim);margin-top:-12px;margin-bottom:20px;line-height:1.5}
 .rank-list{list-style:none;display:flex;flex-direction:column;gap:0}
 .rank-row{display:grid;grid-template-columns:30px 50px 1fr 60px auto auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:13px;cursor:pointer}
 .rank-row:hover{background:rgba(255,255,255,0.02)}
 .rank-row:last-child{border-bottom:none}
-.rank-row .pos{font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--copper);font-style:italic}
+.rank-row .pos{font-family:'Lora',Georgia,serif;font-weight:600;font-size:16px;color:var(--copper);font-style:italic}
 .rank-row .code{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);letter-spacing:0.05em}
 .rank-row .nm{color:var(--ink);font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rank-row .reg{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;text-transform:uppercase;text-align:right}
@@ -126,7 +126,7 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .chip:hover{color:var(--ink);border-color:var(--ink-mute)}
 .chip.active{background:var(--copper);color:var(--bg-deep);border-color:var(--copper)}
 .results-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
-.results-head .count{font-family:'Fraunces',serif;font-style:italic;font-size:24px;color:var(--copper)}
+.results-head .count{font-family:'Lora',Georgia,serif;font-style:italic;font-size:24px;color:var(--copper)}
 .results-head .count-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin-left:8px}
 .results-table{width:100%;border-collapse:collapse}
 .results-table th{text-align:left;padding:10px 8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);font-weight:500;border-bottom:1px solid var(--line)}
@@ -142,17 +142,17 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 
 /* EXPLORER */
 .explorer-controls{display:flex;gap:16px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
-.search-input{flex:1;min-width:240px;background:var(--bg-panel);border:1px solid var(--line);padding:12px 16px;color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:14px}
+.search-input{flex:1;min-width:240px;background:var(--bg-panel);border:1px solid var(--line);padding:12px 16px;color:var(--ink);font-family:'Montserrat',sans-serif;font-size:14px}
 .search-input:focus{outline:none;border-color:var(--copper)}
 .search-input::placeholder{color:var(--ink-mute)}
 .sort-select{background:var(--bg-panel);border:1px solid var(--line);padding:12px 14px;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer}
 .airline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .airline-card{background:var(--bg-card);border:1px solid var(--line);padding:18px;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:14px;position:relative}
 .airline-card:hover{border-color:var(--copper);background:var(--bg-elev)}
-.airline-card.has-network::before{content:"NETWORK";position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.15em;padding:2px 6px;background:rgba(79,184,168,0.15);color:var(--tier-1);font-weight:600;border:1px solid var(--tier-1)}
+.airline-card.has-network::before{content:"NETWORK";position:absolute;top:8px;right:8px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.15em;padding:2px 6px;background:rgba(72,175,196,0.15);color:var(--tier-1);font-weight:600;border:1px solid var(--tier-1)}
 .airline-card .ac-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .airline-card .ac-code{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;letter-spacing:0.05em;color:var(--copper)}
-.airline-card .ac-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;line-height:1.2;letter-spacing:-0.01em;flex:1}
+.airline-card .ac-name{font-family:'Lora',Georgia,serif;font-size:15px;font-weight:600;line-height:1.2;letter-spacing:-0.01em;flex:1}
 .airline-card .ac-region{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);text-align:right}
 .airline-card .ac-loc{display:flex;gap:6px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);letter-spacing:0.05em;margin-top:-6px}
 .airline-card .ac-loc .iata{color:var(--copper);font-weight:600;letter-spacing:0.1em}
@@ -161,9 +161,9 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .matrix-h{color:var(--ink-mute);padding:2px 4px;font-size:9px;letter-spacing:0.1em;text-align:center}
 .matrix-r{color:var(--ink-mute);padding:3px 4px;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;align-self:center}
 .matrix-c{padding:4px;text-align:center;font-weight:600;border-radius:1px}
-.matrix-c.t1{background:rgba(79,184,168,0.15);color:var(--tier-1)}
-.matrix-c.t2{background:rgba(232,185,74,0.15);color:var(--tier-2)}
-.matrix-c.t3{background:rgba(229,78,78,0.15);color:var(--tier-3)}
+.matrix-c.t1{background:rgba(72,175,196,0.15);color:var(--tier-1)}
+.matrix-c.t2{background:rgba(232,210,162,0.15);color:var(--tier-2)}
+.matrix-c.t3{background:rgba(200,72,58,0.15);color:var(--tier-3)}
 .matrix-c.t0{background:var(--bg-elev);color:var(--ink-mute)}
 .ac-flags{display:flex;gap:6px;flex-wrap:wrap}
 .flag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:3px 7px;border:1px solid var(--line);background:var(--bg-elev);color:var(--ink-dim);text-transform:uppercase;font-weight:500}
@@ -175,11 +175,11 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg-card);border:1px solid var(--copper);max-width:1200px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
 .modal-head{padding:32px 36px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:24px;position:sticky;top:0;background:var(--bg-card);z-index:10}
-.modal-head .h-title h2{font-family:'Fraunces',serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.modal-head .h-title h2{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
 .modal-head .h-title .h-sub{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.15em;color:var(--copper);margin-top:6px;text-transform:uppercase}
-.modal-head .h-title .h-loc{font-size:13px;color:var(--ink-dim);margin-top:6px;font-family:'Inter Tight',sans-serif}
+.modal-head .h-title .h-loc{font-size:13px;color:var(--ink-dim);margin-top:6px;font-family:'Montserrat',sans-serif}
 .modal-head .h-title .h-loc strong{color:var(--ink);font-weight:500}
-.modal-close{background:none;border:1px solid var(--line);color:var(--ink-dim);width:36px;height:36px;font-size:20px;cursor:pointer;font-family:'Fraunces',serif;flex-shrink:0}
+.modal-close{background:none;border:1px solid var(--line);color:var(--ink-dim);width:36px;height:36px;font-size:20px;cursor:pointer;font-family:'Lora',Georgia,serif;flex-shrink:0}
 .modal-close:hover{color:var(--copper);border-color:var(--copper)}
 .modal-body{padding:0 36px 36px}
 
@@ -198,21 +198,21 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .fare-table th, .fare-table td{padding:12px 14px;text-align:center;font-size:12px;border:1px solid var(--line)}
 .fare-table th{background:var(--bg-elev);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
 .fare-table .row-h{text-align:left;color:var(--ink-dim);font-size:11px;letter-spacing:0.1em}
-.fare-table .cell-1{background:rgba(79,184,168,0.12);color:var(--tier-1);font-weight:700}
-.fare-table .cell-2{background:rgba(232,185,74,0.12);color:var(--tier-2);font-weight:700}
-.fare-table .cell-3{background:rgba(229,78,78,0.12);color:var(--tier-3);font-weight:700}
+.fare-table .cell-1{background:rgba(72,175,196,0.12);color:var(--tier-1);font-weight:700}
+.fare-table .cell-2{background:rgba(232,210,162,0.12);color:var(--tier-2);font-weight:700}
+.fare-table .cell-3{background:rgba(200,72,58,0.12);color:var(--tier-3);font-weight:700}
 .fare-table .cell-0{color:var(--ink-mute)}
 .metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
 .metric-grid .m{padding:14px 16px;background:var(--bg-panel);border:1px solid var(--line)}
 .metric-grid .m .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:6px}
-.metric-grid .m .val{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--ink)}
+.metric-grid .m .val{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600;color:var(--ink)}
 .metric-grid .m .val em{color:var(--copper);font-style:italic;font-weight:400}
 
 /* NETWORK MAP IN MODAL */
 .network-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
 .ns-stat{padding:16px;background:var(--bg-panel);border:1px solid var(--line)}
 .ns-stat .l{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-bottom:6px}
-.ns-stat .v{font-family:'Fraunces',serif;font-size:26px;font-weight:600;line-height:1;color:var(--ink)}
+.ns-stat .v{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;line-height:1;color:var(--ink)}
 .ns-stat .v em{color:var(--copper);font-style:italic;font-weight:400}
 .ns-stat .sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-top:6px;letter-spacing:0.05em}
 
@@ -239,7 +239,7 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .route-table .rt-cells{font-weight:600;color:var(--ink)}
 .route-table .rt-iata{color:var(--copper);font-weight:600;letter-spacing:0.05em}
 .route-table .rt-arrow{color:var(--ink-mute);padding:0 4px}
-.route-table .rt-name{color:var(--ink-dim);font-family:'Inter Tight',sans-serif;font-size:13px}
+.route-table .rt-name{color:var(--ink-dim);font-family:'Montserrat',sans-serif;font-size:13px}
 .route-table .rt-freq{text-align:center;color:var(--gold);font-weight:600}
 .route-table .rt-dur{text-align:right;color:var(--ink-dim)}
 
@@ -260,14 +260,14 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .fleet-card{padding:18px;background:var(--bg-panel);border:1px solid var(--line);position:relative}
 .fleet-card .ac-icon{position:absolute;top:14px;right:16px;font-family:'JetBrains Mono',monospace;font-size:18px;color:var(--copper);font-weight:700;opacity:0.4;letter-spacing:0.05em}
 .fleet-card .ac-type{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;letter-spacing:0.08em;color:var(--ink);margin-bottom:8px}
-.fleet-card .ac-name{font-family:'Inter Tight',sans-serif;font-size:11px;color:var(--ink-dim);margin-bottom:14px;line-height:1.3}
-.fleet-card .ac-count{font-family:'Fraunces',serif;font-size:32px;color:var(--copper);font-style:italic;font-weight:600;line-height:1}
+.fleet-card .ac-name{font-family:'Montserrat',sans-serif;font-size:11px;color:var(--ink-dim);margin-bottom:14px;line-height:1.3}
+.fleet-card .ac-count{font-family:'Lora',Georgia,serif;font-size:32px;color:var(--copper);font-style:italic;font-weight:600;line-height:1}
 .fleet-card .ac-count-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;margin-top:4px}
 
 /* DESTINATION FINDER */
 .dest-wrap{background:var(--bg-panel);border:1px solid var(--line);padding:32px}
 .dest-search-wrap{position:relative;margin-bottom:24px}
-.dest-input{width:100%;background:var(--bg-card);border:1px solid var(--line);padding:14px 18px;color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:15px;transition:border-color 0.15s}
+.dest-input{width:100%;background:var(--bg-card);border:1px solid var(--line);padding:14px 18px;color:var(--ink);font-family:'Montserrat',sans-serif;font-size:15px;transition:border-color 0.15s}
 .dest-input:focus{outline:none;border-color:var(--copper)}
 .dest-input::placeholder{color:var(--ink-mute)}
 .dest-dropdown{position:absolute;top:100%;left:0;right:0;background:var(--bg-card);border:1px solid var(--copper);border-top:none;z-index:50;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-height:300px;overflow-y:auto}
@@ -275,15 +275,15 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .dest-dd-item:hover,.dest-dd-item.focused{background:var(--bg-elev)}
 .dest-dd-item:last-child{border-bottom:none}
 .dest-dd-iata{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--copper);font-size:13px;letter-spacing:0.08em;width:40px;flex-shrink:0}
-.dest-dd-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dest-dd-name{font-family:'Lora',Georgia,serif;font-size:14px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dest-dd-ctry{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
 .dest-ap-head{padding:18px 22px;background:var(--bg-card);border:1px solid var(--copper);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
 .dest-ap-iata{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--copper);letter-spacing:0.05em}
-.dest-ap-name{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-0.02em;margin-top:2px}
+.dest-ap-name{font-family:'Lora',Georgia,serif;font-size:18px;font-weight:600;letter-spacing:-0.02em;margin-top:2px}
 .dest-ap-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase;margin-top:6px}
 .dest-stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
 .dest-stat-box{padding:12px 18px;background:var(--bg-card);border:1px solid var(--line);display:flex;align-items:baseline;gap:10px}
-.dest-sn{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic;line-height:1}
+.dest-sn{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;color:var(--copper);font-style:italic;line-height:1}
 .dest-sl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.12em;text-transform:uppercase}
 .dest-subhead{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute);margin:24px 0 14px;display:flex;align-items:center;gap:12px}
 .dest-subhead::after{content:'';flex:1;height:1px;background:var(--line-soft)}
@@ -292,12 +292,12 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .dest-card:hover{border-color:var(--copper);background:var(--bg-elev);transform:translateY(-1px)}
 .dc-head{display:flex;justify-content:space-between;align-items:flex-start}
 .dc-code{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;letter-spacing:0.06em;color:var(--copper)}
-.dc-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin-top:2px}
-.dc-freq{font-family:'Fraunces',serif;font-size:18px;color:var(--teal);font-style:italic;font-weight:600;line-height:1;text-align:right}
+.dc-name{font-family:'Lora',Georgia,serif;font-size:14px;font-weight:600;margin-top:2px}
+.dc-freq{font-family:'Lora',Georgia,serif;font-size:18px;color:var(--teal);font-style:italic;font-weight:600;line-height:1;text-align:right}
 .dc-freq-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-mute);letter-spacing:0.1em;text-align:right;margin-top:2px}
 .dc-route{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;flex-wrap:wrap}
 .dc-hub-tag{color:var(--ink-dim);padding:3px 7px;border:1px solid var(--line);background:var(--bg-elev)}
-.dc-arr-tag{color:var(--copper);padding:3px 7px;border:1px solid var(--copper);background:rgba(217,127,74,0.08)}
+.dc-arr-tag{color:var(--copper);padding:3px 7px;border:1px solid var(--copper);background:rgba(184,138,69,0.08)}
 .dc-dur{font-size:10px;color:var(--ink-mute);font-weight:400;margin-left:4px}
 .dc-fares{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
 .dc-fare{padding:6px 4px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;background:var(--bg-panel)}
@@ -309,7 +309,7 @@ section{padding:64px 0;border-bottom:1px solid var(--line-soft)}
 .legend .sw.t1{background:var(--tier-1)} .legend .sw.t2{background:var(--tier-2)} .legend .sw.t3{background:var(--tier-3)} .legend .sw.t0{background:var(--tier-0)}
 
 footer{padding:48px 0 60px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-align:center}
-footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);font-size:13px}
+footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--copper);font-size:13px}
 
 @media (max-width:980px){
   .hero-inner{grid-template-columns:1fr;gap:24px}
@@ -336,13 +336,13 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 /* ── ACCESS GATE ── */
 #zed-gate{position:fixed;inset:0;z-index:99999;background:var(--bg-deep);
   display:flex;align-items:center;justify-content:center;
-  font-family:'Inter Tight',sans-serif}
+  font-family:'Montserrat',sans-serif}
 #zed-gate.hidden{display:none}
 .gate-box{width:100%;max-width:360px;padding:0 24px;text-align:center}
 .gate-logo{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;
   text-transform:uppercase;color:var(--ink-mute);margin-bottom:40px}
 .gate-logo span{color:var(--copper)}
-.gate-title{font-family:'Fraunces',serif;font-size:32px;font-weight:600;
+.gate-title{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:600;
   letter-spacing:-0.03em;line-height:1;margin-bottom:8px}
 .gate-title em{font-style:italic;color:var(--teal);font-weight:300}
 .gate-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;
@@ -354,7 +354,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 .gate-input:focus{border-color:var(--copper)}
 .gate-input.shake{animation:gate-shake 0.35s ease}
 .gate-btn{width:100%;margin-top:10px;padding:14px;background:var(--copper);
-  color:#0a0d12;font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:#061826;font-family:'JetBrains Mono',monospace;font-size:11px;
   letter-spacing:0.2em;text-transform:uppercase;font-weight:700;
   border:none;cursor:pointer;transition:opacity 0.15s}
 .gate-btn:hover{opacity:0.88}
@@ -403,11 +403,11 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 })();
 </script>
 
-<div id="loader" style="position:fixed;inset:0;background:#0a0d12;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:24px">
-  <div style="font-family:'Fraunces',serif;font-size:48px;color:#e8ecf2;letter-spacing:-0.03em;line-height:1">The <em style="color:#d97f4a;font-weight:400">ZED</em> Atlas.</div>
-  <div id="loader-status" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#5a6478;text-transform:uppercase">Loading data files…</div>
-  <div style="width:240px;height:1px;background:#1d2330;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;left:-50%;width:50%;height:100%;background:#d97f4a;animation:slide 1.2s ease-in-out infinite"></div>
+<div id="loader" style="position:fixed;inset:0;background:#061826;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:24px">
+  <div style="font-family:'Lora',Georgia,serif;font-size:48px;color:#FFFCF6;letter-spacing:-0.03em;line-height:1">The <em style="color:#B88A45;font-weight:400">ZED</em> Atlas.</div>
+  <div id="loader-status" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#6B7886;text-transform:uppercase">Loading data files…</div>
+  <div style="width:240px;height:1px;background:#123248;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:-50%;width:50%;height:100%;background:#B88A45;animation:slide 1.2s ease-in-out infinite"></div>
   </div>
   <style>@keyframes slide{0%{left:-50%}100%{left:100%}}</style>
 </div>
@@ -489,7 +489,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
       <div class="map-foot">
         <div class="map-legend" id="map-legend"></div>
-        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(79,184,168,0.5)"></span>Equator</span><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(232,185,74,0.5);border-top:1px dashed rgba(232,185,74,0.5)"></span>Tropics</span><span>FR24 sample: May–Jun 2026</span></div>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(72,175,196,0.5)"></span>Equator</span><span style="display:flex;align-items:center;gap:6px"><span style="display:inline-block;width:16px;height:1px;background:rgba(232,210,162,0.5);border-top:1px dashed rgba(232,210,162,0.5)"></span>Tropics</span><span>FR24 sample: May–Jun 2026</span></div>
       </div>
     </div>
   </div>
@@ -499,7 +499,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 <style>
 #coverage .cov-wrap{background:var(--bg-panel);border:1px solid var(--line);padding:28px 32px}
 .cov-headline{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line-soft)}
-.cov-big{font-family:'Fraunces',serif;font-size:48px;font-weight:600;font-style:italic;line-height:1;color:var(--tier-1)}
+.cov-big{font-family:'Lora',Georgia,serif;font-size:48px;font-weight:600;font-style:italic;line-height:1;color:var(--tier-1)}
 .cov-headline .sub{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--ink-dim);line-height:1.8}
 .cov-headline .sub b{color:var(--ink);font-weight:600}
 .cov-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:26px}
@@ -517,7 +517,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 .cov-gap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
 .cov-gap-item{display:flex;align-items:center;gap:11px;background:var(--bg-card);border:1px solid var(--line);padding:9px 12px;cursor:pointer;transition:border-color 0.15s,transform 0.15s}
 .cov-gap-item:hover{border-color:var(--copper);transform:translateY(-1px)}
-.cov-gap-code{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:32px}
+.cov-gap-code{font-family:'Lora',Georgia,serif;font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:32px}
 .cov-gap-meta{display:flex;flex-direction:column;gap:1px;min-width:0}
 .cov-gap-name{font-size:12px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cov-gap-attr{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.06em;color:var(--ink-mute)}
@@ -714,7 +714,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       </div>
     </div>
   </div>
-  <button onclick="toggleShare()" style="background:var(--copper);color:var(--bg-deep);border:none;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;cursor:pointer;font-weight:700;text-transform:uppercase;box-shadow:0 4px 16px rgba(217,127,74,0.4)">⬆ SHARE / EXPORT</button>
+  <button onclick="toggleShare()" style="background:var(--copper);color:var(--bg-deep);border:none;padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.15em;cursor:pointer;font-weight:700;text-transform:uppercase;box-shadow:0 4px 16px rgba(184,138,69,0.4)">⬆ SHARE / EXPORT</button>
 </div>
 
 <script>
@@ -862,21 +862,21 @@ function loadAll() {
   }).catch(err => {
     loaderEl.innerHTML = `
       <div style="max-width:560px;margin:0 auto;font-family:'JetBrains Mono',monospace">
-        <div style="color:#e54e4e;font-size:14px;letter-spacing:0.1em;margin-bottom:16px">
+        <div style="color:#C8483A;font-size:14px;letter-spacing:0.1em;margin-bottom:16px">
           ⚠ DATA FILES NOT FOUND
         </div>
-        <div style="color:#8a93a6;font-size:12px;line-height:1.8">
-          This tool needs the <strong style="color:#e8ecf2">data/</strong> folder next to the HTML file.<br><br>
+        <div style="color:#A9B6C2;font-size:12px;line-height:1.8">
+          This tool needs the <strong style="color:#FFFCF6">data/</strong> folder next to the HTML file.<br><br>
           Make sure you have this structure:<br>
-          <span style="color:#d97f4a">zed_atlas/</span><br>
-          &nbsp;&nbsp;<span style="color:#e8ecf2">ZED_Atlas.html</span><br>
-          &nbsp;&nbsp;<span style="color:#d97f4a">data/</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">zed_agreements.json</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">networks.json</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">airports.json</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4fb8a8">world_path.txt</span><br><br>
-          Error: <span style="color:#e54e4e">${err.message}</span><br><br>
-          <span style="color:#5a6478;font-size:11px">
+          <span style="color:#B88A45">zed_atlas/</span><br>
+          &nbsp;&nbsp;<span style="color:#FFFCF6">ZED_Atlas.html</span><br>
+          &nbsp;&nbsp;<span style="color:#B88A45">data/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#48AFC4">zed_agreements.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#48AFC4">networks.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#48AFC4">airports.json</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#48AFC4">world_path.txt</span><br><br>
+          Error: <span style="color:#C8483A">${err.message}</span><br><br>
+          <span style="color:#6B7886;font-size:11px">
             If opening from a local file, try using a local server:<br>
             &nbsp;&nbsp;python3 -m http.server 8080<br>
             then open: http://localhost:8080/ZED_Atlas.html
@@ -1527,7 +1527,7 @@ function renderScheduleTab(r, net){
   
   document.getElementById('tab-schedule').innerHTML = `
     <div class="label" style="margin-bottom:10px">Live schedule — ${net.win} sample · ${net.sch.length} flights observed</div>
-    ${!hasTimes ? `<div style="padding:10px 14px;background:rgba(232,185,74,0.08);border:1px solid var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;color:var(--gold);margin-bottom:14px">⚠ Departure/arrival times not in cache for this carrier — showing flights with route &amp; aircraft only.</div>` : ''}
+    ${!hasTimes ? `<div style="padding:10px 14px;background:rgba(232,210,162,0.08);border:1px solid var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.05em;color:var(--gold);margin-bottom:14px">⚠ Departure/arrival times not in cache for this carrier — showing flights with route &amp; aircraft only.</div>` : ''}
     <div class="schedule-controls">
       <input type="text" class="schedule-search" id="sched-search" placeholder="Filter by flight number, IATA airport, aircraft (e.g., 'A380')…">
     </div>
@@ -1689,7 +1689,7 @@ function renderDestResults(icao, ap){
       <div class="dest-ap-meta">${apCountry} · ICAO ${icao}</div>
     </div>
     <div style="text-align:right">
-      <div style="font-family:'Fraunces',serif;font-size:28px;font-style:italic;font-weight:600;color:var(--teal);line-height:1">${direct.length}</div>
+      <div style="font-family:'Lora',Georgia,serif;font-size:28px;font-style:italic;font-weight:600;color:var(--teal);line-height:1">${direct.length}</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--ink-mute);text-transform:uppercase">carriers fly here</div>
       ${based.length ? `<div style="margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;color:var(--gold)">${based.length} based here</div>` : ''}
     </div>`;

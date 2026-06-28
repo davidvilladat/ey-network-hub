@@ -6,26 +6,26 @@
 <title>Network Analysis · Major Carriers · 2024–2025</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
-  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
-  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;
+  --bg-deep:#061826;--bg-panel:#0B2335;--bg-card:#0E2436;--bg-elev:#123248;
+  --line:#1E2C3C;--line-soft:#16222F;--ink:#FFFCF6;--ink-dim:#A9B6C2;--ink-mute:#6B7886;
+  --copper:#B88A45;--gold:#E8D2A2;--teal:#48AFC4;--crimson:#C8483A;
   --qr:#9b2348;--qr-bright:#c4305a;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
 .shell{max-width:1480px;margin:0 auto;padding:0 32px}
 .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);font-weight:600}
 
 /* HERO */
-.hero{background:radial-gradient(ellipse at 20% 0%,rgba(79,184,168,0.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 100%,rgba(196,48,90,0.07) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
+.hero{background:radial-gradient(ellipse at 20% 0%,rgba(72,175,196,0.07) 0%,transparent 55%),radial-gradient(ellipse at 80% 100%,rgba(196,48,90,0.07) 0%,transparent 50%);border-bottom:1px solid var(--line);padding:52px 0 56px;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.012) 39px,rgba(255,255,255,0.012) 40px);pointer-events:none}
 .hero-inner{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end;position:relative}
-.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(40px,5vw,76px);line-height:0.93;letter-spacing:-0.038em}
+.hero h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(40px,5vw,76px);line-height:0.93;letter-spacing:-0.038em}
 .hero h1 em{font-style:italic;color:var(--teal);font-weight:400}
 .hero-sub{font-size:15px;color:var(--ink-dim);max-width:560px;margin-top:22px;line-height:1.7}
 .hero-sub strong{color:var(--ink);font-weight:500}
@@ -37,7 +37,7 @@ html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',s
 /* SECTIONS */
 section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;gap:32px}
-.section-head h2{font-family:'Fraunces',serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
+.section-head h2{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:600;letter-spacing:-0.025em;line-height:1.05}
 .section-head h2 em{font-style:italic;color:var(--copper);font-weight:400}
 .section-head .desc{max-width:480px;font-size:14px;color:var(--ink-dim);line-height:1.65}
 
@@ -62,7 +62,7 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 
 /* ROUTE CARDS */
 .tl-year-head{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.tl-badge{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--copper);font-style:italic}
+.tl-badge{font-family:'Lora',Georgia,serif;font-size:28px;font-weight:600;color:var(--copper);font-style:italic}
 .tl-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase;padding:3px 10px;border:1px solid var(--line);background:var(--bg-elev)}
 .route-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-bottom:40px}
 .route-card{background:var(--bg-card);border:1px solid var(--line);padding:14px 14px 14px 18px;display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;transition:border-color 0.15s}
@@ -71,10 +71,10 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .rc-europe::before{background:var(--teal)}
 .rc-asia::before{background:var(--gold)}
 .rc-africa::before{background:var(--copper)}
-.rc-namerica::before{background:#a78bfa}
-.rc-mideast::before{background:#34d399}
-.rc-caucasus::before{background:#f472b6}
-.rc-dest{font-family:'Fraunces',serif;font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.rc-namerica::before{background:#A89BC7}
+.rc-mideast::before{background:#4C9286}
+.rc-caucasus::before{background:#D4A373}
+.rc-dest{font-family:'Lora',Georgia,serif;font-size:15px;font-weight:600;letter-spacing:-0.01em}
 .rc-country{font-size:12px;color:var(--ink-dim)}
 .rc-meta{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.08em;flex-wrap:wrap;gap:4px}
 .rc-date{color:var(--ink-mute)}
@@ -86,11 +86,11 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 .ticker{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
 .ticker .st{padding:20px 22px;border-right:1px solid var(--line)}
 .ticker .st:last-child{border-right:none}
-.ticker .num{font-family:'Fraunces',serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
+.ticker .num{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.02em}
 .ticker .lbl{margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.13em;text-transform:uppercase;color:var(--ink-mute)}
 .delta{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;padding:2px 7px;letter-spacing:0.06em}
-.delta.up{background:rgba(79,184,168,0.12);color:var(--teal)}
-.delta.neutral{background:rgba(232,185,74,0.1);color:var(--gold)}
+.delta.up{background:rgba(72,175,196,0.12);color:var(--teal)}
+.delta.neutral{background:rgba(232,210,162,0.1);color:var(--gold)}
 .delta.note{background:rgba(196,48,90,0.12);color:var(--qr-bright)}
 
 /* QR PANEL */
@@ -104,15 +104,15 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 /* FLEET CARDS */
 .fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .fleet-card{background:var(--bg-card);border:1px solid var(--line);padding:22px}
-.fleet-type{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px}
-.fleet-count{font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--gold);line-height:1;font-style:italic}
+.fleet-type{font-family:'Lora',Georgia,serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;margin-bottom:4px}
+.fleet-count{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;color:var(--gold);line-height:1;font-style:italic}
 .fleet-trend{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute);margin-top:5px}
 .fleet-role{font-size:12px;color:var(--ink-dim);margin-top:10px;line-height:1.55}
 
 /* COMPARE */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .cmp-card{background:var(--bg-card);border:1px solid var(--line);padding:26px}
-.cmp-airline{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.cmp-airline{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:700;margin-bottom:4px}
 .cmp-hub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:18px}
 .cmp-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-soft);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.05em}
 .cmp-row:last-of-type{border-bottom:none}
@@ -124,8 +124,8 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 /* STRATEGY */
 .strategy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .sc{background:var(--bg-card);border:1px solid var(--line);padding:26px;position:relative}
-.sc-num{font-family:'Fraunces',serif;font-size:52px;font-weight:700;font-style:italic;color:rgba(196,48,90,0.12);position:absolute;top:14px;right:18px;line-height:1}
-.sc-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.25}
+.sc-num{font-family:'Lora',Georgia,serif;font-size:52px;font-weight:700;font-style:italic;color:rgba(196,48,90,0.12);position:absolute;top:14px;right:18px;line-height:1}
+.sc-title{font-family:'Lora',Georgia,serif;font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:10px;line-height:1.25}
 .sc-body{font-size:13px;color:var(--ink-dim);line-height:1.65}
 .sc-stat{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--qr-bright);letter-spacing:0.06em}
 
@@ -139,12 +139,12 @@ section{padding:56px 0;border-bottom:1px solid var(--line-soft)}
 /* INSIGHT BAR */
 .insight-bar{background:var(--bg-panel);border:1px solid var(--line);padding:20px 24px;display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
 .insight-item{display:flex;gap:12px;align-items:flex-start;flex:1;min-width:200px}
-.insight-icon{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--copper);line-height:1;flex-shrink:0;width:28px;text-align:center}
+.insight-icon{font-family:'Lora',Georgia,serif;font-style:italic;font-size:22px;color:var(--copper);line-height:1;flex-shrink:0;width:28px;text-align:center}
 .insight-text{font-size:13px;color:var(--ink-dim);line-height:1.55}
 .insight-text strong{color:var(--ink);font-weight:500}
 
 footer{padding:40px 0 52px;color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-align:center;border-top:1px solid var(--line);line-height:2}
-footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper)}
+footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--copper)}
 footer a{color:var(--ink-mute);text-decoration:none}
 footer a:hover{color:var(--teal)}
 
@@ -199,12 +199,12 @@ footer a:hover{color:var(--teal)}
       <div class="chart-toolbar">
         <span class="label">Network Strategy Matrix · Major Network Carriers · 2025</span>
         <div class="legend-row">
-          <div class="li"><div class="sw" style="background:#4fb8a8"></div>Etihad</div>
+          <div class="li"><div class="sw" style="background:#48AFC4"></div>Etihad</div>
           <div class="li"><div class="sw" style="background:#c4305a"></div>Qatar</div>
           <div class="li"><div class="sw" style="background:#4fb86a"></div>Strong growth</div>
-          <div class="li"><div class="sw" style="background:#e8b94a"></div>Moderate</div>
+          <div class="li"><div class="sw" style="background:#E8D2A2"></div>Moderate</div>
           <div class="li"><div class="sw" style="background:#6b7280"></div>Flat</div>
-          <div class="li"><div class="sw" style="background:#e54e4e"></div>Declining</div>
+          <div class="li"><div class="sw" style="background:#C8483A"></div>Declining</div>
         </div>
       </div>
       <div class="chart-area" id="chart-area">
@@ -275,7 +275,7 @@ const SD = [
   {n:'ITA',       x:1.8, y:-12,  t:'red',   i:'FCO still finding its footing post-Alitalia'},
   {n:'Kenya',     x:2.1, y:-20,  t:'red',   i:'NBO significant network contraction'},
 ];
-const COLS = {ey:'#4fb8a8', qr:'#c4305a', ek:'#e84040', et:'#3db858', green:'#4fb86a', gold:'#e8b94a', grey:'#6b7280', red:'#e54e4e'};
+const COLS = {ey:'#48AFC4', qr:'#c4305a', ek:'#e84040', et:'#3db858', green:'#4fb86a', gold:'#E8D2A2', grey:'#6b7280', red:'#C8483A'};
 const RSIZ = {ey:10.5, qr:9.5, ek:9, et:9, green:7.5, gold:7, grey:6.5, red:7};
 
 
@@ -292,17 +292,17 @@ function buildScatter(){
   let o = '';
 
   // Highlight quadrant
-  o += `<rect x="${xs(4.5)}" y="${pt}" width="${xs(xMx)-xs(4.5)}" height="${ys(12)-pt}" fill="rgba(79,184,168,0.035)" rx="2"/>`;
-  o += `<text x="${xs(4.7)}" y="${pt+18}" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(79,184,168,0.4)" letter-spacing="2">EXPANSION LEADERS</text>`;
+  o += `<rect x="${xs(4.5)}" y="${pt}" width="${xs(xMx)-xs(4.5)}" height="${ys(12)-pt}" fill="rgba(72,175,196,0.035)" rx="2"/>`;
+  o += `<text x="${xs(4.7)}" y="${pt+18}" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(72,175,196,0.4)" letter-spacing="2">EXPANSION LEADERS</text>`;
 
   // Grid
   [-20,-10,0,10,20,30].forEach(v=>{
     o += `<line stroke="rgba(35,42,57,0.9)" stroke-width="0.6" x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}"/>`;
-    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${pl-9}" y="${ys(v)+4}" text-anchor="end">${v>0?'+':''}${v}%</text>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#6B7886" x="${pl-9}" y="${ys(v)+4}" text-anchor="end">${v>0?'+':''}${v}%</text>`;
   });
   [0,1,2,3,4,5,6,7].forEach(v=>{
     o += `<line stroke="rgba(35,42,57,0.9)" stroke-width="0.6" x1="${xs(v)}" x2="${xs(v)}" y1="${pt}" y2="${H-pb}"/>`;
-    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${xs(v)}" y="${H-pb+18}" text-anchor="middle">${v}%</text>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#6B7886" x="${xs(v)}" y="${H-pb+18}" text-anchor="middle">${v}%</text>`;
   });
 
   // Zero lines & arrows
@@ -310,12 +310,12 @@ function buildScatter(){
   o += `<line stroke="rgba(255,255,255,0.07)" stroke-width="1" x1="${xs(0)}" x2="${xs(0)}" y1="${pt}" y2="${H-pb}"/>`;
   o += `<polygon fill="rgba(255,255,255,0.18)" points="${W-pr+8},${ys(0)-4} ${W-pr+16},${ys(0)} ${W-pr+8},${ys(0)+4}"/>`;
   o += `<polygon fill="rgba(255,255,255,0.18)" points="${xs(0)-4},${pt-8} ${xs(0)},${pt-18} ${xs(0)+4},${pt-8}"/>`;
-  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" x="${W-pr+20}" y="${ys(0)+4}">% new seats →</text>`;
-  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#5a6478" text-anchor="middle" transform="rotate(-90,22,${pt+ph/2})" x="22" y="${pt+ph/2+4}">Capacity Growth ↑</text>`;
+  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#6B7886" x="${W-pr+20}" y="${ys(0)+4}">% new seats →</text>`;
+  o += `<text font-family="JetBrains Mono,monospace" font-size="10" fill="#6B7886" text-anchor="middle" transform="rotate(-90,22,${pt+ph/2})" x="22" y="${pt+ph/2+4}">Capacity Growth ↑</text>`;
 
   // Trend line
-  o += `<line stroke="rgba(217,127,74,0.18)" stroke-width="1.2" stroke-dasharray="5 9" x1="${xs(0)}" y1="${ys(-2)}" x2="${xs(7)}" y2="${ys(9.5)}"/>`;
-  o += `<text font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(217,127,74,0.35)" x="${xs(5.5)}" y="${ys(7.5)-6}" letter-spacing="1">TREND</text>`;
+  o += `<line stroke="rgba(184,138,69,0.18)" stroke-width="1.2" stroke-dasharray="5 9" x1="${xs(0)}" y1="${ys(-2)}" x2="${xs(7)}" y2="${ys(9.5)}"/>`;
+  o += `<text font-family="JetBrains Mono,monospace" font-size="8" fill="rgba(184,138,69,0.35)" x="${xs(5.5)}" y="${ys(7.5)-6}" letter-spacing="1">TREND</text>`;
 
   // Draw non-special first, specials on top
   const SPECIAL_TYPES = new Set(['ey','qr','ek','et']);
@@ -356,27 +356,27 @@ function buildScatter(){
     else if(d.x>5){ lx=cx-r-3; la='end'; }
     else if(d.x<1){ lx=cx+r+3; la='start'; }
     else if(isEK){ lx=cx-r-3; la='end'; }  // left of dot to avoid QR cluster
-    o += `<text font-family="JetBrains Mono,monospace" font-size="${isEY?11:clickable?10:9}" fill="${clickable?c:'#8a93a6'}" font-weight="${clickable?700:400}" x="${lx}" y="${cy+4}" text-anchor="${la}" pointer-events="none">${d.n}</text>`;
+    o += `<text font-family="JetBrains Mono,monospace" font-size="${isEY?11:clickable?10:9}" fill="${clickable?c:'#A9B6C2'}" font-weight="${clickable?700:400}" x="${lx}" y="${cy+4}" text-anchor="${la}" pointer-events="none">${d.n}</text>`;
   });
 
   // EY callout annotation
   const eyd = SD.find(d=>d.t==='ey');
   const ecx=xs(eyd.x), ecy=ys(eyd.y);
   const aboxX=ecx-230, aboxY=ecy-110;
-  o += `<line x1="${ecx-11}" y1="${ecy-8}" x2="${aboxX+200}" y2="${aboxY+68}" stroke="rgba(79,184,168,0.4)" stroke-width="1" stroke-dasharray="3 5"/>`;
-  o += `<rect x="${aboxX}" y="${aboxY}" width="210" height="76" fill="#161b24" stroke="rgba(79,184,168,0.45)" stroke-width="1"/>`;
-  o += `<text x="${aboxX+12}" y="${aboxY+20}" font-family="JetBrains Mono,monospace" font-size="9.5" fill="#4fb8a8" letter-spacing="1.5" font-weight="700">ETIHAD · FY 2025</text>`;
-  o += `<text x="${aboxX+12}" y="${aboxY+37}" font-family="JetBrains Mono,monospace" font-size="9" fill="#8a93a6">+21% ASK · 22.4M passengers</text>`;
-  o += `<text x="${aboxX+12}" y="${aboxY+52}" font-family="JetBrains Mono,monospace" font-size="9" fill="#8a93a6">+16 net routes · $698M profit</text>`;
-  o += `<text x="${aboxX+12}" y="${aboxY+68}" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(79,184,168,0.7)" style="cursor:pointer" onclick="location.href='ey-analysis.html'">→ full analysis ey-analysis.html</text>`;
+  o += `<line x1="${ecx-11}" y1="${ecy-8}" x2="${aboxX+200}" y2="${aboxY+68}" stroke="rgba(72,175,196,0.4)" stroke-width="1" stroke-dasharray="3 5"/>`;
+  o += `<rect x="${aboxX}" y="${aboxY}" width="210" height="76" fill="#0E2436" stroke="rgba(72,175,196,0.45)" stroke-width="1"/>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+20}" font-family="JetBrains Mono,monospace" font-size="9.5" fill="#48AFC4" letter-spacing="1.5" font-weight="700">ETIHAD · FY 2025</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+37}" font-family="JetBrains Mono,monospace" font-size="9" fill="#A9B6C2">+21% ASK · 22.4M passengers</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+52}" font-family="JetBrains Mono,monospace" font-size="9" fill="#A9B6C2">+16 net routes · $698M profit</text>`;
+  o += `<text x="${aboxX+12}" y="${aboxY+68}" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(72,175,196,0.7)" style="cursor:pointer" onclick="location.href='ey-analysis.html'">→ full analysis ey-analysis.html</text>`;
 
   // Cirium cluster annotation (QR · EK · ET)
   const qrd=SD.find(d=>d.t==='qr'), ekd=SD.find(d=>d.t==='ek'), etd=SD.find(d=>d.t==='et');
   const cbx=xs(qrd.x)+28, cby=ys(qrd.y)-56;
   o += `<line x1="${xs(qrd.x)}" y1="${ys(qrd.y)-10}" x2="${cbx+4}" y2="${cby+58}" stroke="rgba(196,48,90,0.3)" stroke-width="0.8" stroke-dasharray="3 5"/>`;
-  o += `<rect x="${cbx}" y="${cby}" width="198" height="64" fill="#161b24" stroke="rgba(196,48,90,0.35)" stroke-width="1"/>`;
+  o += `<rect x="${cbx}" y="${cby}" width="198" height="64" fill="#0E2436" stroke="rgba(196,48,90,0.35)" stroke-width="1"/>`;
   o += `<text x="${cbx+10}" y="${cby+17}" font-family="JetBrains Mono,monospace" font-size="9" fill="#c4305a" letter-spacing="1.5" font-weight="700">CIRIUM Q4 2025–2026</text>`;
-  o += `<text x="${cbx+10}" y="${cby+32}" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#8a93a6">QR · EK · ET · schedule deep-dives</text>`;
+  o += `<text x="${cbx+10}" y="${cby+32}" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#A9B6C2">QR · EK · ET · schedule deep-dives</text>`;
   o += `<text x="${cbx+10}" y="${cby+50}" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(196,48,90,0.65)" style="cursor:pointer" onclick="location.href='qr-analysis.html'">Click highlighted dots to explore →</text>`;
 
   svg.innerHTML = o;
@@ -392,7 +392,7 @@ function buildScatter(){
 
     el.addEventListener('mouseenter', e=>{
       const d = SD[+e.target.dataset.i];
-      const c = COLS[d.t]||'#8a93a6';
+      const c = COLS[d.t]||'#A9B6C2';
       tt.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:${c};font-weight:700;margin-bottom:8px">${d.n}</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:3px">New seat %: <strong style="color:var(--ink)">${d.x}%</strong></div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);margin-bottom:10px">Capacity Δ: <strong style="color:var(--ink)">${d.y>0?'+':''}${d.y}%</strong></div>

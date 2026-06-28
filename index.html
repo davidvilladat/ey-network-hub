@@ -7,72 +7,92 @@
 <meta name="description" content="Etihad crew ZED travel intelligence and network analysis tools. 218 ZED agreements, FR24 route data, and Etihad's 2025–2026 expansion analysis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Cristian Villada brand type: Lora (display) · Montserrat (body) · JetBrains Mono (data) -->
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ================================================================
+   Network Analysis Hub — Cristian Villada personal brand (Atmosphere register)
+   Surfaces: Andes Ink. Accent: Desert Gold (chrome) + Data-Sky (telemetry).
+   Indigo / Lavender = atmosphere only. Per-airline colors = data, kept as-is.
+   Legacy var names (--copper/--teal/--gold) are remapped to brand tokens so
+   existing inline styles inherit the new palette.
+   ================================================================ */
 :root{
-  --bg-deep:#0a0d12;--bg-panel:#11151c;--bg-card:#161b24;--bg-elev:#1d2330;
-  --line:#232a39;--line-soft:#1a2030;--ink:#e8ecf2;--ink-dim:#8a93a6;--ink-mute:#5a6478;
-  --copper:#d97f4a;--gold:#e8b94a;--teal:#4fb8a8;--crimson:#e54e4e;
+  /* — Andes Ink surfaces — */
+  --bg-deep:#061826;--bg-panel:#0B2335;--bg-card:#0E2436;--bg-elev:#123248;
+  --line:#1E2C3C;--line-soft:#16222F;
+  --ink:#FFFCF6;--ink-dim:#A9B6C2;--ink-mute:#6B7886;
+  /* — Brand accents — */
+  --gold:#B88A45;        /* Desert Gold — the single chrome accent */
+  --gold-bright:#C79D56;
+  --champagne:#E8D2A2;
+  --sky:#48AFC4;         /* Data-Sky — telemetry / secondary */
+  --lav:#A89BC7;         /* Lavender — atmosphere only (glow / hover / focus) */
+  --crimson:#C8483A;
+  /* — Legacy aliases used by inline styles below — */
+  --copper:#B88A45;      /* → Desert Gold */
+  --teal:#48AFC4;        /* → Data-Sky */
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg-deep);color:var(--ink);font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+html,body{background:var(--bg-deep);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
 .shell{max-width:1200px;margin:0 auto;padding:0 32px}
 
 /* NAV */
-nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+nav{border-bottom:1px solid var(--line);background:rgba(6,24,38,0.9);backdrop-filter:blur(14px);position:sticky;top:0;z-index:50}
 .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;max-width:1200px;margin:0 auto}
-.nav-logo{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;text-decoration:none}
-.nav-logo span{color:var(--copper)}
+.nav-logo{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--ink-dim);text-transform:uppercase;text-decoration:none}
+.nav-logo svg{flex-shrink:0}
+.nav-logo span{color:var(--gold)}
 .nav-links{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase}
 .nav-links a{color:var(--ink-mute);text-decoration:none;transition:color 0.15s}
-.nav-links a:hover{color:var(--copper)}
-.nav-links a.active{color:var(--copper)}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a.active{color:var(--gold)}
 
 /* HERO */
 .hero{padding:80px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 0% 0%,rgba(79,184,168,0.08) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(217,127,74,0.08) 0%,transparent 50%);pointer-events:none}
-.hero::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,255,255,0.01) 39px,rgba(255,255,255,0.01) 40px);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 0% 0%,rgba(72,175,196,0.08) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(168,155,199,0.10) 0%,transparent 50%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0,transparent 39px,rgba(255,252,246,0.012) 39px,rgba(255,252,246,0.012) 40px);pointer-events:none}
 .hero-inner{position:relative;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--copper);font-weight:600;margin-bottom:16px}
-.hero h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(48px,6vw,88px);line-height:0.92;letter-spacing:-0.04em}
-.hero h1 em{font-style:italic;color:var(--teal);font-weight:400}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px}
+.hero h1{font-family:'Lora',Georgia,serif;font-weight:600;font-size:clamp(48px,6vw,84px);line-height:1.0;letter-spacing:-0.015em}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:500}
 .hero-sub{font-size:16px;color:var(--ink-dim);max-width:580px;margin-top:24px;line-height:1.7}
 .hero-sub strong{color:var(--ink);font-weight:500}
 .hero-meta{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-.meta-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--line);background:var(--bg-panel);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--ink-mute);white-space:nowrap}
+.meta-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--line);border-radius:9999px;background:var(--bg-panel);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--ink-mute);white-space:nowrap}
 .meta-pill .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 
 /* STAT ROW */
 .stat-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-panel)}
 .stat-cell{padding:20px 24px;border-right:1px solid var(--line)}
 .stat-cell:last-child{border-right:none}
-.stat-n{font-family:'Fraunces',serif;font-size:32px;font-weight:600;line-height:1;letter-spacing:-0.02em;font-style:italic;color:var(--copper)}
+.stat-n{font-family:'Lora',Georgia,serif;font-size:34px;font-weight:600;line-height:1;letter-spacing:-0.01em;font-style:italic;color:var(--gold)}
 .stat-l{margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-mute)}
 
 /* TOOL CARDS */
 .tools{padding:64px 0}
 .tools-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:24px}
 .tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.tool-card{background:var(--bg-card);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;position:relative}
-.tool-card:hover{border-color:var(--copper);transform:translateY(-3px)}
-.tool-card:hover .card-arrow{color:var(--copper)}
+.tool-card{background:var(--bg-card);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;position:relative}
+.tool-card:hover{border-color:var(--lav);transform:translateY(-3px);box-shadow:0 18px 40px -24px rgba(6,24,38,0.9)}
+.tool-card:hover .card-arrow{color:var(--gold)}
 .card-accent{height:3px;width:100%}
 .card-body{padding:32px 32px 28px}
 .card-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
-.card-title{font-family:'Fraunces',serif;font-size:28px;font-weight:600;letter-spacing:-0.025em;line-height:1.08;margin-bottom:12px}
-.card-title em{font-style:italic;font-weight:400}
+.card-title{font-family:'Lora',Georgia,serif;font-size:27px;font-weight:600;letter-spacing:-0.015em;line-height:1.12;margin-bottom:12px}
+.card-title em{font-style:italic;font-weight:500}
 .card-desc{font-size:14px;color:var(--ink-dim);line-height:1.65;margin-bottom:24px}
 .card-features{display:flex;flex-direction:column;gap:6px;margin-bottom:28px}
 .card-feature{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink-dim)}
-.card-feature::before{content:"→";font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-mute);flex-shrink:0;margin-top:2px}
+.card-feature::before{content:"→";font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);flex-shrink:0;margin-top:2px}
 .card-footer{padding:16px 32px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;background:var(--bg-panel)}
 .card-cta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700}
 .card-arrow{font-size:18px;transition:color 0.15s;color:var(--ink-mute)}
 .card-chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:3px 8px;border:1px solid var(--line);color:var(--ink-mute);text-transform:uppercase}
+.chip{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:3px 8px;border:1px solid var(--line);border-radius:9999px;color:var(--ink-mute);text-transform:uppercase}
 
 /* DATA FRESHNESS */
-.freshness{background:var(--bg-panel);border:1px solid var(--line);padding:24px 32px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.freshness{background:var(--bg-panel);border:1px solid var(--line);border-radius:12px;padding:24px 32px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
 .fr-item{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute)}
 .fr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .fr-val{color:var(--ink);font-weight:600}
@@ -82,11 +102,11 @@ nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-f
 .dd-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px;display:flex;align-items:center;gap:12px}
 .dd-label::after{content:'';flex:1;height:1px;background:var(--line-soft)}
 .dd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.al-card{background:var(--bg-card);border:1px solid var(--line);text-decoration:none;color:inherit;overflow:hidden;transition:border-color 0.18s,transform 0.18s;position:relative;display:flex;flex-direction:column}
-.al-card:hover{transform:translateY(-2px)}
+.al-card{background:var(--bg-card);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:inherit;overflow:hidden;transition:border-color 0.18s,transform 0.18s;position:relative;display:flex;flex-direction:column}
+.al-card:hover{transform:translateY(-2px);border-color:var(--lav)}
 .al-accent{height:2px;width:100%;flex-shrink:0}
 .al-body{padding:18px 18px 14px}
-.al-code{font-family:'Fraunces',serif;font-size:28px;font-weight:700;font-style:italic;line-height:1;margin-bottom:4px}
+.al-code{font-family:'Lora',Georgia,serif;font-size:28px;font-weight:600;font-style:italic;line-height:1;margin-bottom:4px}
 .al-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
 .al-hub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--ink-mute);margin-bottom:12px}
 .al-kpi{display:flex;flex-direction:column;gap:4px;padding-top:10px;border-top:1px solid var(--line-soft)}
@@ -94,19 +114,19 @@ nav{border-bottom:1px solid var(--line);background:rgba(10,13,18,0.9);backdrop-f
 .al-kpi-row strong{font-weight:600}
 .al-cta{padding:10px 18px;border-top:1px solid var(--line-soft);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-weight:700;background:var(--bg-panel);margin-top:auto;transition:background 0.15s}
 .al-card:hover .al-cta{background:var(--bg-elev)}
-.al-card:hover{border-color:var(--line)}
 
 /* ABOUT */
 .about{padding:48px 0 64px;border-top:1px solid var(--line-soft)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.about h2{font-family:'Fraunces',serif;font-size:28px;font-weight:600;letter-spacing:-0.025em;margin-bottom:16px;line-height:1.1}
-.about h2 em{font-style:italic;color:var(--copper)}
+.about h2{font-family:'Lora',Georgia,serif;font-size:28px;font-weight:600;letter-spacing:-0.015em;margin-bottom:16px;line-height:1.12}
+.about h2 em{font-style:italic;color:var(--gold)}
 .about p{font-size:14px;color:var(--ink-dim);line-height:1.7;margin-bottom:12px}
-.disclaimer{background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--crimson);padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink-mute);line-height:1.7;margin-top:16px}
-.disclaimer strong{color:var(--crimson);letter-spacing:0.1em}
+.disclaimer{background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink-mute);line-height:1.7;margin-top:16px}
+.disclaimer strong{color:var(--gold);letter-spacing:0.1em}
 
 footer{padding:36px 0 48px;border-top:1px solid var(--line);color:var(--ink-mute);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-align:center;line-height:2}
-footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);font-size:12px}
+footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);font-size:12px}
+.footer-motto{display:block;margin-bottom:10px;font-family:'Lora',Georgia,serif;font-style:italic;font-size:14px;letter-spacing:0.01em;color:var(--champagne)}
 
 @media(max-width:900px){
   .hero-inner{grid-template-columns:1fr}
@@ -134,7 +154,15 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
 <nav>
   <div class="nav-inner">
-    <a class="nav-logo" href="/">C<span>.</span>Villada</a>
+    <a class="nav-logo" href="/">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 19 Q12 2.5 21 7" stroke="#B88A45" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <circle cx="3" cy="19" r="1.8" fill="#B88A45"/>
+        <circle cx="12.5" cy="7.4" r="1.5" fill="#48AFC4"/>
+        <circle cx="21" cy="7" r="1.8" fill="#E8D2A2"/>
+      </svg>
+      C<span>.</span>Villada
+    </a>
     <div class="nav-links">
       <a href="/" class="active">Home</a>
       <a href="/zed-atlas.html">ZED Atlas</a>
@@ -154,9 +182,9 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
         <p class="hero-sub">ZED travel intelligence and network strategy tools for <strong>Etihad Airways crew</strong>. Built from live FR24 data, verified ZED agreements, and public airline results — not guesswork.</p>
       </div>
       <div class="hero-meta">
-        <div class="meta-pill"><span class="dot" style="background:var(--teal);box-shadow:0 0 6px var(--teal)"></span>FR24 SAMPLE · 1 MAY 2026</div>
-        <div class="meta-pill"><span class="dot" style="background:var(--copper);box-shadow:0 0 6px var(--copper)"></span>ZED & LT DATA · 30 APR 2026</div>
-        <div class="meta-pill"><span class="dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></span>EY RESULTS · FY 2025 CONFIRMED</div>
+        <div class="meta-pill"><span class="dot" style="background:var(--sky);box-shadow:0 0 6px var(--sky)"></span>FR24 NETWORK · JUN 2026</div>
+        <div class="meta-pill"><span class="dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></span>ZED &amp; LT DATA · 30 APR 2026</div>
+        <div class="meta-pill"><span class="dot" style="background:var(--champagne);box-shadow:0 0 6px var(--champagne)"></span>EY RESULTS · FY 2025 CONFIRMED</div>
       </div>
     </div>
   </div>
@@ -172,8 +200,8 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
     <div class="stat-l">Carriers with live FR24 data</div>
   </div>
   <div class="stat-cell">
-    <div class="stat-n">30+</div>
-    <div class="stat-l">New EY routes 2025–2026</div>
+    <div class="stat-n"><span class="js-coverage">89</span>%</div>
+    <div class="stat-l">ZED routes with FR24 coverage</div>
   </div>
   <div class="stat-cell">
     <div class="stat-n">+21%</div>
@@ -189,9 +217,9 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
 
       <div class="freshness">
-        <div class="fr-item"><div class="fr-dot" style="background:var(--teal)"></div>ZED fares: <span class="fr-val js-zed-date" style="margin-left:4px">30 Apr 2026</span></div>
-        <div class="fr-item"><div class="fr-dot" style="background:var(--copper)"></div>FR24 network sample: <span class="fr-val js-fr24-window" style="margin-left:4px">May–Jun 2026</span></div>
-        <div class="fr-item"><div class="fr-dot" style="background:var(--gold)"></div>EY financials: <span class="fr-val" style="margin-left:4px">FY 2025 Annual Report</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--gold)"></div>ZED fares: <span class="fr-val js-zed-date" style="margin-left:4px">30 Apr 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--sky)"></div>FR24 network sample: <span class="fr-val js-fr24-window" style="margin-left:4px">May–Jun 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--champagne)"></div>EY financials: <span class="fr-val" style="margin-left:4px">FY 2025 Annual Report</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:var(--ink-mute)"></div>Airports reference: <span class="fr-val" style="margin-left:4px"><span class="js-airports">1103</span> airports · ICAO/IATA</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:#c4305a"></div>Cirium schedule data: <span class="fr-val" style="margin-left:4px">Q4 2025 vs Q4 2026 · QR · EK · ET</span></div>
       </div>
@@ -200,11 +228,11 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 
         <!-- ZED ATLAS -->
         <a class="tool-card" href="/zed-atlas.html">
-          <div class="card-accent" style="background:linear-gradient(90deg,var(--copper),var(--gold))"></div>
+          <div class="card-accent" style="background:linear-gradient(90deg,var(--gold),var(--champagne))"></div>
           <div class="card-body">
-            <div class="card-tag" style="color:var(--copper)">Tool 01 · ZED Travel Intelligence</div>
+            <div class="card-tag" style="color:var(--gold)">Tool 01 · ZED Travel Intelligence</div>
             <h2 class="card-title">The <em>ZED</em> Atlas.<br>Where they fly.</h2>
-            <p class="card-desc">All 218 ZED & LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for <span class="js-carriers">194</span> priority carriers, live schedules, and fleet breakdown.</p>
+            <p class="card-desc">All 218 ZED &amp; LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for <span class="js-carriers">194</span> priority carriers, live schedules, and fleet breakdown.</p>
             <div class="card-features">
               <div class="card-feature">Interactive world map with 6 view modes — attractiveness, fare tiers, duty, family</div>
               <div class="card-feature">Scenario builder — filter by traveler, cabin, booking class, and region</div>
@@ -220,16 +248,16 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
             </div>
           </div>
           <div class="card-footer">
-            <span class="card-cta" style="color:var(--copper)">Open ZED Atlas</span>
+            <span class="card-cta" style="color:var(--gold)">Open ZED Atlas</span>
             <span class="card-arrow">→</span>
           </div>
         </a>
 
         <!-- NETWORK ANALYSIS -->
         <a class="tool-card" href="/network-analysis.html">
-          <div class="card-accent" style="background:linear-gradient(90deg,var(--teal),#c4305a)"></div>
+          <div class="card-accent" style="background:linear-gradient(90deg,var(--sky),#c4305a)"></div>
           <div class="card-body">
-            <div class="card-tag" style="color:var(--teal)">Tool 02 · Network Analysis</div>
+            <div class="card-tag" style="color:var(--sky)">Tool 02 · Network Analysis</div>
             <h2 class="card-title">30 carriers.<br><em>One matrix</em>.</h2>
             <p class="card-desc">Capacity growth vs. network innovation — 30 major carriers plotted on a single matrix. Etihad leads the expansion quadrant. Click any highlighted airline dot to open a Cirium schedule deep-dive for Q4 2025 vs Q4 2026.</p>
             <div class="card-features">
@@ -247,7 +275,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
             </div>
           </div>
           <div class="card-footer">
-            <span class="card-cta" style="color:var(--teal)">Open Network Analysis</span>
+            <span class="card-cta" style="color:var(--sky)">Open Network Analysis</span>
             <span class="card-arrow">→</span>
           </div>
         </a>
@@ -255,13 +283,13 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
       </div>
 
       <!-- FEATURED · BIGGEST SUMMER -->
-      <a href="/summer.html" style="display:block;margin:18px 0 4px;text-decoration:none;border:1px solid var(--line);background:linear-gradient(120deg,rgba(232,185,74,0.10),rgba(217,127,74,0.06) 55%,transparent),var(--bg-card);position:relative;overflow:hidden">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--copper))"></div>
+      <a href="/summer.html" style="display:block;margin:18px 0 4px;text-decoration:none;border:1px solid var(--line);border-radius:12px;background:linear-gradient(120deg,rgba(232,210,162,0.12),rgba(184,138,69,0.07) 55%,transparent),var(--bg-card);position:relative;overflow:hidden">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--champagne),var(--gold))"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:26px 30px">
           <div style="max-width:780px">
             <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px">Featured · Summer 2026 · New</div>
-            <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.1;color:var(--ink)">Etihad's <em style="font-style:italic;color:var(--gold)">Biggest Summer</em> Ever.</div>
-            <p style="font-size:14px;color:var(--ink-dim);line-height:1.6;margin-top:10px">300+ daily flights, +10% capacity, the A321LR leisure pivot and a record North America buildout — the summer 2026 schedule read from live FR24 data and Etihad's own numbers.</p>
+            <div style="font-family:'Lora',Georgia,serif;font-size:28px;font-weight:600;letter-spacing:-0.015em;line-height:1.12;color:var(--ink)">Etihad's <em style="font-style:italic;color:var(--gold)">Biggest Summer</em> Ever.</div>
+            <p style="font-size:14px;color:var(--ink-dim);line-height:1.6;margin-top:10px">300+ daily flights, +10% capacity, the A321LR leisure pivot and a record North America buildout — the summer 2026 schedule read from live FR24 data, Cirium S26 schedules, and Etihad's own numbers.</p>
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
               <span class="chip">New-route wave</span><span class="chip">Fleet transformation</span><span class="chip">FR24 + OTP data</span>
             </div>
@@ -275,18 +303,18 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
         <div class="dd-label">Network Analysis · Cirium Q4 2025 vs Q4 2026 · Airline Deep-Dives</div>
         <div class="dd-grid">
 
-          <a class="al-card" href="/ey-analysis.html" style="--al:#4fb8a8">
-            <div class="al-accent" style="background:#4fb8a8"></div>
+          <a class="al-card" href="/ey-analysis.html" style="--al:#48AFC4">
+            <div class="al-accent" style="background:#48AFC4"></div>
             <div class="al-body">
-              <div class="al-code" style="color:#4fb8a8">EY</div>
+              <div class="al-code" style="color:#48AFC4">EY</div>
               <div class="al-name">Etihad Airways</div>
               <div class="al-hub">AUH · Abu Dhabi International</div>
               <div class="al-kpi">
-                <div class="al-kpi-row"><strong style="color:#4fb8a8">+21%</strong> capacity · 22.4M passengers</div>
+                <div class="al-kpi-row"><strong style="color:#48AFC4">+21%</strong> capacity · 22.4M passengers</div>
                 <div class="al-kpi-row">+16 net routes · $698M profit FY25</div>
               </div>
             </div>
-            <div class="al-cta" style="color:#4fb8a8">Etihad deep-dive →</div>
+            <div class="al-cta" style="color:#48AFC4">Etihad deep-dive →</div>
           </a>
 
           <a class="al-card" href="/qr-analysis.html" style="--al:#c4305a">
@@ -332,7 +360,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
           </a>
 
         </div>
-        <a href="/compare.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);text-decoration:none">Compare all four side by side →</a>
+        <a href="/compare.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sky);text-decoration:none">Compare all four side by side →</a>
       </div>
 
     </div>
@@ -350,7 +378,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
         </div>
         <div>
           <h2>Data <em>sources</em>.</h2>
-          <p>ZED & LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of 30 April 2026. FR24 network data sampled May–Jun 2026 across <span class="js-carriers">194</span> priority carriers.</p>
+          <p>ZED &amp; LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of 30 April 2026. FR24 network data sampled May–Jun 2026 across <span class="js-carriers">194</span> priority carriers, covering <span class="js-coverage">89</span>% of mapped agreements.</p>
           <p>Etihad financial and operational statistics from the FY 2025 Annual Report (published February 2026). New route information from official Etihad press releases and verified by Aviation A2Z, The Expat Flyer, and Engine Cowl analysis.</p>
           <p>Airport reference database covers <span class="js-airports">1103</span> airports with ICAO/IATA codes, coordinates, and country data. World map geometry from Natural Earth public domain data.</p>
           <p>IATA Network Strategy matrix adapted from industry publications — carrier positions estimated from published capacity data and new-route seat deployment ratios.</p>
@@ -362,6 +390,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
 </main>
 
 <footer>
+  <span class="footer-motto">From the Andes to the Arabian Desert.</span>
   <em>Network Analysis</em> · Cristian Villada · Etihad Airways<br>
   ZED data 30 Apr 2026 · FR24 sample May–Jun 2026 · EY Annual Report FY 2025<br>
   <span style="color:var(--ink-mute)">Verify all travel in OSS / IDTGR before purchasing · For crew use only</span>
@@ -385,6 +414,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;color:var(--copper);fon
     if(man){
       if(man.zed_agreements_updated){ setAll('js-zed-date', man.zed_agreements_updated); }
       if(man.fr24_sample_window){ setAll('js-fr24-window', man.fr24_sample_window); }
+      if(man.counts && man.counts.coverage_pct != null){ setAll('js-coverage', man.counts.coverage_pct); }
     }
   });
 })();
