@@ -34,3 +34,9 @@ chrome_profiles/
 output/otp_report_*
 output/otp_latest.json
 output/scraper_status.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
