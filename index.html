@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Network Analysis · Cristian Villada</title>
-<meta name="description" content="Etihad crew ZED travel intelligence and network analysis tools. 218 ZED agreements, FR24 route data, and Etihad's 2025–2026 expansion analysis.">
+<meta name="description" content="Etihad crew ZED travel intelligence and network analysis tools. 200 ZED agreements, FR24 route data, and Etihad's 2025–2026 expansion analysis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Cristian Villada brand type: Lora (display) · Montserrat (body) · JetBrains Mono (data) -->
@@ -183,7 +183,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
       </div>
       <div class="hero-meta">
         <div class="meta-pill"><span class="dot" style="background:var(--sky);box-shadow:0 0 6px var(--sky)"></span>FR24 NETWORK · JUN 2026</div>
-        <div class="meta-pill"><span class="dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></span>ZED &amp; LT DATA · 30 APR 2026</div>
+        <div class="meta-pill"><span class="dot" style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></span>ZED &amp; LT DATA · <span class="js-zed-date">14 AUG 2026</span></div>
         <div class="meta-pill"><span class="dot" style="background:var(--champagne);box-shadow:0 0 6px var(--champagne)"></span>EY RESULTS · FY 2025 CONFIRMED</div>
       </div>
     </div>
@@ -192,7 +192,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
 
 <div class="stat-row">
   <div class="stat-cell">
-    <div class="stat-n">218</div>
+    <div class="stat-n js-agreements">200</div>
     <div class="stat-l">ZED agreements mapped</div>
   </div>
   <div class="stat-cell">
@@ -217,8 +217,8 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
 
 
       <div class="freshness">
-        <div class="fr-item"><div class="fr-dot" style="background:var(--gold)"></div>ZED fares: <span class="fr-val js-zed-date" style="margin-left:4px">30 Apr 2026</span></div>
-        <div class="fr-item"><div class="fr-dot" style="background:var(--sky)"></div>FR24 network sample: <span class="fr-val js-fr24-window" style="margin-left:4px">May–Jun 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--gold)"></div>ZED fares: <span class="fr-val js-zed-date" style="margin-left:4px">14 Aug 2026</span></div>
+        <div class="fr-item"><div class="fr-dot" style="background:var(--sky)"></div>FR24 network sample: <span class="fr-val js-fr24-window" style="margin-left:4px">13-18 Aug 2026</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:var(--champagne)"></div>EY financials: <span class="fr-val" style="margin-left:4px">FY 2025 Annual Report</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:var(--ink-mute)"></div>Airports reference: <span class="fr-val" style="margin-left:4px"><span class="js-airports">1103</span> airports · ICAO/IATA</span></div>
         <div class="fr-item"><div class="fr-dot" style="background:#c4305a"></div>Cirium schedule data: <span class="fr-val" style="margin-left:4px">Q4 2025 vs Q4 2026 · QR · EK · ET</span></div>
@@ -232,16 +232,16 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
           <div class="card-body">
             <div class="card-tag" style="color:var(--gold)">Tool 01 · ZED Travel Intelligence</div>
             <h2 class="card-title">The <em>ZED</em> Atlas.<br>Where they fly.</h2>
-            <p class="card-desc">All 218 ZED &amp; LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for <span class="js-carriers">194</span> priority carriers, live schedules, and fleet breakdown.</p>
+            <p class="card-desc">All <span class="js-agreements">200</span> ZED &amp; LT agreements in one place. Full fare matrix (Subload / Firm × Economy / Business × SSC / ZEP / ZES / TC), FR24-verified route data for <span class="js-carriers">194</span> priority carriers, live schedules, and fleet breakdown.</p>
             <div class="card-features">
               <div class="card-feature">Interactive world map with 6 view modes — attractiveness, fare tiers, duty, family</div>
               <div class="card-feature">Scenario builder — filter by traveler, cabin, booking class, and region</div>
               <div class="card-feature">Destination search — type any airport and find every carrier that flies there</div>
               <div class="card-feature">Airline deep-dive modal — network map, live schedule, fleet composition</div>
-              <div class="card-feature">Export to CSV or JSON — all 218 or current filter</div>
+              <div class="card-feature">Export to CSV or JSON — all <span class="js-agreements">200</span> or current filter</div>
             </div>
             <div class="card-chips">
-              <span class="chip">218 carriers</span>
+              <span class="chip"><span class="js-agreements">200</span> carriers</span>
               <span class="chip"><span class="js-carriers">194</span> FR24 networks</span>
               <span class="chip"><span class="js-airports">1103</span> airports</span>
               <span class="chip">Interactive map</span>
@@ -369,7 +369,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
       <div class="about-grid">
         <div>
           <h2>Built for <em>crew</em>.<br>Not for everyone.</h2>
-          <p>These tools exist because the official sources — OSS, IDTGR, carrier websites — don't give you the full picture fast. The ZED Atlas puts all 218 agreements side by side so you can compare, filter, and find the best routing in seconds, not minutes.</p>
+          <p>These tools exist because the official sources — OSS, IDTGR, carrier websites — don't give you the full picture fast. The ZED Atlas puts all <span class="js-agreements">200</span> agreements side by side so you can compare, filter, and find the best routing in seconds, not minutes.</p>
           <p>The FR24 data gives you ground truth on what carriers actually fly — not what they publish in schedules — so you know which agreements have real route depth behind them.</p>
           <div class="disclaimer">
             <strong>DISCLAIMER</strong> — For crew reference only.<br>
@@ -378,7 +378,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
         </div>
         <div>
           <h2>Data <em>sources</em>.</h2>
-          <p>ZED &amp; LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of 30 April 2026. FR24 network data sampled May–Jun 2026 across <span class="js-carriers">194</span> priority carriers, covering <span class="js-coverage">89</span>% of mapped agreements.</p>
+          <p>ZED &amp; LT agreement data sourced from official Etihad crew portals and verified against carrier publications as of <span class="js-zed-date">14 Aug 2026</span>. FR24 network data sampled <span class="js-fr24-window">13-18 Aug 2026</span> across <span class="js-carriers">195</span> priority carriers, covering <span class="js-coverage">91</span>% of mapped agreements.</p>
           <p>Etihad financial and operational statistics from the FY 2025 Annual Report (published February 2026). New route information from official Etihad press releases and verified by Aviation A2Z, The Expat Flyer, and Engine Cowl analysis.</p>
           <p>Airport reference database covers <span class="js-airports">1103</span> airports with ICAO/IATA codes, coordinates, and country data. World map geometry from Natural Earth public domain data.</p>
           <p>IATA Network Strategy matrix adapted from industry publications — carrier positions estimated from published capacity data and new-route seat deployment ratios.</p>
@@ -392,7 +392,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
 <footer>
   <span class="footer-motto">From the Andes to the Arabian Desert.</span>
   <em>Network Analysis</em> · Cristian Villada · Etihad Airways<br>
-  ZED data 30 Apr 2026 · FR24 sample May–Jun 2026 · EY Annual Report FY 2025<br>
+  ZED data <span class="js-zed-date">14 Aug 2026</span> · FR24 sample <span class="js-fr24-window">13-18 Aug 2026</span> · EY Annual Report FY 2025<br>
   <span style="color:var(--ink-mute)">Verify all travel in OSS / IDTGR before purchasing · For crew use only</span>
 </footer>
 
@@ -413,6 +413,7 @@ footer em{font-family:'Lora',Georgia,serif;font-style:italic;color:var(--gold);f
     if(aps){ setAll('js-airports', Object.keys(aps).length); }
     if(man){
       if(man.zed_agreements_updated){ setAll('js-zed-date', man.zed_agreements_updated); }
+      if(man.counts && man.counts.zed_agreements){ setAll('js-agreements', man.counts.zed_agreements); }
       if(man.fr24_sample_window){ setAll('js-fr24-window', man.fr24_sample_window); }
       if(man.counts && man.counts.coverage_pct != null){ setAll('js-coverage', man.counts.coverage_pct); }
     }
